@@ -1,9 +1,9 @@
 package CityGenerator;
 
 public class TrafficLights {
-    private enum StareSemafor { Green, YellowGreen, YellowRed, Red};
+    private enum StareSemafor { Green, YellowGreen, Red, YellowRed};
     private StareSemafor stare;
-    private Integer time;
+    private Integer timeMax,timer,poz;
 
     public StareSemafor getColor() {
         return stare;
@@ -17,8 +17,19 @@ public class TrafficLights {
         return time;
     }
 
-    public void setTime(Integer time) {
-        this.time = time;
+    public void setMaxTime(Integer time) {
+        this.timeMax = time;
+    }
+    public void decrementTime(){
+        if(timer>0)
+        {
+            timer-=1;
+        }else{
+            timer=timeMax;
+            stare=StareSemafor[poz];
+            poz=(poz+1)%4;
+        }
+
     }
 
 }

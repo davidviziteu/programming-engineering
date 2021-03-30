@@ -7,6 +7,9 @@ import java.util.Arrays;
 
 public class CityGenerator {
     public static City city;
+    CityGenerator(){
+        generateCity();
+    }
     public static void generateCity(){
         ArrayList<Street> streets= new ArrayList<Streets>();
         ArrayList<Intersection> intersections= new ArrayList<Intersection>();

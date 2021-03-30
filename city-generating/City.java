@@ -6,6 +6,18 @@ public class City {
     private ArrayList<Intersection> intersections= new ArrayList<Intersection>();
     private ArrayList<TrafficLights> trafficLights= new ArrayList<TrafficLights>();
     private ArrayList<Cars> cars= new ArrayList<Cars>();
+    public Integer[][] map={ 
+        {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
+        {2, 2, 5, 2, 2, 5, 2, 2, 2, 2},
+        {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
+        {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
+        {2, 2, 5, 2, 2, 5, 2, 2, 2, 2},
+        {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
+        {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
+        {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
+        {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
+        {0, 0, 4, 0, 0, 4, 0, 0, 0, 0}
+    }; 
     private Integer nrOfStreets;
     private Integer nrOfIntersections;
     

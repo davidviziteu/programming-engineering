@@ -6,8 +6,8 @@ import java.util.LinkedList;
 public class Street {
     Queue < Pair< Integer, Car > > cars= new LinkedList<>();
     private String name;
-    private Integer intersection1;
-    private Integer intersection2;
+    private Integer intersectionSource;
+    private Integer intersectionDestination;
     private Integer length;
     private Integer posX;
     private Integer posY;
