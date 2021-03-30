@@ -1,4 +1,4 @@
-package CarGenerator;
+package CarGenerating;
 
 import java.util.ArrayList;
 import java.util.Random;
