@@ -1,0 +1,12 @@
+//avem 8 semafoare, 9 cu tot cu cel default 
+//ce vreau sa am la parametrii : timpMax | stare | poz
+//0 inseamna rosu, 1 inseamna verde
+60 1 0
+60 1 1
+60 0 2
+60 1 3
+60 0 4
+60 1 5
+60 0 6
+60 1 7
+60 0 8 
