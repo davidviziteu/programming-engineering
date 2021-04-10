@@ -1,4 +1,6 @@
 package CityGenerating;
+import CarGenerating.Car;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,10 +13,10 @@ public class CityGenerator {
         generateCity();
     }
     public static void generateCity(){
-        ArrayList<Street> streets= new ArrayList<Streets>();
+        ArrayList<Street> streets= new ArrayList<Street>();
         ArrayList<Intersection> intersections= new ArrayList<Intersection>();
         ArrayList<TrafficLights> trafficLights= new ArrayList<TrafficLights>();
-        ArrayList<Cars> cars= new ArrayList<Cars>();
+        ArrayList<Car> cars= new ArrayList<Car>();
         intersections.add(new Intersection("Top", new ArrayList<Integer>(Arrays.asList(2,4)),true));
         intersections.add(new Intersection("Right", new ArrayList<Integer>(Arrays.asList(5,10)),true));
         intersections.add(new Intersection("Bottom", new ArrayList<Integer>(Arrays.asList(11,12)),true));

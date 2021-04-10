@@ -1,10 +1,12 @@
 package CityGenerating;
 import java.util.Queue;
+
+import CarGenerating.Car;
 import javafx.util.Pair;
 import java.util.LinkedList;
 
 public class Street {
-    Queue < Pair< Integer, Car > > cars= new LinkedList<>();
+    Queue < Pair< Integer, Car> > cars= new LinkedList<>();
     private String name;
     private Integer intersectionSource;
     private Integer intersectionDestination;
@@ -15,16 +17,16 @@ public class Street {
 
     Street(String nume, Integer idIntersectie1, Integer idIntersectie2, Integer lungime, Integer idSemafor){
         name=nume;
-        intersection1=idIntersectie1;
-        intersection2=idIntersectie2;
+        intersectionSource=idIntersectie1;
+        intersectionDestination=idIntersectie2;
         length=lungime;
         trafficLights=idSemafor;
     }
 
     Street(String nume, Integer idIntersectie1, Integer idIntersectie2, Integer lungime, Integer idSemafor, Integer pozX, Integer pozY){
         name=nume;
-        intersection1=idIntersectie1;
-        intersection2=idIntersectie2;
+        intersectionSource=idIntersectie1;
+        intersectionDestination=idIntersectie2;
         length=lungime;
         trafficLights=idSemafor;
         posX=pozX;
@@ -40,19 +42,19 @@ public class Street {
     }
 
     public Integer getIntersection1() {
-        return intersection1;
+        return intersectionSource;
     }
 
     public void setIntersection1(Integer intersection1) {
-        this.intersection1 = intersection1;
+        this.intersectionSource = intersection1;
     }
 
     public Integer getIntersection2() {
-        return intersection2;
+        return intersectionDestination;
     }
 
     public void setIntersection2(Integer intersection2) {
-        this.intersection2 = intersection2;
+        this.intersectionDestination = intersection2;
     }
 
     public Integer getLength() {

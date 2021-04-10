@@ -1,11 +1,13 @@
 package CityGenerating;
+import CarGenerating.Car;
+
 import java.util.ArrayList;
 
 public class City {
-    private ArrayList<Street> streets= new ArrayList<Streets>();
+    private ArrayList<Street> streets= new ArrayList<Street>();
     private ArrayList<Intersection> intersections= new ArrayList<Intersection>();
     private ArrayList<TrafficLights> trafficLights= new ArrayList<TrafficLights>();
-    private ArrayList<Cars> cars= new ArrayList<Cars>();
+    private ArrayList<Car> cars= new ArrayList<Car>();
     public Integer[][] map={
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
             {2, 2, 5, 2, 2, 5, 2, 2, 2, 2},
@@ -21,7 +23,7 @@ public class City {
     private Integer nrOfStreets;
     private Integer nrOfIntersections;
 
-    City(ArrayList<Street> strazi, ArrayList<Intersection> intersectii, ArrayList<TrafficLights> semafoare, ArrayList<Cars> masini){
+    City(ArrayList<Street> strazi, ArrayList<Intersection> intersectii, ArrayList<TrafficLights> semafoare, ArrayList<Car> masini){
         streets=strazi;
         intersections=intersectii;
         trafficLights=semafoare;
@@ -92,7 +94,7 @@ public class City {
     public TrafficLights getTLightsById(int i){
         return trafficLights.get(i);
     }
-    public Cars[] getCars(){
+    public ArrayList<Car> getCars(){
         return cars;
     }
 }

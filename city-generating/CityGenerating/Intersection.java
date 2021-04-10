@@ -6,7 +6,7 @@ public class Intersection {
     private ArrayList<Integer> streets= new ArrayList<Integer>();
     private Integer posX;
     private Integer posY;
-    private bool canPark;
+    private boolean canPark;
     //add an array of cars
 
     Intersection(String nume, ArrayList<Integer> strazi){
@@ -35,12 +35,12 @@ public class Intersection {
         this.name = name;
     }
 
-    public Street[] getStreets() {
+    public ArrayList<Integer> getStreets() {
         return streets;
     }
 
     //geters and setters
-    public void setStreets(Street[] streets) {
+    public void setStreets(ArrayList<Integer> streets) {
         this.streets = streets;
     }
 

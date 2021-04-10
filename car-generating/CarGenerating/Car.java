@@ -2,6 +2,8 @@ package CarGenerating;
 
 import java.util.Random;
 
+import static CityGenerating.CityGenerator.city;
+
 public class Car {
     protected int initialPosition;
     protected int finalPosition;
@@ -60,8 +62,7 @@ public class Car {
         }while(this.initialPosition == this.finalPosition);
 
         // A street has the maximum length 5.
-
-        this.distance=rand.nextInt(6);
+        this.distance=rand.nextInt(city.getStreetByIndex(5).getLength());
     }
 
 }
