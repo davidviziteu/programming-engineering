@@ -2,7 +2,7 @@ package CityGenerating;
 import java.util.Queue;
 
 import CarGenerating.Car;
-import javafx.util.Pair;
+import java.util.Pair;
 import java.util.LinkedList;
 
 public class Street {
