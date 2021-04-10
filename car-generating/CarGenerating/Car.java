@@ -54,6 +54,7 @@ public class Car implements Comparable<Car> {
         this.initialPosition=rand.nextInt(24);
 
         int index;
+        int maximumLengthOfStreet;
 
         // We generate a final position until the final position is not equal to the initial one.
         do {
@@ -62,6 +63,8 @@ public class Car implements Comparable<Car> {
         }while(this.initialPosition == this.finalPosition);
 
         // A street has the maximum length 5.
+        maximumLengthOfStreet = city.getStreetByIndex(initialPosition).getLength();
+        this.distance=rand.nextInt(maximumLengthOfStreet);
         this.distance=rand.nextInt(city.getStreetByIndex(5).getLength());
     }
 
