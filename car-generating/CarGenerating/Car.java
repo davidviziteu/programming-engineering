@@ -60,7 +60,7 @@ public class Car {
         }while(this.initialPosition == this.finalPosition);
 
         // A street has the maximum length 5.
-        // Trebuie revenit aici!!! 
+
         this.distance=rand.nextInt(6);
     }
 
