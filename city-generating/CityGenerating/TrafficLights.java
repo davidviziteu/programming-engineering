@@ -1,6 +1,6 @@
 package CityGenerating;
 
-public class TrafficLights {
+public class TrafficLights extends Thread{
     private enum StareSemafor { Green, YellowGreen, Red, YellowRed};
     private StareSemafor stare;
     private Integer timeMax,timer,poz;
