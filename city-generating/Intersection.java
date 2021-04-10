@@ -1,4 +1,4 @@
-package CityGenerator;
+package city-generating;
 import java.util.ArrayList;
 
 public class Intersection {

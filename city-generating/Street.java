@@ -1,4 +1,4 @@
-package CityGenerator;
+package city-generating;
 import java.util.Queue;
 import javafx.util.Pair;
 import java.util.LinkedList;
@@ -12,7 +12,7 @@ public class Street {
     private Integer posX;
     private Integer posY;
     private Integer trafficLights;
-    
+
     Street(String nume, Integer idIntersectie1, Integer idIntersectie2, Integer lungime, Integer idSemafor){
         name=nume;
         intersection1=idIntersectie1;

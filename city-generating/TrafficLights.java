@@ -1,12 +1,9 @@
-package CityGenerator;
+package city-generating;
 
 public class TrafficLights {
-    private enum StareSemafor {
-        Green, YellowGreen, Red, YellowRed
-    };
-
+    private enum StareSemafor { Green, YellowGreen, Red, YellowRed};
     private StareSemafor stare;
-    private Integer timeMax, timer, poz;
+    private Integer timeMax,timer,poz;
 
     TrafficLights(Integer timeMax, int st, int poz) {
         this.timeMax = timeMax;
@@ -28,22 +25,40 @@ public class TrafficLights {
         stare = color;
     }
 
-    public Integer getTime() {
-        return time;
+    public Integer getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Integer timer) {
+        this.timer = timer;
     }
 
     public void setMaxTime(Integer time) {
         this.timeMax = time;
     }
 
-    public void decrementTime() {
-        if (timer > 0) {
-            timer -= 1;
-        } else {
-            timer = timeMax;
-            stare = StareSemafor[poz];
-            poz = (poz + 1) % 4;
-        }
-
+    public Integer getMaxTime(){
+        return timeMax;
     }
+
+    // Decrements a light time, implemented with threads
+    // so the lights can me changed from different threads.
+    public synchronized void decrementTime(){
+        System.out.println("We are decrementing");
+        if(timer>0)
+        {
+            timer-=1;
+        }else{
+            timer=timeMax;
+            stare=StareSemafor.values()[poz];
+            poz=(poz+1)%4;
+        }
+        System.out.println("The new value is " + timer);
+    }
+
+    @Override
+    public void run(){
+        decrementTime();
+    }
+
 }
