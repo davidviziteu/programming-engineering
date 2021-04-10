@@ -1,8 +1,7 @@
 package CityGenerating;
-import java.util.Queue;
 
+import java.util.Queue;
 import CarGenerating.Car;
-import java.util.Pair;
 import java.util.LinkedList;
 
 public class Street {
@@ -41,19 +40,19 @@ public class Street {
         this.name = name;
     }
 
-    public Integer getIntersection1() {
+    public Integer getIntersectionSource() {
         return intersectionSource;
     }
 
-    public void setIntersection1(Integer intersection1) {
+    public void setIntersectionSource(Integer intersection1) {
         this.intersectionSource = intersection1;
     }
 
-    public Integer getIntersection2() {
+    public Integer getIntersectionDestination() {
         return intersectionDestination;
     }
 
-    public void setIntersection2(Integer intersection2) {
+    public void setIntersectionDestination(Integer intersection2) {
         this.intersectionDestination = intersection2;
     }
 
@@ -91,7 +90,7 @@ public class Street {
 
     //methods
     public void addCar(Car car){
-        cars.add(new Pair<Integer,Car>(length,car));
+        cars.add(new Pair<>(length,car));
     }
 
     public void removeCar(){
