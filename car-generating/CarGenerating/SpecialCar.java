@@ -1,5 +1,4 @@
 package CarGenerating;
-import java.util.*;
 
 public class SpecialCar extends Car{
 

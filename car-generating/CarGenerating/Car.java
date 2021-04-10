@@ -1,6 +1,5 @@
 package CarGenerating;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Car {
@@ -9,7 +8,9 @@ public class Car {
     protected int speed;
     protected int distance;
 
-    //getters and setters for debugging
+    // These numbers represent the IDs of the final streets.
+    protected final int[] finalDestinationID = {1,3,7,9,15,19,21,23};
+
 
     public int getInitialPosition() {
         return initialPosition;
@@ -43,15 +44,24 @@ public class Car {
         this.speed = speed;
     }
 
-    //constructors
 
     public Car() {
-        //todo stuff
         this.speed=0;
         Random rand = new Random();
-        this.initialPosition=rand.nextInt();//in paranteza trebuie sa vina limita maxima de strazi
-        this.finalPosition=rand.nextInt();//in viitor vom verifica ca initial si final sa nu fie aceeasi strada
-        this.distance=rand.nextInt();//in paranteza vine lungimea strazii initiale ca limita maxima
+        // There are only 23 streets.
+        this.initialPosition=rand.nextInt(24);
+
+        int index;
+
+        // We generate a final position until the final position is not equal to the initial one.
+        do {
+            index = rand.nextInt(9);
+            this.finalPosition = finalDestinationID[index];
+        }while(this.initialPosition == this.finalPosition);
+
+        // A street has the maximum length 5.
+        // Trebuie revenit aici!!! 
+        this.distance=rand.nextInt(6);
     }
 
 }
