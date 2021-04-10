@@ -74,10 +74,6 @@ public class City {
         return null;
     }
 
-    public Street getStreetByIndex(int i){
-        return streets.get(i);
-    }
-
     public Intersection getIntersectionByName(String intersectionName){
         for (Intersection i: intersections
         ) {
@@ -87,7 +83,9 @@ public class City {
         }
         return null;
     }
-
+    public Street getStreetByIndex(int i){
+        return streets.get(i);
+    }
     public Intersection getIntersectionByIndex(int i){
         return intersections.get(i);
     }
@@ -96,5 +94,27 @@ public class City {
     }
     public ArrayList<Car> getCars(){
         return cars;
+    }
+
+    public void generateMap() {
+        for (int i = 0; i < streets.size(); i += 2) {
+            Integer xBeg = streets.get(i).getPosX();
+            Integer yBeg = streets.get(i).getPosY();
+            Integer xFin = streets.get(streets.get(i).getIntersectionDestination()).getPosX();
+            Integer yFin = streets.get(streets.get(i).getIntersectionDestination()).getPosY();
+            if (xBeg == xFin) {
+                for (int j = yBeg; j <= yFin; j++)
+                    map[xBeg][j] = 2;
+            } else if (yBeg == yFin) {
+                for (int j = xBeg; j <= xFin; j++)
+                    map[j][yBeg] = 4;
+            }
+        }
+        //incep de la index 4
+        for (int i = 4; i < intersections.size(); i++) {
+            Integer x = intersections.get(i).getPosX();
+            Integer y = intersections.get(i).getPosY();
+            map[x][y] = 5;
+        }
     }
 }
