@@ -8,7 +8,7 @@ public class City {
     private ArrayList<Intersection> intersections= new ArrayList<Intersection>();
     private ArrayList<TrafficLights> trafficLights= new ArrayList<TrafficLights>();
     private ArrayList<Car> cars= new ArrayList<Car>();
-    public Integer[][] map={
+    public Integer[][] mapPreGenerated={
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
             {2, 2, 5, 2, 2, 5, 2, 2, 2, 2},
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
@@ -20,6 +20,7 @@ public class City {
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0}
     };
+    public Integer[][] map=new Integer[9][9];
     private Integer nrOfStreets;
     private Integer nrOfIntersections;
 
