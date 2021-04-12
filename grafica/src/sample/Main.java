@@ -1,19 +1,17 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import javax.swing.text.Style;
-
 
 public class Main extends Application {
 
@@ -35,30 +33,31 @@ public class Main extends Application {
     /* A trebuit sa transpunem matricea pentru ca gridpane-ul inverseaza coloanele si linii */
     public Integer[][] map={
 
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {4, 5, 4, 4, 5, 4, 4, 4, 4, 4},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {4, 5, 4, 4, 5, 4, 4, 4, 4, 4},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0}
+            {0, 2, 0, 0, 2, 0},
+            {0, 2, 0, 0, 2, 0},
+            {4, 5, 4, 4, 5, 4},
+            {0, 2, 0, 0, 2, 0},
+            {0, 2, 0, 0, 2, 0},
+            {4, 5, 4, 4, 5, 4},
+            {0, 2, 0, 0, 2, 0},
+            {0, 2, 0, 0, 2, 0},
+            {0, 2, 0, 0, 2, 0},
+            {0, 2, 0, 0, 2, 0}
 
     };
+    int x = 0;
+    int y = 200;
     @Override
     public void start(Stage primaryStage) {
 
         GridPane gridpane = new GridPane();
-        gridpane.setGridLinesVisible(true);
         Image streetBlock = new Image("/resources/StreetBlock.jpg");
         Image streetBlockUp = new Image("/resources/StreetBlockUp.jpg");
         Image grass = new Image("/resources/grass.png");
-        Image intersection = new Image("/resources/intersection.jpg");
+        Image intersection = new Image("/resources/junction.png");
 
         for (int i = 0; i < 10; i++)
-            for (int j = 0; j < 10; j++) {
+            for (int j = 0; j < 6; j++) {
                 if (map[i][j] == 2) {
                     ImageView streetSideways = new ImageView(streetBlock);
                     gridpane.add(streetSideways, i, j);
@@ -74,7 +73,33 @@ public class Main extends Application {
                     gridpane.add(grassView, i, j);
                 }
             }
-        Scene scene = new Scene(gridpane, 1000, 1000);
+
+        HBox user = new HBox();
+        Label trafficLabel = new Label("Select Traffic:");
+        ObservableList<String> trafficTypes = FXCollections.observableArrayList("Low","Medium","High");
+        Spinner<String> trafficSpinner = new Spinner<>();
+        SpinnerValueFactory<String> values = new SpinnerValueFactory.ListSpinnerValueFactory<>(trafficTypes);
+        trafficSpinner.setValueFactory(values);
+
+        //Am creat un dreptunghi pentru a testa cum se misca ceva pe harta (care simuleaza o masina).
+        Rectangle car = new Rectangle(40, 20);
+        car.setTranslateY(185);
+        Button move = new Button("Move");
+
+        move.setOnAction(e->{
+            x+=20;
+            car.setTranslateX(x);
+
+        });
+        user.getChildren().addAll(trafficLabel, trafficSpinner, move);
+        user.setAlignment(Pos.CENTER);
+
+        BorderPane map = new BorderPane();
+        map.setCenter(gridpane);
+        map.setTop(user);
+        map.getChildren().add(car);
+        Scene scene = new Scene(map, 1000, 600);
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
