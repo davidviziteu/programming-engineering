@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class CityGenerator {
     public static City city;
-    CityGenerator(){
+    public CityGenerator(){
         generateCity();
     }
     public static void generateCity(){

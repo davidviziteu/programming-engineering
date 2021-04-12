@@ -14,7 +14,7 @@ public class Street {
     private Integer posY;
     private Integer trafficLights;
 
-    Street(String nume, Integer idIntersectie1, Integer idIntersectie2, Integer lungime, Integer idSemafor){
+    public Street(String nume, Integer idIntersectie1, Integer idIntersectie2, Integer lungime, Integer idSemafor){
         name=nume;
         intersectionSource=idIntersectie1;
         intersectionDestination=idIntersectie2;
@@ -93,7 +93,25 @@ public class Street {
         cars.add(new Pair<>(length,car));
     }
 
+    public Queue<Pair<Integer, Car>> getCars() {
+        return cars;
+    }
+
     public void removeCar(){
         cars.poll();
+    }
+
+    @Override
+    public String toString() {
+        return "Street{" +
+                "cars=" + cars +
+                ", name='" + name + '\'' +
+                ", intersectionSource=" + intersectionSource +
+                ", intersectionDestination=" + intersectionDestination +
+                ", length=" + length +
+                ", posX=" + posX +
+                ", posY=" + posY +
+                ", trafficLights=" + trafficLights +
+                '}';
     }
 }

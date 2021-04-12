@@ -40,7 +40,7 @@ public class CarGenerator {
     private int totalStreetsLength(){
         int sum = 0;
 
-        for(int index = 0; index <= city.getNrOfStreets(); index++){
+        for(int index = 0; index < city.getNrOfStreets(); index++){
             sum += city.getStreetByIndex(index).getLength();
         }
         return sum;

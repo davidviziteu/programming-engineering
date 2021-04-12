@@ -1,5 +1,6 @@
 package CarGenerating;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import static CityGenerating.CityGenerator.city;
@@ -46,6 +47,16 @@ public class Car implements Comparable<Car> {
         this.speed = speed;
     }
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "initialPosition=" + initialPosition +
+                ", finalPosition=" + finalPosition +
+                ", speed=" + speed +
+                ", distance=" + distance +
+                ", finalDestinationID=" + Arrays.toString(finalDestinationID) +
+                '}';
+    }
 
     public Car() {
         this.speed=0;
@@ -58,7 +69,7 @@ public class Car implements Comparable<Car> {
 
         // We generate a final position until the final position is not equal to the initial one.
         do {
-            index = rand.nextInt(9);
+            index = rand.nextInt(8);
             this.finalPosition = finalDestinationID[index];
         }while(this.initialPosition == this.finalPosition);
 
