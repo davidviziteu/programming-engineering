@@ -19,7 +19,7 @@ public class City {
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0}
     };
-    public Integer[][] map=new Integer[9][9];
+    public Integer[][] map=new Integer[10][10];
     private Integer nrOfStreets;
     private Integer nrOfIntersections;
 
