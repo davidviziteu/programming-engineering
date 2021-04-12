@@ -1,6 +1,7 @@
 package CityGenerating;
 import CarGenerating.Car;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,19 +23,15 @@ public class CityGenerator {
         intersections.add(new Intersection("Left", new ArrayList<Integer>(Arrays.asList(1,8)),true));
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader(
-                    "inputIntersectii.txt"));
+            reader = new BufferedReader(new FileReader("src/CityGenerating/inputIntersectii.txt"));
             String line = reader.readLine();
             while (line != null) {
-                System.out.println(line);
                 // read next line
                 String[] parts = line.split(" ");
                 ArrayList<Integer> strazi = new ArrayList<Integer>();
                 for(int i =2; i<= 5; i++){
                     strazi.add(Integer.parseInt(parts[i]));
-                    System.out.println(Integer.parseInt(parts[i]));
                 }
-                System.out.println();
                 Intersection myIntersection = new Intersection(parts[0], strazi, Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
                 intersections.add(myIntersection);
 
@@ -46,10 +43,9 @@ public class CityGenerator {
         }
 
         try {
-            reader = new BufferedReader(new FileReader("inputStrazi.txt"));
+            reader = new BufferedReader(new FileReader("src/CityGenerating/inputStrazi.txt"));
             String line = reader.readLine();
             while (line != null) {
-                System.out.println(line);
                 // read next line
                 String[] parts = line.split(" ");
                 Street myStreet = new Street(parts[0], Integer.parseInt(parts[1]),Integer.parseInt(parts[2]),
@@ -64,10 +60,9 @@ public class CityGenerator {
         }
 
         try {
-            reader = new BufferedReader(new FileReader("imputSemafoare.txt"));
+            reader = new BufferedReader(new FileReader("src/CityGenerating/inputSemafoare.txt"));
             String line = reader.readLine();
             while (line != null) {
-                System.out.println(line);
                 String[] parts = line.split(" ");
                 TrafficLights myLights = new TrafficLights(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]),
                         Integer.parseInt(parts[2]));

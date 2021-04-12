@@ -2,7 +2,9 @@ package CityGenerating;
 
 public class Main {
     public static void main(String[] args){
+        System.out.println("Voi genera");
         CityGenerator.generateCity();
+        System.out.println("Am generat");
         Street temp;
         for(int i=0;i<CityGenerator.city.getNrOfStreets();i++){
             temp=CityGenerator.city.getStreetByIndex(i);

@@ -29,6 +29,8 @@ public class City {
         intersections=intersectii;
         trafficLights=semafoare;
         cars=masini;
+        nrOfStreets= strazi.size();
+        nrOfIntersections=intersectii.size();
     }
 
 
