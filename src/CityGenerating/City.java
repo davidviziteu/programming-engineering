@@ -113,7 +113,7 @@ public class City {
             }
         }
         //incep de la index 4
-        for (int i = 4; i < intersections.size(); i++) {
+        for (int i = 8; i < intersections.size(); i++) {
             Integer x = intersections.get(i).getPosX();
             Integer y = intersections.get(i).getPosY();
             map[x][y] = 5;

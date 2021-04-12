@@ -25,6 +25,14 @@ public class Intersection {
         streets=strazi;
         posX=pozX;
         posY=pozY;
+        canPark=false;
+    }
+    Intersection(String nume, ArrayList<Integer> strazi, Integer pozX, Integer pozY, Boolean park){
+        name=nume;
+        streets=strazi;
+        posX=pozX;
+        posY=pozY;
+        canPark=true;
     }
 
     public String getName() {
@@ -38,7 +46,7 @@ public class Intersection {
     public ArrayList<Integer> getStreets() {
         return streets;
     }
-    
+
     public void setStreets(ArrayList<Integer> streets) {
         this.streets = streets;
     }

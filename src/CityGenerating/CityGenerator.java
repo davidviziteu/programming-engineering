@@ -8,18 +8,19 @@ import java.util.Arrays;
 
 public class CityGenerator {
     public static City city;
-    public CityGenerator(){
-        generateCity();
-    }
     public static void generateCity(){
         ArrayList<Street> streets= new ArrayList<Street>();
         ArrayList<Intersection> intersections= new ArrayList<Intersection>();
         ArrayList<TrafficLights> trafficLights= new ArrayList<TrafficLights>();
         ArrayList<Car> cars= new ArrayList<Car>();
-        intersections.add(new Intersection("Top", new ArrayList<Integer>(Arrays.asList(2,4)),true));
-        intersections.add(new Intersection("Right", new ArrayList<Integer>(Arrays.asList(5,10)),true));
-        intersections.add(new Intersection("Bottom", new ArrayList<Integer>(Arrays.asList(11,12)),true));
-        intersections.add(new Intersection("Left", new ArrayList<Integer>(Arrays.asList(1,8)),true));
+        intersections.add(new Intersection("Top1", new ArrayList<Integer>(Arrays.asList(2)),0,2,true));
+        intersections.add(new Intersection("Top2", new ArrayList<Integer>(Arrays.asList(4)),0,5,true));
+        intersections.add(new Intersection("Right1", new ArrayList<Integer>(Arrays.asList(5)),1,9,true));
+        intersections.add(new Intersection("Right2", new ArrayList<Integer>(Arrays.asList(10)),4,9,true));
+        intersections.add(new Intersection("Bottom1", new ArrayList<Integer>(Arrays.asList(11)),9,2,true));
+        intersections.add(new Intersection("Bottom2", new ArrayList<Integer>(Arrays.asList(12)),9,5,true));
+        intersections.add(new Intersection("Left", new ArrayList<Integer>(Arrays.asList(1)),1,0,true));
+        intersections.add(new Intersection("Left", new ArrayList<Integer>(Arrays.asList(8)),4,0,true));
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader("src/CityGenerating/inputIntersectii.txt"));
@@ -75,5 +76,6 @@ public class CityGenerator {
         }
 
         city= new City(streets,intersections,trafficLights,cars);
+        city.generateMap();
     }
 }
