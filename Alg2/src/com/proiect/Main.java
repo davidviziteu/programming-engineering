@@ -12,11 +12,28 @@ public class Main {
     public double fitness(List<Street> chromosome, City city) {
         // fitness function
         return 1.2;
+
+        List<Street> streets = city.getStreets();
+        int countTrafficLights = streets.size();
+        int[] capacity = new int[countTrafficLights];
+        int[] load = new int[countTrafficLights];
+
 //        pentru fiecare intersectie:
 //        calculeaza gradul de incarcare
 //        (grad incarcare: suma numarului de masini care intra/asteapta la intrarea in intersectie
 //                => procentaj din capacitatea maxima al strazilor)
-//
+        for (Street street : streets) {
+            // TODO: add getCapacity, return street capacity considering "average" car size
+            capacity[street.intersectionDestination] += street.getCapacity();
+            // TODO: add getLoad; return number of cars on street
+            load[street.intersectionDestination] += street.getLoad();
+        }
+
+        float[] loadDensity = new float[countTrafficLights];
+        for (int i = 0; i < countTrafficLights; ++i) {
+            loadDensity[i] = float(load[i]) / float(capacity[i]);
+        }
+
 //        fitness:
 //        pentru o secventa de strazi, vedem cu cat ar creste masina user "incarcarea" intersectiilor
 //        adica cat creste prin procentaj
@@ -26,6 +43,12 @@ public class Main {
 //
 //        mergem pe presupunerea ca intersectiile incarcate se mentin incarcate (si deci, incete)
 //        iar strazile putin incarcate, raman putin incarcate (si deci, mai rapide)
+        float fitness = 0.0f;
+        for (Street gene : chromosome) {
+            int id = gene.intersectionDestination;
+            fitness += (float(load[id] + 1) / float(capacity[id])) - loadDensity[id];
+        }
+        return fitness;
     }
 
     public void selection() {
