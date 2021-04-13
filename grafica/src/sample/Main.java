@@ -33,16 +33,16 @@ public class Main extends Application {
     /* A trebuit sa transpunem matricea pentru ca gridpane-ul inverseaza coloanele si linii */
     public Integer[][] map={
 
-            {0, 2, 0, 0, 2, 0},
-            {0, 2, 0, 0, 2, 0},
-            {4, 5, 4, 4, 5, 4},
-            {0, 2, 0, 0, 2, 0},
-            {0, 2, 0, 0, 2, 0},
-            {4, 5, 4, 4, 5, 4},
-            {0, 2, 0, 0, 2, 0},
-            {0, 2, 0, 0, 2, 0},
-            {0, 2, 0, 0, 2, 0},
-            {0, 2, 0, 0, 2, 0}
+            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
+            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
+            {4, 5, 4, 4, 5, 4, 4, 4, 4, 4},
+            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
+            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
+            {4, 5, 4, 4, 5, 4, 4, 4, 4, 4},
+            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
+            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
+            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
+            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0}
 
     };
     int x = 0;
@@ -57,7 +57,7 @@ public class Main extends Application {
         Image intersection = new Image("/resources/junction.png");
 
         for (int i = 0; i < 10; i++)
-            for (int j = 0; j < 6; j++) {
+            for (int j = 0; j < 10; j++) {
                 if (map[i][j] == 2) {
                     ImageView streetSideways = new ImageView(streetBlock);
                     gridpane.add(streetSideways, i, j);
