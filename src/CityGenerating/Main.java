@@ -1,21 +1,21 @@
 package CityGenerating;
-
+import CarGenerating.Car;
+import CarGenerating.CarGenerator;
 public class Main {
     public static void main(String[] args){
-        System.out.println("Voi genera");
         CityGenerator.generateCity();
-        System.out.println("Am generat");
         Street temp;
-        System.out.println(CityGenerator.city.getNrOfIntersections());
         for(int i=0;i<CityGenerator.city.getNrOfStreets();i++){
             temp=CityGenerator.city.getStreetByIndex(i);
-            System.out.println(temp.toString());
+            System.out.println(temp.getName());
         }
         Intersection temp2;
-        System.out.println("Intersectiile sunt: ");
         for(int i=0;i<CityGenerator.city.getNrOfIntersections();i++){
             temp2=CityGenerator.city.getIntersectionByIndex(i);
             System.out.println(temp2.getName());
+        }
+        for (Car temp3 : CityGenerator.city.getCars()){
+            System.out.println(temp3);
         }
     }
 }

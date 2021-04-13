@@ -3,10 +3,10 @@ import CarGenerating.Car;
 import java.util.ArrayList;
 
 public class City {
-    private ArrayList<Street> streets= new ArrayList<Street>();
-    private ArrayList<Intersection> intersections= new ArrayList<Intersection>();
-    private ArrayList<TrafficLights> trafficLights= new ArrayList<TrafficLights>();
-    private ArrayList<Car> cars= new ArrayList<Car>();
+    private ArrayList<Street> streets= new ArrayList<>();
+    private ArrayList<Intersection> intersections= new ArrayList<>();
+    private ArrayList<TrafficLights> trafficLights= new ArrayList<>();
+    private ArrayList<Car> cars= new ArrayList<>();
     public Integer[][] mapPreGenerated={
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
             {2, 2, 5, 2, 2, 5, 2, 2, 2, 2},
@@ -85,17 +85,28 @@ public class City {
         }
         return null;
     }
+
     public Street getStreetByIndex(int i){
         return streets.get(i);
+
     }
+
     public Intersection getIntersectionByIndex(int i){
         return intersections.get(i);
+
     }
-    public TrafficLights getTLightsById(int i){
+
+    public TrafficLights getTLightsById(int i)
+    {
         return trafficLights.get(i);
+
     }
+
     public ArrayList<Car> getCars(){
         return cars;
+    }
+    public void setCars(ArrayList<Car> cars) {
+        this.cars = cars;
     }
 
     public void generateMap() {
@@ -112,7 +123,7 @@ public class City {
                     map[j][yBeg] = 4;
             }
         }
-        //incep de la index 4
+        //incep de la index 8
         for (int i = 8; i < intersections.size(); i++) {
             Integer x = intersections.get(i).getPosX();
             Integer y = intersections.get(i).getPosY();

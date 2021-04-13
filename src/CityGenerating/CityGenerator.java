@@ -1,5 +1,6 @@
 package CityGenerating;
 import CarGenerating.Car;
+import CarGenerating.CarGenerator;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,8 +20,8 @@ public class CityGenerator {
         intersections.add(new Intersection("Right2", new ArrayList<Integer>(Arrays.asList(10)),4,9,true));
         intersections.add(new Intersection("Bottom1", new ArrayList<Integer>(Arrays.asList(11)),9,2,true));
         intersections.add(new Intersection("Bottom2", new ArrayList<Integer>(Arrays.asList(12)),9,5,true));
-        intersections.add(new Intersection("Left", new ArrayList<Integer>(Arrays.asList(1)),1,0,true));
-        intersections.add(new Intersection("Left", new ArrayList<Integer>(Arrays.asList(8)),4,0,true));
+        intersections.add(new Intersection("Left1", new ArrayList<Integer>(Arrays.asList(1)),1,0,true));
+        intersections.add(new Intersection("Left2", new ArrayList<Integer>(Arrays.asList(8)),4,0,true));
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader("src/CityGenerating/inputIntersectii.txt"));
@@ -76,6 +77,9 @@ public class CityGenerator {
         }
 
         city= new City(streets,intersections,trafficLights,cars);
-        city.generateMap();
+        CarGenerator carGenerator = new CarGenerator(1);
+        carGenerator.generate();
+        city.setCars(carGenerator.cars);
+
     }
 }
