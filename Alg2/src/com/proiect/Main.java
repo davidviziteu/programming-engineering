@@ -10,9 +10,6 @@ public class Main {
     private List<List<Street>> population;
 
     public double fitness(List<Street> chromosome, City city) {
-        // fitness function
-        return 1.2;
-
         List<Street> streets = city.getStreets();
         int countTrafficLights = streets.size();
         int[] capacity = new int[countTrafficLights];
