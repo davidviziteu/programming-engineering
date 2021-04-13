@@ -47,16 +47,6 @@ public class Car implements Comparable<Car> {
         this.speed = speed;
     }
 
-    @Override
-    public String toString() {
-        return "Car{" +
-                "initialPosition=" + initialPosition +
-                ", finalPosition=" + finalPosition +
-                ", speed=" + speed +
-                ", distance=" + distance +
-                ", finalDestinationID=" + Arrays.toString(finalDestinationID) +
-                '}';
-    }
 
     public Car() {
         this.speed=0;
@@ -77,6 +67,17 @@ public class Car implements Comparable<Car> {
         maximumLengthOfStreet = city.getStreetByIndex(initialPosition).getLength();
         this.distance=rand.nextInt(maximumLengthOfStreet);
         this.distance=rand.nextInt(city.getStreetByIndex(5).getLength());
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "initialPosition=" + initialPosition +
+                ", finalPosition=" + finalPosition +
+                ", speed=" + speed +
+                ", distance=" + distance +
+                ", finalDestinationID=" + Arrays.toString(finalDestinationID) +
+                '}';
     }
 
     @Override
