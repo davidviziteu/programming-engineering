@@ -12,7 +12,7 @@ public class Car implements Comparable<Car> {
     protected int distance;
 
     // These numbers represent the IDs of the final streets.
-    protected final int[] finalDestinationID = {1,3,7,9,15,19,21,23};
+    protected final int[] finalDestinationID = {0,1,2,3,4,5,6,7};
 
 
     public int getInitialPosition() {
