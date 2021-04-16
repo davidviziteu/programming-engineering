@@ -90,7 +90,11 @@ public class Street {
 
     //methods
     public void addCar(Car car){
-        cars.add(new Pair<>(length,car));
+        cars.add(new Pair<>(cars.size()+1,car));
+    }
+
+    public Integer getQueuePosition(){
+        return cars.size()+1;
     }
 
     public Queue<Pair<Integer, Car>> getCars() {

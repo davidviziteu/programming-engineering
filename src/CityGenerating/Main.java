@@ -15,7 +15,7 @@ public class Main {
             System.out.println(temp2.getName());
         }
         for (Car temp3 : CityGenerator.city.getCars()){
-            System.out.println(temp3);
+            System.out.println("Street: " + temp3.getInitialPosition() +  "          Position: "+ temp3.getDistance());
         }
     }
 }
