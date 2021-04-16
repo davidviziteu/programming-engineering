@@ -8,26 +8,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShortestPath {
-    public static void main(String[] args) {
-
-        ShortestPath2 p1= new ShortestPath2();
-        p1.ShortestPath2();
-        List<Street> streets= new ArrayList<>();
-        Street s1= new Street("s1",1, 2, 4, 1);
-        Street s2= new Street("s2",2, 3, 3, 1);
-        Street s3= new Street("s3",3, 4, 8, 1);
-        Street s4= new Street("s4",4, 1, 5, 1);
-
-        streets.add(s1);
-        streets.add(s2);
-        streets.add(s3);
-        int numberOfIntersections=4;
-        int startingPoint=1;//plec din intersectia 1
-        int finishPoint=3; // ajung in intersectia
-        ShortestPath p= new ShortestPath();
-        System.out.println("Shortest Path: "+p.Dijkstra(streets, startingPoint, finishPoint,numberOfIntersections));
-
-    }
+//    public static void main(String[] args) {
+//
+//        ShortestPath2 p1= new ShortestPath2();
+//        p1.ShortestPath();
+//        List<Street> streets= new ArrayList<>();
+//        Street s1= new Street("s1",1, 2, 4, 1);
+//        Street s2= new Street("s2",2, 3, 3, 1);
+//        Street s3= new Street("s3",3, 4, 8, 1);
+//        Street s4= new Street("s4",4, 1, 5, 1);
+//
+//        streets.add(s1);
+//        streets.add(s2);
+//        streets.add(s3);
+//        int numberOfIntersections=4;
+//        int startingPoint=1;//plec din intersectia 1
+//        int finishPoint=3; // ajung in intersectia
+//        ShortestPath p= new ShortestPath();
+//        System.out.println("Shortest Path: "+p.Dijkstra(streets, startingPoint, finishPoint,numberOfIntersections));
+//
+//    }
     int INT_MAX=10000;
     int minimumDistance(int distance[], boolean included[]){
         int min=INT_MAX, index=0;
