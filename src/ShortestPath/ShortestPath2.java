@@ -5,11 +5,12 @@ import CityGenerating.CityGenerator;
 import CityGenerating.Street;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ShortestPath2 {
     private static final int INT_MAX = 100000;
-    private static int[] parent;
+
 
 //    void ShortestPath2() {
 //        CityGenerator.generateCity();
@@ -42,11 +43,11 @@ public class ShortestPath2 {
         return index;
     }
     //dijkstra
-    static public Tuple<Integer, int[]> compute(List<Street> streets, int startPoint, int finishPoint, int numberofIntersections) {
+    static public Tuple<Integer, List<Integer>> compute(List<Street> streets, int startPoint, int finishPoint, int numberofIntersections) {
 
         int[] distance = new int[numberofIntersections];
         boolean[] included = new boolean[numberofIntersections];
-        parent = new int[100];
+        Integer[]parent = new Integer[numberofIntersections];
         for (int i = 0; i < numberofIntersections; i++) {
             distance[i] = INT_MAX;
             included[i] = false;
@@ -65,11 +66,12 @@ public class ShortestPath2 {
                         adjacent(j, index, streets) &&
                         distance[index] + getStreetLength(j, index, streets) < distance[j]) {
                     distance[j] = distance[index] + getStreetLength(j, index, streets);
-                    parent[index] = j; //tre vazut mai departe
+                    parent[j] = index; //tre vazut mai departe
                 }
             }
         }
-        return new Tuple<Integer, int[]>(distance[finishPoint], parent);
+        List<Integer> parents=Arrays.asList(parent);
+        return new Tuple<Integer, List<Integer>>(distance[finishPoint],parents);
     }
 
     static boolean adjacent(int x, int y, List<Street> streets) {
@@ -103,10 +105,10 @@ public class ShortestPath2 {
         var res = ShortestPath2.compute(
                 cityInstance.getStreets(),
                 0,
-                11,
+                3,
                 cityInstance.getStreets().size()
         );
-        System.out.println(res);
+        System.out.println(res.toString());
     }
 }
 
@@ -116,5 +118,13 @@ class Tuple<K, V> {
     public Tuple(K first, V second){
         this.first = first;
         this.second = second;
+    }
+
+    @Override
+    public String toString() {
+        return "Tuple{" +
+                "first=" + first +
+                ", second=" + second.toString() +
+                '}';
     }
 }
