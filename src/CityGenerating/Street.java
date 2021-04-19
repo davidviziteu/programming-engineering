@@ -91,6 +91,7 @@ public class Street {
     //methods
     public void addCar(Car car){
         cars.add(new Pair<>(cars.size()+1,car));
+        car.setDistance(cars.size());
     }
 
     public Integer getQueuePosition(){
@@ -103,6 +104,16 @@ public class Street {
 
     public void removeCar(){
         cars.poll();
+        Integer i=1;
+        for(Pair<Integer,Car> item : cars){
+            item.setKey(i);
+            item.getValue().setDistance(i);
+            i++;
+        }
+    }
+
+    public Car peekQueue(){
+        return cars.peek().getValue();
     }
 
     @Override
