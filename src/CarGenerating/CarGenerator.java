@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import static CityGenerating.CityGenerator.city;
 
 public class CarGenerator {
-    private int frequency;
+    private String frequency;
     public ArrayList<Car> cars;
     public int numberOfCars;
 
@@ -14,16 +14,15 @@ public class CarGenerator {
 
 
     public void generate(){
-        //todo: make cars go vroom
         //in functie de frecventa pe fiecare strada vor fi generate un numar de masini(strict <= capacitatea strazii)
 
-        if(this.frequency == 1) {
+        if(this.frequency == "Low") {
             numberOfCars = (int) (frequencyLow * totalStreetsLength());
         }
-        if(this.frequency == 2) {
+        if(this.frequency == "Medium") {
             numberOfCars = (int) (frequencyMedium * totalStreetsLength());
         }
-        if(this.frequency == 3) {
+        if(this.frequency == "High") {
             numberOfCars = (int) (frequencyHigh * totalStreetsLength());
         }
 
@@ -33,7 +32,7 @@ public class CarGenerator {
         }
     }
 
-    public CarGenerator(int frequency) {
+    public CarGenerator(String frequency) {
         cars=new ArrayList<Car>();
         this.frequency = frequency;
     }
