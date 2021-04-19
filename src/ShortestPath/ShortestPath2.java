@@ -2,11 +2,10 @@ package ShortestPath;
 
 import CityGenerating.City;
 import CityGenerating.CityGenerator;
+import CityGenerating.Intersection;
 import CityGenerating.Street;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class ShortestPath2 {
     private static final int INT_MAX = 100000;
@@ -104,6 +103,20 @@ public class ShortestPath2 {
         return INT_MAX;
     }
 
+    static boolean areStreetsConnected(Street st1, Street st2){
+        return st1.getIntersectionDestination() == st2.getIntersectionDestination()
+                || st1.getIntersectionSource() == st2.getIntersectionSource()
+                || st1.getIntersectionDestination() == st2.getIntersectionSource()
+                || st1.getIntersectionSource() == st2.getIntersectionDestination();
+    }
+
+    static boolean areIntersectionsConnected(Intersection i1, Intersection i2){
+        var set1 = new HashSet<Integer>(i1.getStreets());
+        var set2 = new HashSet<Integer>(i2.getStreets());
+        set1.retainAll(set2);
+        return set1.size() > 0;
+    }
+
     public static void main(String[] args) {
         CityGenerator.generateCity();
         var cityInstance = CityGenerator.city;
@@ -114,6 +127,16 @@ public class ShortestPath2 {
                 0,
                 3,
                 cityInstance.getStreets().size()
+        );
+        ArrayList<Integer> test1 = new ArrayList<Integer>();
+        test1.add(9);
+        test1.add(11);
+        test1.add(8);
+        test1.add(6);
+//        cityInstance.getIntersectionByIndex(10).setStreets(test1);
+        var intersConnTest = areIntersectionsConnected(
+                cityInstance.getIntersectionByIndex(10),
+                cityInstance.getIntersectionByIndex(9)
         );
         System.out.println(res.toString());
     }
