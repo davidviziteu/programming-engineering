@@ -117,6 +117,21 @@ public class ShortestPath2 {
         return set1.size() > 0;
     }
 
+    static int getStreetNumber(Intersection i1, Intersection i2){
+
+        /*
+        for(int i=0; i<CityGenerator.city.getStreets().size(); i++){
+            if(CityGenerator.city.getStreets().get(i).getIntersectionDestination()==i1.ID?????
+             && CityGenerator.city.getStreets().get(i).getIntersectionSource()==i2.ID????? )
+                //SAU INVERS
+                -> INSEAMNA CA E STRADA DE INTERSECTIE
+        }
+
+         */
+        return 0;
+
+    }
+
     public static void main(String[] args) {
         CityGenerator.generateCity();
         var cityInstance = CityGenerator.city;
