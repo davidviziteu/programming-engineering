@@ -74,10 +74,10 @@ public class ShortestPath2 {
 //        List<Integer> parents = Arrays.asList(parent);
         List<Integer> parents = new ArrayList<>();
         int intersectionId = finishPoint;
-        do{
+        while (intersectionId != startPoint){
             parents.add(0, intersectionId);
             intersectionId = parent[intersectionId];
-        } while (intersectionId != startPoint);
+        }
         return new Tuple<Integer, List<Integer>>(distance[finishPoint], parents);
     }
 
