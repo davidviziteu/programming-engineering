@@ -5,7 +5,7 @@ import CityGenerating.CityGenerator;
 
     public class CarCityConn {
         public CarCityConn(){
-            CarGenerator c1 = new CarGenerator(2);
+            CarGenerator c1 = new CarGenerator("Medium");
             c1.generate();
             System.out.println("am intrat in CarCityCONN");
             System.out.println(c1.numberOfCars);
