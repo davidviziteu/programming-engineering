@@ -156,21 +156,3 @@ public class ShortestPath2 {
         System.out.println(res.toString());
     }
 }
-
-class Tuple<K, V> {
-    public K first;
-    public V second;
-
-    public Tuple(K first, V second) {
-        this.first = first;
-        this.second = second;
-    }
-
-    @Override
-    public String toString() {
-        return "Tuple{" +
-                "first=" + first +
-                ", second=" + second.toString() +
-                '}';
-    }
-}

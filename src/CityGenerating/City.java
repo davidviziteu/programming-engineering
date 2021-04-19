@@ -1,13 +1,15 @@
 package CityGenerating;
+
 import CarGenerating.Car;
+
 import java.util.ArrayList;
 
 public class City {
-    private ArrayList<Street> streets= new ArrayList<>();
-    private ArrayList<Intersection> intersections= new ArrayList<>();
-    private ArrayList<TrafficLights> trafficLights= new ArrayList<>();
-    private ArrayList<Car> cars= new ArrayList<>();
-    public Integer[][] mapPreGenerated={
+    private ArrayList<Street> streets = new ArrayList<>();
+    private ArrayList<Intersection> intersections = new ArrayList<>();
+    private ArrayList<TrafficLights> trafficLights = new ArrayList<>();
+    private ArrayList<Car> cars = new ArrayList<>();
+    public Integer[][] mapPreGenerated = {
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
             {2, 2, 5, 2, 2, 5, 2, 2, 2, 2},
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
@@ -19,17 +21,17 @@ public class City {
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0},
             {0, 0, 4, 0, 0, 4, 0, 0, 0, 0}
     };
-    public Integer[][] map=new Integer[10][10];
+    public Integer[][] map = new Integer[10][10];
     private Integer nrOfStreets;
     private Integer nrOfIntersections;
 
-    City(ArrayList<Street> strazi, ArrayList<Intersection> intersectii, ArrayList<TrafficLights> semafoare, ArrayList<Car> masini){
-        streets=strazi;
-        intersections=intersectii;
-        trafficLights=semafoare;
-        cars=masini;
-        nrOfStreets= strazi.size();
-        nrOfIntersections=intersectii.size();
+    City(ArrayList<Street> strazi, ArrayList<Intersection> intersectii, ArrayList<TrafficLights> semafoare, ArrayList<Car> masini) {
+        streets = strazi;
+        intersections = intersectii;
+        trafficLights = semafoare;
+        cars = masini;
+        nrOfStreets = strazi.size();
+        nrOfIntersections = intersectii.size();
     }
 
 
@@ -41,7 +43,7 @@ public class City {
         this.streets = streets;
     }
 
-    public ArrayList<Intersection>  getCity() {
+    public ArrayList<Intersection> getCity() {
         return intersections;
     }
 
@@ -66,45 +68,45 @@ public class City {
     }
 
     //methods
-    public Street getStreetByName(String streetName){
-        for (Street s: streets
+    public Street getStreetByName(String streetName) {
+        for (Street s : streets
         ) {
-            if (s.getName().equals(streetName)){
+            if (s.getName().equals(streetName)) {
                 return s;
             }
         }
         return null;
     }
 
-    public Intersection getIntersectionByName(String intersectionName){
-        for (Intersection i: intersections
+    public Intersection getIntersectionByName(String intersectionName) {
+        for (Intersection i : intersections
         ) {
-            if (i.getName().equals(intersectionName)){
+            if (i.getName().equals(intersectionName)) {
                 return i;
             }
         }
         return null;
     }
 
-    public Street getStreetByIndex(int i){
+    public Street getStreetByIndex(int i) {
         return streets.get(i);
 
     }
 
-    public Intersection getIntersectionByIndex(int i){
+    public Intersection getIntersectionByIndex(int i) {
         return intersections.get(i);
 
     }
 
-    public TrafficLights getTLightsById(int i)
-    {
+    public TrafficLights getTLightsById(int i) {
         return trafficLights.get(i);
 
     }
 
-    public ArrayList<Car> getCars(){
+    public ArrayList<Car> getCars() {
         return cars;
     }
+
     public void setCars(ArrayList<Car> cars) {
         this.cars = cars;
     }

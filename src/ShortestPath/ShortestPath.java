@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShortestPath {
-//    public static void main(String[] args) {
+    //    public static void main(String[] args) {
 //
 //        ShortestPath2 p1= new ShortestPath2();
 //        p1.ShortestPath();
@@ -28,68 +28,70 @@ public class ShortestPath {
 //        System.out.println("Shortest Path: "+p.Dijkstra(streets, startingPoint, finishPoint,numberOfIntersections));
 //
 //    }
-    int INT_MAX=10000;
-    int minimumDistance(int distance[], boolean included[]){
-        int min=INT_MAX, index=0;
+    int INT_MAX = 10000;
 
-        for(int i=0; i< distance.length; i++){
-            if(included[i]==false && distance[i]<= min)
-            {
-                min=distance[i];
-                index= i;
+    int minimumDistance(int distance[], boolean included[]) {
+        int min = INT_MAX, index = 0;
+
+        for (int i = 0; i < distance.length; i++) {
+            if (included[i] == false && distance[i] <= min) {
+                min = distance[i];
+                index = i;
             }
         }
         return index;
     }
-    public int Dijkstra(List<Street> streets, int startPoint, int finishPoint, int numberofIntersections ){
 
-        int distance[]=new int[numberofIntersections];
-        boolean included[]= new boolean[numberofIntersections];
+    public int Dijkstra(List<Street> streets, int startPoint, int finishPoint, int numberofIntersections) {
 
-        for(int i=0; i<numberofIntersections; i++){
-            distance[i]=INT_MAX;
-            included[i]=false;
+        int distance[] = new int[numberofIntersections];
+        boolean included[] = new boolean[numberofIntersections];
+
+        for (int i = 0; i < numberofIntersections; i++) {
+            distance[i] = INT_MAX;
+            included[i] = false;
         }
-        distance[startPoint]=0;
+        distance[startPoint] = 0;
 
-        for(int i=0; i< numberofIntersections - 1; i++){
+        for (int i = 0; i < numberofIntersections - 1; i++) {
 
             int index = minimumDistance(distance, included);
 
-            included[index]= true;
-            for(int j=0; j< numberofIntersections; j++){
-                if(included[j]==false &&distance[index]!=INT_MAX && adiacent(j, index, streets) && distance[index] + getStreetLength(j, index,streets) < distance[j]){
-                    distance[j]=distance[index] + getStreetLength(j, index,streets) ;
+            included[index] = true;
+            for (int j = 0; j < numberofIntersections; j++) {
+                if (included[j] == false && distance[index] != INT_MAX && adiacent(j, index, streets) && distance[index] + getStreetLength(j, index, streets) < distance[j]) {
+                    distance[j] = distance[index] + getStreetLength(j, index, streets);
                 }
             }
         }
         return distance[finishPoint];
     }
-    boolean adiacent(int x, int y, List<Street> streets){
 
-        for(int i=0; i<streets.size(); i++) {
+    boolean adiacent(int x, int y, List<Street> streets) {
+
+        for (int i = 0; i < streets.size(); i++) {
 
             if (streets.get(i).getIntersectionSource() == x && streets.get(i).getIntersectionDestination() == y)
                 return true;
 
-            if (streets.get(i).getIntersectionSource() == y && streets.get(i).getIntersectionDestination()== x)
+            if (streets.get(i).getIntersectionSource() == y && streets.get(i).getIntersectionDestination() == x)
                 return true;
         }
         return false;
     }
-    int getStreetLength(int x, int y, List<Street> streets){
-        if(adiacent(x,y,streets)){
-            for(int i=0; i<streets.size(); i++) {
+
+    int getStreetLength(int x, int y, List<Street> streets) {
+        if (adiacent(x, y, streets)) {
+            for (int i = 0; i < streets.size(); i++) {
 
                 if (streets.get(i).getIntersectionSource() == x && streets.get(i).getIntersectionDestination() == y)
                     return streets.get(i).getLength();
 
-                if (streets.get(i).getIntersectionSource() == y && streets.get(i).getIntersectionDestination()== x)
+                if (streets.get(i).getIntersectionSource() == y && streets.get(i).getIntersectionDestination() == x)
                     return streets.get(i).getLength();
             }
         }
         return INT_MAX;
     }
-
 
 }
