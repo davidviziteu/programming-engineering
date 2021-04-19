@@ -1,8 +1,46 @@
 package com.proiect;
 
-import javafx.util.Pair;
-
 import java.util.*;
+
+public class Pair<K, V extends Comparable<V>> implements Comparable<CityGenerating.Pair<K, V>> {
+    private K key;
+    private V value;
+
+    public Pair (K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey () {
+        return key;
+    }
+
+    public void setKey (K key) {
+        this.key = key;
+    }
+
+    public V getValue () {
+        return value;
+    }
+
+    public void setValue (V value) {
+        this.value = value;
+    }
+
+
+    @Override
+    public int compareTo (CityGenerating.Pair<K, V> o) {
+        return this.value.compareTo(o.getValue());
+    }
+
+    @Override
+    public String toString () {
+        return "Pair{" +
+                "key=" + key +
+                ", value=" + value +
+                '}';
+    }
+}
 
 public class Main {
 
@@ -60,7 +98,7 @@ public class Main {
         }
         Collections.sort(indexList, new Comparator<Integer>() {
             public int compare(Integer index1, Integer index2) {
-                return fitness(population.get(index1), city).compareTo(fitness(population.get(index2), city));
+                return Double.compare(fitness(population.get(index1), city), fitness(population.get(index2), city));
             }
         });
 
@@ -73,7 +111,7 @@ public class Main {
         population = secondPopulation;
     }
 
-    public void mutate(List<Street> chromosome) {
+    public List<Street> mutate(List<Street> chromosome) {
         Random random = new Random();
         double ratio =  random.nextDouble();
         int index = random.nextInt(chromosome.size());
@@ -82,6 +120,8 @@ public class Main {
         if(ratio < 0.01) {
             chromosome.get(index) = streets.get(randomChoice);
         }
+
+        return chromosome;
     }
 
     public void crossover(List<List<Street>> population) {
@@ -102,7 +142,7 @@ public class Main {
             }
 
             // add right side of chromosome2 to chromosome1
-            for (int k = pair.getValue + 1; k < population.get(j).size(); k++) {
+            for (int k = pair.getValue() + 1; k < population.get(j).size(); k++) {
                 chromosome1.add(population.get(j).get(k));
             }
 
@@ -112,7 +152,7 @@ public class Main {
             }
 
             // add right side of chromosome1 to chromosome2
-            for (int k = pair.getKey + 1; k < population.get(i).size(); k++) {
+            for (int k = pair.getKey() + 1; k < population.get(i).size(); k++) {
                 chromosome2.add(population.get(i).get(k));
             }
 
