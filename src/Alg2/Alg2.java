@@ -1,48 +1,9 @@
-package com.proiect;
+package Alg2;
 
 import java.util.*;
 
-public class Pair<K, V extends Comparable<V>> implements Comparable<CityGenerating.Pair<K, V>> {
-    private K key;
-    private V value;
 
-    public Pair (K key, V value) {
-        this.key = key;
-        this.value = value;
-    }
-
-    public K getKey () {
-        return key;
-    }
-
-    public void setKey (K key) {
-        this.key = key;
-    }
-
-    public V getValue () {
-        return value;
-    }
-
-    public void setValue (V value) {
-        this.value = value;
-    }
-
-
-    @Override
-    public int compareTo (CityGenerating.Pair<K, V> o) {
-        return this.value.compareTo(o.getValue());
-    }
-
-    @Override
-    public String toString () {
-        return "Pair{" +
-                "key=" + key +
-                ", value=" + value +
-                '}';
-    }
-}
-
-public class Main {
+public class Alg2 {
 
     private City city;
     private List<List<Street>> population;
