@@ -1,5 +1,9 @@
 package Alg2;
 
+import CityGenerating.City;
+import CityGenerating.Pair;
+import CityGenerating.Street;
+
 import java.util.*;
 
 
