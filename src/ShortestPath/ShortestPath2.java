@@ -42,12 +42,13 @@ public class ShortestPath2 {
         }
         return index;
     }
+
     //dijkstra
     static public Tuple<Integer, List<Integer>> compute(List<Street> streets, int startPoint, int finishPoint, int numberofIntersections) {
 
         int[] distance = new int[numberofIntersections];
         boolean[] included = new boolean[numberofIntersections];
-        Integer[]parent = new Integer[numberofIntersections];
+        Integer[] parent = new Integer[numberofIntersections];
         for (int i = 0; i < numberofIntersections; i++) {
             distance[i] = INT_MAX;
             included[i] = false;
@@ -70,8 +71,14 @@ public class ShortestPath2 {
                 }
             }
         }
-        List<Integer> parents=Arrays.asList(parent);
-        return new Tuple<Integer, List<Integer>>(distance[finishPoint],parents);
+//        List<Integer> parents = Arrays.asList(parent);
+        List<Integer> parents = new ArrayList<>();
+        int intersectionId = finishPoint;
+        do{
+            parents.add(0, intersectionId);
+            intersectionId = parent[intersectionId];
+        } while (intersectionId != startPoint);
+        return new Tuple<Integer, List<Integer>>(distance[finishPoint], parents);
     }
 
     static boolean adjacent(int x, int y, List<Street> streets) {
@@ -115,7 +122,8 @@ public class ShortestPath2 {
 class Tuple<K, V> {
     public K first;
     public V second;
-    public Tuple(K first, V second){
+
+    public Tuple(K first, V second) {
         this.first = first;
         this.second = second;
     }
