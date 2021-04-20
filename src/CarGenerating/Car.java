@@ -1,6 +1,7 @@
 package CarGenerating;
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Random;
 import static CityGenerating.CityGenerator.city;
 import static CityGenerating.CityGenerator.generateCity;
@@ -44,7 +45,8 @@ public class Car implements Comparable<Car> {
     }
 
     public void setSpeed(int speed) {
-        this.speed = speed;
+        if(speed >= 0 && speed <= 150)
+            this.speed = speed;
     }
 
 
@@ -84,5 +86,20 @@ public class Car implements Comparable<Car> {
     @Override
     public int compareTo(Car o) {
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Car car = (Car) o;
+        return initialPosition == car.initialPosition && finalPosition == car.finalPosition && speed == car.speed && distance == car.distance && Arrays.equals(finalDestinationID, car.finalDestinationID);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(initialPosition, finalPosition, speed, distance);
+        result = 31 * result + Arrays.hashCode(finalDestinationID);
+        return result;
     }
 }

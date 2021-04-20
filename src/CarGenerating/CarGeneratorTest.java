@@ -8,5 +8,6 @@ class CarGeneratorTest {
 
     @Test
     void generate() {
+        //equals la car - modificari
     }
 }
