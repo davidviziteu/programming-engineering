@@ -1,6 +1,8 @@
 package CityGenerating;
+
 import CarGenerating.Car;
 import CarGenerating.CarGenerator;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,19 +11,20 @@ import java.util.Arrays;
 
 public class CityGenerator {
     public static City city;
-    public static void generateCity(){
-        ArrayList<Street> streets= new ArrayList<Street>();
-        ArrayList<Intersection> intersections= new ArrayList<Intersection>();
-        ArrayList<TrafficLights> trafficLights= new ArrayList<TrafficLights>();
-        ArrayList<Car> cars= new ArrayList<Car>();
-        intersections.add(new Intersection("Top1", new ArrayList<Integer>(Arrays.asList(2)),0,2,true));
-        intersections.add(new Intersection("Top2", new ArrayList<Integer>(Arrays.asList(4)),0,5,true));
-        intersections.add(new Intersection("Right1", new ArrayList<Integer>(Arrays.asList(5)),1,9,true));
-        intersections.add(new Intersection("Right2", new ArrayList<Integer>(Arrays.asList(10)),4,9,true));
-        intersections.add(new Intersection("Bottom1", new ArrayList<Integer>(Arrays.asList(11)),9,2,true));
-        intersections.add(new Intersection("Bottom2", new ArrayList<Integer>(Arrays.asList(12)),9,5,true));
-        intersections.add(new Intersection("Left1", new ArrayList<Integer>(Arrays.asList(1)),1,0,true));
-        intersections.add(new Intersection("Left2", new ArrayList<Integer>(Arrays.asList(8)),4,0,true));
+
+    public static void generateCity() {
+        ArrayList<Street> streets = new ArrayList<Street>();
+        ArrayList<Intersection> intersections = new ArrayList<Intersection>();
+        ArrayList<TrafficLights> trafficLights = new ArrayList<TrafficLights>();
+        ArrayList<Car> cars = new ArrayList<Car>();
+        intersections.add(new Intersection("Top1", new ArrayList<Integer>(Arrays.asList(2)), 0, 2, true));
+        intersections.add(new Intersection("Top2", new ArrayList<Integer>(Arrays.asList(4)), 0, 5, true));
+        intersections.add(new Intersection("Right1", new ArrayList<Integer>(Arrays.asList(5)), 1, 9, true));
+        intersections.add(new Intersection("Right2", new ArrayList<Integer>(Arrays.asList(10)), 4, 9, true));
+        intersections.add(new Intersection("Bottom1", new ArrayList<Integer>(Arrays.asList(11)), 9, 2, true));
+        intersections.add(new Intersection("Bottom2", new ArrayList<Integer>(Arrays.asList(12)), 9, 5, true));
+        intersections.add(new Intersection("Left1", new ArrayList<Integer>(Arrays.asList(1)), 1, 0, true));
+        intersections.add(new Intersection("Left2", new ArrayList<Integer>(Arrays.asList(8)), 4, 0, true));
         BufferedReader reader;
         try {
             reader = new BufferedReader(new FileReader("src/CityGenerating/inputIntersectii.txt"));
@@ -30,7 +33,7 @@ public class CityGenerator {
                 // read next line
                 String[] parts = line.split(" ");
                 ArrayList<Integer> strazi = new ArrayList<Integer>();
-                for(int i =2; i<= 5; i++){
+                for (int i = 2; i <= 5; i++) {
                     strazi.add(Integer.parseInt(parts[i]));
                 }
                 Intersection myIntersection = new Intersection(parts[0], strazi, Integer.parseInt(parts[6]), Integer.parseInt(parts[7]));
@@ -49,9 +52,9 @@ public class CityGenerator {
             while (line != null) {
                 // read next line
                 String[] parts = line.split(" ");
-                Street myStreet = new Street(parts[0], Integer.parseInt(parts[1]),Integer.parseInt(parts[2]),
+                Street myStreet = new Street(parts[0], Integer.parseInt(parts[1]), Integer.parseInt(parts[2]),
                         Integer.parseInt(parts[3]), Integer.parseInt(parts[4]), Integer.parseInt(parts[5]),
-                        Integer.parseInt(parts[6]));
+                        Integer.parseInt(parts[6]), Integer.parseInt(parts[7]), Integer.parseInt(parts[8]));
                 streets.add(myStreet);
                 line = reader.readLine();
             }
@@ -76,7 +79,7 @@ public class CityGenerator {
             e.printStackTrace();
         }
 
-        city= new City(streets,intersections,trafficLights,cars);
+        city = new City(streets, intersections, trafficLights, cars);
         CarGenerator carGenerator = new CarGenerator("Low");
         carGenerator.generate();
         city.setCars(carGenerator.cars);

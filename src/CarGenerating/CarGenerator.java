@@ -1,6 +1,7 @@
 package CarGenerating;
 
 import java.util.ArrayList;
+
 import static CityGenerating.CityGenerator.city;
 
 public class CarGenerator {
@@ -13,34 +14,34 @@ public class CarGenerator {
     private final double frequencyHigh = 0.6;
 
 
-    public void generate(){
+    public void generate() {
         //in functie de frecventa pe fiecare strada vor fi generate un numar de masini(strict <= capacitatea strazii)
 
-        if(this.frequency == "Low") {
+        if (this.frequency == "Low") {
             numberOfCars = (int) (frequencyLow * totalStreetsLength());
         }
-        if(this.frequency == "Medium") {
+        if (this.frequency == "Medium") {
             numberOfCars = (int) (frequencyMedium * totalStreetsLength());
         }
-        if(this.frequency == "High") {
+        if (this.frequency == "High") {
             numberOfCars = (int) (frequencyHigh * totalStreetsLength());
         }
 
-        for(int index = 0; index < numberOfCars; index++){
+        for (int index = 0; index < numberOfCars; index++) {
             cars.add(new Car());
-            city.getStreetByIndex(cars.get(index).getInitialPosition()).addCar(cars.get(index));
+            city.getStreetByIndex(cars.get(index).getInitialPosition()).addCar(cars.get(index), cars.get(index).getDirection());
         }
     }
 
     public CarGenerator(String frequency) {
-        cars=new ArrayList<Car>();
+        cars = new ArrayList<Car>();
         this.frequency = frequency;
     }
 
-    private int totalStreetsLength(){
+    private int totalStreetsLength() {
         int sum = 0;
 
-        for(int index = 0; index < city.getNrOfStreets(); index++){
+        for (int index = 0; index < city.getNrOfStreets(); index++) {
             sum += city.getStreetByIndex(index).getLength();
         }
         return sum;

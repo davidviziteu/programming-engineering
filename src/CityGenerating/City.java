@@ -90,17 +90,32 @@ public class City {
 
     public Street getStreetByIndex(int i) {
         return streets.get(i);
+    }
 
+    public Integer getStreetByCoordonates(int x, int y) {
+        for (int i = 0; i < streets.size(); i++) {
+            Street temp = streets.get(i);
+            if (temp.getDirection() == 1) {
+                if (x == temp.getPosX() && (y > temp.getPosY() && y < temp.getPosY() + temp.getLength())) {
+                    return i;
+                }
+            } else {
+                if (temp.getDirection() == -1) {
+                    if (y == temp.getPosY() && (x > temp.getPosX() && x < temp.getPosX() + temp.getLength())) {
+                        return i;
+                    }
+                }
+            }
+        }
+        return -1;
     }
 
     public Intersection getIntersectionByIndex(int i) {
         return intersections.get(i);
-
     }
 
     public TrafficLights getTLightsById(int i) {
         return trafficLights.get(i);
-
     }
 
     public ArrayList<Car> getCars() {

@@ -1,38 +1,41 @@
 package CityGenerating;
+
 import java.util.ArrayList;
 
 public class Intersection {
     private String name;
-    private ArrayList<Integer> streets= new ArrayList<Integer>();
+    private ArrayList<Integer> streets = new ArrayList<Integer>();
     private Integer posX;
     private Integer posY;
     private boolean canPark;
     //add an array of cars
 
-    Intersection(String nume, ArrayList<Integer> strazi){
-        name=nume;
-        streets=strazi;
-        canPark=false;
-    }
-    Intersection(String nume, ArrayList<Integer> strazi, Boolean park){
-        name=nume;
-        streets=strazi;
-        canPark=true;
+    Intersection(String nume, ArrayList<Integer> strazi) {
+        name = nume;
+        streets = strazi;
+        canPark = false;
     }
 
-    Intersection(String nume, ArrayList<Integer> strazi, Integer pozX, Integer pozY){
-        name=nume;
-        streets=strazi;
-        posX=pozX;
-        posY=pozY;
-        canPark=false;
+    Intersection(String nume, ArrayList<Integer> strazi, Boolean park) {
+        name = nume;
+        streets = strazi;
+        canPark = true;
     }
-    Intersection(String nume, ArrayList<Integer> strazi, Integer pozX, Integer pozY, Boolean park){
-        name=nume;
-        streets=strazi;
-        posX=pozX;
-        posY=pozY;
-        canPark=true;
+
+    Intersection(String nume, ArrayList<Integer> strazi, Integer pozX, Integer pozY) {
+        name = nume;
+        streets = strazi;
+        posX = pozX;
+        posY = pozY;
+        canPark = false;
+    }
+
+    Intersection(String nume, ArrayList<Integer> strazi, Integer pozX, Integer pozY, Boolean park) {
+        name = nume;
+        streets = strazi;
+        posX = pozX;
+        posY = pozY;
+        canPark = true;
     }
 
     public String getName() {
@@ -67,4 +70,18 @@ public class Intersection {
         this.posY = posY;
     }
 
+    public boolean isCanPark() {
+        return canPark;
+    }
+
+    @Override
+    public String toString() {
+        return "Intersection{" +
+                "name='" + name + '\'' +
+                ", streets=" + streets +
+                ", posX=" + posX +
+                ", posY=" + posY +
+                ", canPark=" + canPark +
+                '}';
+    }
 }

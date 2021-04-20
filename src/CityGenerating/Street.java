@@ -1,11 +1,18 @@
 package CityGenerating;
 
+import java.net.Inet4Address;
+import java.nio.channels.InterruptedByTimeoutException;
 import java.util.Queue;
+
 import CarGenerating.Car;
+
+import static CityGenerating.CityGenerator.city;
+
 import java.util.LinkedList;
 
 public class Street {
-    Queue < Pair< Integer, Car> > cars= new LinkedList<>();
+    Queue<Pair<Integer, Car>> cars = new LinkedList<>();
+    Queue<Pair<Integer, Car>> carsReversed = new LinkedList<>();
     private String name;
     private Integer intersectionSource;
     private Integer intersectionDestination;
@@ -13,23 +20,20 @@ public class Street {
     private Integer posX;
     private Integer posY;
     private Integer trafficLights;
+    private final Integer trafficLightsReversed;
+    private final Integer direction;
 
-    public Street(String nume, Integer idIntersectie1, Integer idIntersectie2, Integer lungime, Integer idSemafor){
-        name=nume;
-        intersectionSource=idIntersectie1;
-        intersectionDestination=idIntersectie2;
-        length=lungime;
-        trafficLights=idSemafor;
-    }
 
-    Street(String nume, Integer idIntersectie1, Integer idIntersectie2, Integer lungime, Integer idSemafor, Integer pozX, Integer pozY){
-        name=nume;
-        intersectionSource=idIntersectie1;
-        intersectionDestination=idIntersectie2;
-        length=lungime;
-        trafficLights=idSemafor;
-        posX=pozX;
-        posY=pozY;
+    public Street(String nume, Integer idIntersectie1, Integer idIntersectie2, Integer lungime, Integer idSemafor, Integer idSemaforReversed, Integer pozX, Integer pozY, Integer direction) {
+        name = nume;
+        intersectionSource = idIntersectie1;
+        intersectionDestination = idIntersectie2;
+        length = lungime;
+        trafficLights = idSemafor;
+        trafficLightsReversed = idSemaforReversed;
+        this.direction = direction;
+        posX = pozX;
+        posY = pozY;
     }
 
     public String getName() {
@@ -89,44 +93,97 @@ public class Street {
     }
 
     //methods
-    public void addCar(Car car){
-        cars.add(new Pair<>(cars.size()+1,car));
-        car.setDistance(cars.size());
-    }
-
-    public Integer getQueuePosition(){
-        return cars.size()+1;
-    }
-
-    public Queue<Pair<Integer, Car>> getCars() {
-        return cars;
-    }
-
-    public void removeCar(){
-        cars.poll();
-        Integer i=1;
-        for(Pair<Integer,Car> item : cars){
-            item.setKey(i);
-            item.getValue().setDistance(i);
-            i++;
+    public void addCar(Car car, Integer direction) {
+        if (direction == 1) {
+            if (cars.size() > length) {
+                System.out.println("Street" + name + "is full!");
+                return;
+            }
+            cars.add(new Pair<>(cars.size() + 1, car));
+            car.setDistance(cars.size());
+        } else {
+            if (carsReversed.size() > length) {
+                System.out.println("Street" + name + "is full!");
+                return;
+            }
+            carsReversed.add(new Pair<>(carsReversed.size() + 1, car));
+            car.setDistance(carsReversed.size());
         }
     }
 
-    public Car peekQueue(){
-        return cars.peek().getValue();
+    public Integer getQueuePosition(Integer direction) {
+        if (direction == 1) {
+            return cars.size() + 1;
+        }
+        return carsReversed.size() + 1;
+    }
+
+    public Queue<Pair<Integer, Car>> getCars(Integer direction) {
+        if (direction == 1)
+            return cars;
+        return carsReversed;
+    }
+
+    public Integer getDirection() {
+        return direction;
+    }
+
+    public void removeCar(Integer direction) {
+        if (direction == 1) {
+            if (cars.isEmpty()) {
+                System.out.println("The street " + name + "is empty!");
+                return;
+            }
+            cars.poll();
+            Integer i = 1;
+            for (Pair<Integer, Car> item : cars) {
+                item.setKey(i);
+                item.getValue().setDistance(i);
+                i++;
+            }
+        } else {
+            if (carsReversed.isEmpty()) {
+                System.out.println("The street " + name + "is empty!");
+                return;
+            }
+            carsReversed.poll();
+            Integer i = 1;
+            for (Pair<Integer, Car> item : carsReversed) {
+                item.setKey(i);
+                item.getValue().setDistance(i);
+                i++;
+            }
+        }
+    }
+
+    public Car peekQueue(Integer direction) {
+        if (direction == 1)
+            return cars.peek().getValue();
+        return carsReversed.peek().getValue();
+    }
+
+    public Integer getLane() {
+        if (city.getIntersectionByIndex(this.getIntersectionSource()).isCanPark())
+            return 1;
+        if (city.getIntersectionByIndex(this.getIntersectionDestination()).isCanPark())
+            return -1;
+        return 0;
     }
 
     @Override
     public String toString() {
         return "Street{" +
                 "cars=" + cars +
+                "carsReversed=" + carsReversed +
                 ", name='" + name + '\'' +
                 ", intersectionSource=" + intersectionSource +
                 ", intersectionDestination=" + intersectionDestination +
                 ", length=" + length +
                 ", posX=" + posX +
                 ", posY=" + posY +
+                ", direction=" + (direction.equals(1) ? "horizontal" : "vertical") +
                 ", trafficLights=" + trafficLights +
+                ", trafficLightsReversed=" + trafficLightsReversed +
                 '}';
     }
 }
