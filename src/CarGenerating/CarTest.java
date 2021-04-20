@@ -24,16 +24,26 @@ class CarTest {
     void getSpeed() {
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void getDistance() {
+        Car car = new Car();
+        car.setDistance(5);
+        if(car.getDistance()!=5)
+            fail("incorrect result");
+
     }
 
-    @Test
+    @org.junit.jupiter.api.Test
     void setDistance() {
+        Car car = new Car();
+        car.setDistance(5);
+        if(car.getDistance()!=5)
+            fail("incorrect result");
     }
 
     @Test
     void testSetInitialPosition() {
+
     }
 
     @Test
