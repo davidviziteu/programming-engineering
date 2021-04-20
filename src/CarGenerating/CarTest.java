@@ -34,6 +34,26 @@ class CarTest {
         car.setSpeed(50);
 
         Assert.assertEquals(50, car.getSpeed());
+    @org.junit.jupiter.api.Test
+    void getDistance() {
+        Car car = new Car();
+        car.setDistance(5);
+        if(car.getDistance()!=5)
+            fail("incorrect result");
+
+    }
+
+    @org.junit.jupiter.api.Test
+    void setDistance() {
+        Car car = new Car();
+        car.setDistance(5);
+        if(car.getDistance()!=5)
+            fail("incorrect result");
+    }
+
+    @Test
+    void testSetInitialPosition() {
+
     }
 
     @org.junit.jupiter.api.Test
