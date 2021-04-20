@@ -1,21 +1,23 @@
 package CarGenerating;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarTest {
 
-    @Test
-    void setInitialPosition() {
-    }
-
-    @Test
+    @org.junit.jupiter.api.Test
     void getInitialPosition() {
+        Car car = new Car();
+        car.setInitialPosition(1);
+        if(car.getInitialPosition() != 1)
+            fail("incorrect result!");
+        //assertEquals("Result",1,car.setInitialPosition(1));
     }
 
     @Test
     void getFinalPosition() {
+        
     }
 
     @Test

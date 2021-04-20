@@ -3,6 +3,7 @@ package CarGenerating;
 import java.util.Arrays;
 import java.util.Random;
 import static CityGenerating.CityGenerator.city;
+import static CityGenerating.CityGenerator.generateCity;
 
 public class Car implements Comparable<Car> {
     protected int initialPosition;
@@ -63,8 +64,10 @@ public class Car implements Comparable<Car> {
         }while(this.initialPosition == this.finalPosition);
 
         // A street has the maximum length 5.
+        if(CityGenerating.CityGenerator.city!=null){
         maximumLengthOfStreet = city.getStreetByIndex(initialPosition).getLength();
         this.distance=city.getStreetByIndex(this.initialPosition).getQueuePosition();
+        }
     }
 
     @Override
