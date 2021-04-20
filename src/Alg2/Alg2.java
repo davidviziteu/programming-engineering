@@ -28,43 +28,77 @@ public class Alg2 {
         City city = CityGenerator.city;
         Alg2 algorithm = new Alg2(city);
 
+        algorithm.run();
+    }
+
+    public void run() {
+        populate();
+        // selection
+        List<Street> bestChromosome = population.get(0);
+        double bestFitness = fitness(bestChromosome);
+        for (List<Street> chromosome : population) {
+            double currentFitness = fitness(chromosome);
+            if (currentFitness > bestFitness) {
+                bestChromosome = chromosome;
+                bestFitness = currentFitness;
+            }
+        }
+
+        int count = 0;
+        while (count < K_GENERATION_NUMBER) {
+            population = selection();
+
+            // mutation
+            for (int i = 0; i < population.size(); i++) {
+                Random random = new Random(System.currentTimeMillis());
+
+                double randNum = random.nextDouble();
+
+                if (randNum < K_MUTATION_CHANCE) {
+                    population.set(i, mutate(population.get(i)));
+                }
+            }
+            // cross-over
+            for (int i = 0; i < population.size() - 1; i = i + 2) {
+                Tuple<List<Street>, List<Street>> newPair = crossover(population.get(i),
+                        population.get(i + 1));
+                population.set(i, newPair.getFirst());
+                population.set(i + 1, newPair.getSecond());
+            }
+
+            for (List<Street> chromosome : population) {
+                double currentFitness = fitness(chromosome);
+                if (currentFitness > bestFitness) {
+                    bestChromosome = chromosome;
+                    bestFitness = currentFitness;
+                }
+            }
+            count++;
+        }
+
+        System.out.println("The solution is: ");
+        for (Street street : bestChromosome) {
+            System.out.println(street);
+        }
+    }
+
+    public void populate() {
+        population = new ArrayList<>();
         for (int i = 0; i < K_POP_SIZE; i++) {
-            List<Integer> ids = ShortestPath2.compute(algorithm.city.getStreets(),
-                    0, 3, algorithm.city.getStreets().size()).getSecond();
+            List<Integer> ids = ShortestPath2.compute(city.getStreets(),
+                    0, 3, city.getStreets().size()).getSecond();
 
             List<Street> chromosome = new ArrayList<>();
             for (Integer id : ids) {
                 chromosome.add(city.getStreetByIndex(id));
             }
 
-            algorithm.population.add(chromosome);
-        }
-
-        int count = 0;
-        while (count < K_GENERATION_NUMBER) {
-            algorithm.population = algorithm.selection();
-
-            for (int i = 0; i < algorithm.population.size(); i++) {
-                Random random = new Random(System.currentTimeMillis());
-
-                double randNum = random.nextDouble();
-
-                if (randNum < K_MUTATION_CHANCE) {
-                    algorithm.population.set(i, algorithm.mutate(algorithm.population.get(i)));
-                }
-            }
-
-            for (int i = 0; i < algorithm.population.size(); i = i + 2) {
-                Tuple<List<Street>, List<Street>> newPair = algorithm.crossover(algorithm.population.get(i),
-                        algorithm.population.get(i + 1));
-                algorithm.population.set(i, newPair.getFirst());
-                algorithm.population.set(i + 1, newPair.getSecond());
-            }
-            count++;
+            population.add(chromosome);
         }
     }
 
-    public double fitness(List<Street> chromosome, City city) {
+    public double fitness(List<Street> chromosome) {
+        // TODO: optimise; don't compute these arrays every time
         List<Street> streets = city.getStreets();
         int countTrafficLights = streets.size();
         int[] capacity = new int[countTrafficLights];
@@ -118,7 +152,7 @@ public class Alg2 {
 
         List<Integer> indexList = new ArrayList<>(indexSet);
 
-        indexList.sort(Comparator.comparingDouble(index -> fitness(population.get(index), city)));
+        indexList.sort(Comparator.comparingDouble(index -> fitness(population.get(index))));
 
         List<List<Street>> secondPopulation = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -139,19 +173,21 @@ public class Alg2 {
             secondIndex = random.nextInt(chromosome.size());
         } while (firstIndex + 1 >= secondIndex); // ignore adjacent streets
 
-        List<Street> newChromosome = new ArrayList<>();
-
         List<Street> visitedStreets = new ArrayList<>();
         visitedStreets.addAll(chromosome.subList(0, firstIndex));
         visitedStreets.addAll(chromosome.subList(secondIndex, chromosome.size() - 1));
 
-        newChromosome.addAll(chromosome.subList(0, firstIndex));
+        List<Street> newChromosome = new ArrayList<>(chromosome.subList(0, firstIndex));
 
-        newChromosome.addAll(createRandomPath(
+        List<Street> newPath = createRandomPath(
                 chromosome.get(firstIndex),
                 chromosome.get(secondIndex),
                 visitedStreets
-        ));
+        );
+
+        if (newPath != null) {
+            newChromosome.addAll(newPath);
+        }
 
         newChromosome.addAll(chromosome.subList(secondIndex, chromosome.size() - 1));
 
@@ -183,7 +219,7 @@ public class Alg2 {
                     stackStreets.push(street);
 
                     if (city.getIntersectionByIndex(street.getIntersectionDestination()) == finish) {
-                        return (List<Street>) new ArrayList(stackStreets);
+                        return (List<Street>) new ArrayList<>(stackStreets);
                     }
                     break;
                 }
@@ -204,10 +240,10 @@ public class Alg2 {
 
         Tuple<Integer, Integer> pair;
 
-        pair = findCommonNodeOfTwoChromosomes(parent1, parent2);
+        pair = findCommonGeneOfTwoChromosomes(parent1, parent2);
 
         // add left side of chromosome1 to chromosome1
-        for (int k = 0; k < pair.getFirst(); k++) {
+        for (int k = 0; k <= pair.getFirst(); k++) {
             chromosome1.add(parent1.get(k));
         }
 
@@ -217,7 +253,7 @@ public class Alg2 {
         }
 
         // add left side of chromosome2 to chromosome2
-        for (int k = 0; k < pair.getSecond(); k++) {
+        for (int k = 0; k <= pair.getSecond(); k++) {
             chromosome2.add(parent2.get(k));
         }
 
@@ -229,14 +265,15 @@ public class Alg2 {
         return new Tuple<>(chromosome1, chromosome2);
     }
 
-    public Tuple<Integer, Integer> findCommonNodeOfTwoChromosomes(List<Street> chromosome1, List<Street> chromosome2) {
+    public Tuple<Integer, Integer> findCommonGeneOfTwoChromosomes(List<Street> chromosome1, List<Street> chromosome2) {
         // random common vertex of 2 chromosomes
         List<Street> commonStreets = new ArrayList<>();
         Tuple<Integer, Integer> pair = new Tuple<Integer, Integer>();
         // get the common streets of our 2 chromosomes
         for (Street street1 : chromosome1) {
             for (Street street2 : chromosome2) {
-                if (street1 == street2) {
+                if (street1.getIntersectionDestination().equals(street2.getIntersectionDestination()) &&
+                        street1.getIntersectionSource().equals(street2.getIntersectionSource())) {
                     commonStreets.add(street1);
                 }
             }
