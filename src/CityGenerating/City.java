@@ -96,12 +96,12 @@ public class City {
         for (int i = 0; i < streets.size(); i++) {
             Street temp = streets.get(i);
             if (temp.getDirection() == 1) {
-                if (x == temp.getPosX() && (y > temp.getPosY() && y < temp.getPosY() + temp.getLength())) {
+                if (x == temp.getPosX() && (y >= temp.getPosY() && y < temp.getPosY() + temp.getLength())) {
                     return i;
                 }
             } else {
                 if (temp.getDirection() == -1) {
-                    if (y == temp.getPosY() && (x > temp.getPosX() && x < temp.getPosX() + temp.getLength())) {
+                    if (y == temp.getPosY() && (x >= temp.getPosX() && x < temp.getPosX() + temp.getLength())) {
                         return i;
                     }
                 }
