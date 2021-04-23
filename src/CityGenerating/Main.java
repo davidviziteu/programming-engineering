@@ -1,12 +1,31 @@
 package CityGenerating;
-
+import GraphicsModule.Graphics;
+import javafx.application.Application;
+import javafx.scene.Scene;
 import CarGenerating.Car;
 import CarGenerating.CarGenerator;
+import javafx.stage.Stage;
 
 import java.util.Scanner;
 
-public class Main {
+public class Main extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+
+        CityGenerator.generateCity();
+        Graphics ourCity = new Graphics();
+        ourCity.addUserPane();
+        ourCity.drawTrafficLights();
+        Scene scene = new Scene(ourCity.window, 1000, 600);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        ourCity.printStreets();
+
+    }
+
     public static void main(String[] args) {
+        launch(args);
         CityGenerator.generateCity();
         Street temp;
         for (int i = 0; i < CityGenerator.city.getNrOfStreets(); i++) {
