@@ -11,8 +11,8 @@ public class Car implements Comparable<Car> {
     protected int currentPosition; //INDEX-ul unei strazi (pe poza strazile incep de la 1, in cod incep de la 0)
     protected int finalPosition; //ID-ul unei intersectii
     protected int speed;
-    protected int distance;
-    protected int direction;
+    protected int distance; //offset ul fata de intersectie. dar daca se spawneaza direct in queue... atunci idk pare useless
+    protected int direction; // 1 pt normal, 0 pt reversed
     protected List<Integer> shortestPath;
     protected int shortestPathTime;
     protected int shortestPathDistance;

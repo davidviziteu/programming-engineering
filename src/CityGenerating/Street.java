@@ -13,7 +13,7 @@ public class Street {
     private String name;
     private Integer intersectionSource;
     private Integer intersectionDestination;
-    private Integer length;
+    private Integer length; //capacitatea unei strazi (ambele sensuri au aceeasi capacitate)
     private Integer posX;
     private Integer posY;
     private Integer trafficLights;

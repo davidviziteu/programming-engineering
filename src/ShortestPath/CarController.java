@@ -111,7 +111,7 @@ public class CarController extends Thread {
                     tryMoveFirstCar(st.getCars(), st.getIntersectionDestination());
                     tryMoveFirstCar(st.getCarsReversed(), st.getIntersectionSource());
                 }
-                sleep(0); //
+                sleep(0);
             }
             System.out.println("all streets are empty now");
         } catch (InterruptedException e) {
