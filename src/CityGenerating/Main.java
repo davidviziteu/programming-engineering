@@ -3,7 +3,6 @@ import GraphicsModule.Graphics;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import CarGenerating.Car;
-import CarGenerating.CarGenerator;
 import javafx.stage.Stage;
 
 import java.util.Scanner;
@@ -39,7 +38,7 @@ public class Main extends Application {
         }
 
         for (Car temp3 : CityGenerator.city.getCars()) {
-            System.out.println("Street: " + temp3.getInitialPosition() + "          Position: " + temp3.getDistance());
+            System.out.println("Street: " + temp3.getCurrentPosition() + "          Position: " + temp3.getDistance());
         }
 
         System.out.println("Strada de la coordonatele 4,7 " + CityGenerator.city.getStreetByIndex(CityGenerator.city.getStreetByCoordonates(4, 7)).getName());
@@ -54,7 +53,7 @@ public class Main extends Application {
         CityGenerator.city.getStreetByIndex(index).addCar(carTemporar, Math.random() < 0.5 ? -1 : 1);
         scan.close();
         for (Car temp3 : CityGenerator.city.getCars()) {
-            System.out.println("Street: " + temp3.getInitialPosition() + "          Position: " + temp3.getDistance());
+            System.out.println("Street: " + temp3.getCurrentPosition() + "          Position: " + temp3.getDistance());
         }
     }
 }

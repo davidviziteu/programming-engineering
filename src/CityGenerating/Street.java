@@ -1,14 +1,11 @@
 package CityGenerating;
 
-import java.net.Inet4Address;
-import java.nio.channels.InterruptedByTimeoutException;
-import java.util.Queue;
-
 import CarGenerating.Car;
 
-import static CityGenerating.CityGenerator.city;
-
 import java.util.LinkedList;
+import java.util.Queue;
+
+import static CityGenerating.CityGenerator.city;
 
 public class Street {
     Queue<Pair<Integer, Car>> cars = new LinkedList<>();
@@ -23,6 +20,13 @@ public class Street {
     private final Integer trafficLightsReversed;
     private final Integer direction;
 
+    public Queue<Pair<Integer, Car>> getCars() {
+        return cars;
+    }
+
+    public Queue<Pair<Integer, Car>> getCarsReversed() {
+        return carsReversed;
+    }
 
     public Street(String nume, Integer idIntersectie1, Integer idIntersectie2, Integer lungime, Integer idSemafor, Integer idSemaforReversed, Integer pozX, Integer pozY, Integer direction) {
         name = nume;

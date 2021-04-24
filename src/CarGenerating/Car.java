@@ -1,27 +1,58 @@
 package CarGenerating;
 
-import CityGenerating.City;
-
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
 import static CityGenerating.CityGenerator.city;
-import static CityGenerating.CityGenerator.generateCity;
 
 public class Car implements Comparable<Car> {
-    protected int initialPosition;
-    protected int finalPosition;
+    protected int currentPosition; //INDEX-ul unei strazi (pe poza strazile incep de la 1, in cod incep de la 0)
+    protected int finalPosition; //ID-ul unei intersectii
     protected int speed;
     protected int distance;
     protected int direction;
+    protected List<Integer> shortestPath;
+    protected int shortestPathTime;
+    protected int shortestPathDistance;
+
+
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
+    public int getShortestPathDistance() {
+        return shortestPathDistance;
+    }
+
+    public void setShortestPathDistance(int shortestPathDistance) {
+        this.shortestPathDistance = shortestPathDistance;
+    }
+
+    public List<Integer> getShortestPath() {
+        return shortestPath;
+    }
+
+    public void setShortestPath(List<Integer> shortestPath) {
+        this.shortestPath = shortestPath;
+    }
+
+    public int getShortestPathTime() {
+        return shortestPathTime;
+    }
+
+    public void setShortestPathTime(int shortestPathTime) {
+        this.shortestPathTime = shortestPathTime;
+    }
+
 
     // These numbers represent the IDs of the final streets.
     protected final int[] finalDestinationID = {0, 1, 2, 3, 4, 5, 6, 7};
 
 
-    public int getInitialPosition() {
-        return initialPosition;
+    public int getCurrentPosition() {
+        return currentPosition;
     }
 
     public int getFinalPosition() {
@@ -40,8 +71,8 @@ public class Car implements Comparable<Car> {
         this.distance = distance;
     }
 
-    public void setInitialPosition(int initialPosition) {
-        this.initialPosition = initialPosition;
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
     }
 
     public void setFinalPosition(int finalPosition) {
@@ -61,7 +92,7 @@ public class Car implements Comparable<Car> {
         this.speed = 0;
         Random rand = new Random();
         // There are only 23 streets.
-        this.initialPosition = rand.nextInt(12);
+        this.currentPosition = rand.nextInt(12);
         int index;
         int maximumLengthOfStreet;
 
@@ -69,8 +100,8 @@ public class Car implements Comparable<Car> {
         do {
             index = rand.nextInt(8);
             this.finalPosition = finalDestinationID[index];
-        } while (this.initialPosition == this.finalPosition);
-        Integer directionOption = city.getStreetByIndex(this.initialPosition).getLane();
+        } while (this.currentPosition == this.finalPosition);
+        Integer directionOption = city.getStreetByIndex(this.currentPosition).getLane();
         switch (directionOption) {
             case 1:
                 this.direction = 1;
@@ -85,19 +116,22 @@ public class Car implements Comparable<Car> {
 
         // A street has the maximum length 5.
         if (CityGenerating.CityGenerator.city != null) {
-            maximumLengthOfStreet = city.getStreetByIndex(initialPosition).getLength();
-            this.distance = city.getStreetByIndex(this.initialPosition).getQueuePosition(this.direction);
+            maximumLengthOfStreet = city.getStreetByIndex(currentPosition).getLength();
+            this.distance = city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction);
         }
     }
 
     @Override
     public String toString() {
         return "Car{" +
-                "initialPosition=" + initialPosition +
+                "currentPositionStreetIdx=" + currentPosition +
                 ", finalPosition=" + finalPosition +
                 ", speed=" + speed +
                 ", distance=" + distance +
-                ", finalDestinationID=" + Arrays.toString(finalDestinationID) +
+                ", direction=" + direction +
+                ", shortestPath=" + shortestPath +
+                ", shortestPathTime=" + shortestPathTime +
+                ", shortestPathDistance=" + shortestPathDistance +
                 '}';
     }
 
@@ -111,12 +145,12 @@ public class Car implements Comparable<Car> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return initialPosition == car.initialPosition && finalPosition == car.finalPosition && speed == car.speed && distance == car.distance && Arrays.equals(finalDestinationID, car.finalDestinationID);
+        return currentPosition == car.currentPosition && finalPosition == car.finalPosition && speed == car.speed && distance == car.distance && Arrays.equals(finalDestinationID, car.finalDestinationID);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(initialPosition, finalPosition, speed, distance);
+        int result = Objects.hash(currentPosition, finalPosition, speed, distance);
         result = 31 * result + Arrays.hashCode(finalDestinationID);
         return result;
     }

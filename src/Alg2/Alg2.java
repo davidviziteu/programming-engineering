@@ -112,8 +112,8 @@ public class Alg2 {
             // TODO: add getCapacity, return street capacity considering "average" car size
             capacity[street.getIntersectionDestination()] += street.getLength() / K_CAR_SIZE;
 //            capacity[street.getIntersectionSource()] += street.getLength() / K_CAR_SIZE;
-
-            load[street.getIntersectionDestination()] += street.getCars().size();
+// AM COMENTAT EU ASTA CA SA COMPLIEZE\/
+//            load[street.getIntersectionDestination()] += street.getCars().size();
 //            load[street.getIntersectionSource()] += street.getCars().size();
         }
 

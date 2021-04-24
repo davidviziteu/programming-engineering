@@ -1,11 +1,12 @@
 package ShortestPath;
 
-import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.Intersection;
 import CityGenerating.Street;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class ShortestPath2 {
     private static final int INT_MAX = 100000;
@@ -41,6 +42,8 @@ public class ShortestPath2 {
         }
         return index;
     }
+
+
 
     //dijkstra
     static public Tuple<Integer, List<Integer>> compute(List<Street> streets, int startPoint, int finishPoint, int numberofIntersections) {
@@ -79,6 +82,10 @@ public class ShortestPath2 {
         }
         return new Tuple<Integer, List<Integer>>(distance[finishPoint], parents);
     }
+    static int getTime(int length, int speed){
+        return (length*speed/60);
+    }
+
 
     static boolean adjacent(int x, int y, List<Street> streets) {
 
@@ -153,6 +160,24 @@ public class ShortestPath2 {
                 cityInstance.getIntersectionByIndex(10),
                 cityInstance.getIntersectionByIndex(9)
         );
-        System.out.println(res.toString());
+//        System.out.println(res.toString(
     }
 }
+
+//class Tuple<K, V> {
+//    public K first;
+//    public V second;
+//
+//    public Tuple(K first, V second) {
+//        this.first = first;
+//        this.second = second;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "Tuple{" +
+//                "first=" + first +
+//                ", second=" + second.toString() +
+//                '}';
+//    }
+//}
