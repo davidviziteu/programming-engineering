@@ -1,4 +1,4 @@
-package ShortestPath;
+package AnimationLogic;
 
 import CarGenerating.Car;
 import CityGenerating.Pair;

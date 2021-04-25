@@ -1,8 +1,9 @@
-package ShortestPath;
+package AnimationLogic;
 
 import CityGenerating.CityGenerator;
+import ShortestPath.ShortestPath2;
 
-public class ThreadController {
+public class MasterThread {
 
     static private void computeShortestPathForAllCars(){
         CityGenerator.generateCity();
