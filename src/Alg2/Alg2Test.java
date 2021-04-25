@@ -1,5 +1,9 @@
 package Alg2;
 
+import org.junit.Assert;
+import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.Street;
@@ -7,7 +11,6 @@ import CityGenerating.Street;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class Alg2Test {
 

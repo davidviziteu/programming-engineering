@@ -111,10 +111,10 @@ public class Alg2 {
         for (Street street : streets) {
             // TODO: add getCapacity, return street capacity considering "average" car size
             capacity[street.getIntersectionDestination()] += street.getLength() / K_CAR_SIZE;
-           capacity[street.getIntersectionSource()] += street.getLength() / K_CAR_SIZE;
+            capacity[street.getIntersectionSource()] += street.getLength() / K_CAR_SIZE;
 
             load[street.getIntersectionDestination()] += street.getCars().size();
-            load[street.getIntersectionSource()] += street.getCars().size();
+            load[street.getIntersectionSource()] += street.getCarsReversed().size();
         }
 
         float[] loadDensity = new float[countTrafficLights];
