@@ -1,41 +1,14 @@
 package AnimationLogic;
 
 import CityGenerating.CityGenerator;
-import ShortestPath.ShortestPath2;
+import static AnimationLogic.Utilities.*;
+
 
 public class MasterThread {
-
-    static private void computeShortestPathForAllCars(){
-        CityGenerator.generateCity();
-        var city = CityGenerator.city;
-        for(var st : city.getStreets()){
-            for(var qElement : st.getCars()){
-                var car = qElement.getValue();
-                var shPathResult = ShortestPath2.compute(
-                        city.getStreets(),
-                        st.getIntersectionDestination(),
-                        car.getFinalPosition(),
-                        city.getNrOfIntersections()
-                );
-                car.setShortestPath(shPathResult.getSecond());
-                car.setShortestPathDistance(shPathResult.getFirst() + car.getDistance());
-            }
-            for(var qElement : st.getCarsReversed()){
-                var car = qElement.getValue();
-                var shPathResult = ShortestPath2.compute(
-                        city.getStreets(),
-                        st.getIntersectionSource(),
-                        qElement.getValue().getFinalPosition(),
-                        city.getNrOfIntersections()
-                );
-                car.setShortestPath(shPathResult.getSecond());
-                car.setShortestPathDistance(shPathResult.getFirst() + car.getDistance());
-            }
-        }
-    }
-
     public static void main(String[] args) {
+        CityGenerator.generateCity();
         computeShortestPathForAllCars();
+        correctDistanceOfAllCars();
         var carsControllerInstance = new CarController();
         var semaphoreControllerInstance = new SemaphoreController();
         var threadController1 = new Thread(carsControllerInstance);

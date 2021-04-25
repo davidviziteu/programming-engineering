@@ -10,6 +10,7 @@ import java.util.Queue;
 import static CityGenerating.CityGenerator.city;
 
 public class CarController extends Thread {
+    static boolean isRunning = false;
 
     /**
      * @return true daca mai exista macar o masina pe harta, false altfel
@@ -26,12 +27,38 @@ public class CarController extends Thread {
 
     /**
      * vede daca o intersectie este din aia finala
-     *
-     * @param id
-     * @return
      */
     static boolean isFinalIntersection(int id) {
         return id >= 0 && id <= 7;
+    }
+
+    /**
+     * momentan fac teste cu functia asta
+     *
+     * @param car          pt a vedea daca masina a ajuns "aproape de intersectie" aka sa nu sara de pe o strada pe alta
+     * @param to           coada unei strazi unde masina ar trebui / vrea sa ajunga
+     * @param capacity     pt a verifica daca masina mai are loc efectiv pe strada pe care ar trebui / vrea sa ajunga
+     * @param intersection intersectia prin care trebuie sa treaca masina pt a ajunge pe destinationStreet.
+     *                     cred ca avem nevoie de asta pt atunci cand o sa mearga semafoarele. momentan nu e folosit
+     * @return true, false daca toate condiile sunt indeplinite
+     */
+    static public boolean carCanBeMoved(Car car, Queue<Pair<Integer, Car>> to, int capacity, int intersection) {
+        if (to.size() + 1 > capacity) //poate trebuie >= ??
+            return false; //masina nu mai are loc pe sensul unde vrea sa se duca
+
+        if (CarAnimator.isRunning) {
+            CarAnimator.lock.lock();
+            try {
+                if (car.getDistance() != 0)
+                    return false; //masina inca nu a ajuns la "capatul" strazii (poate de abia a intrat pe strada)
+            } finally {
+                CarAnimator.lock.unlock();
+            }
+        }
+
+        //if(intersection.semaphoreIsRed) return false; //@TODO
+
+        return true;
     }
 
     /**
@@ -50,6 +77,7 @@ public class CarController extends Thread {
             return;
         }
         var car = streetQueue.peek().getValue();
+        var carId = streetQueue.peek().getKey();
         Integer destinationIntersectionId;
         try {
             destinationIntersectionId = car.getShortestPath().get(0);
@@ -65,13 +93,13 @@ public class CarController extends Thread {
                     && nextStreet.getIntersectionDestination() == destinationIntersectionId) {
                 //daca codul intra pe if ul asta, inseamna ca masina tre sa ajunga pe sensul "normal" al urmatoarei strazi
                 //pe care tre sa ajunga pt a ajunge la intersectia destinatie
-                if (nextStreet.getCars().size() + 1 <= nextStreet.getLength()) {
+                if (carCanBeMoved(car, nextStreet.getCars(), nextStreet.getLength(), nextStreet.getIntersectionSource())) {
                     //sectiune in care s ar putea sa apara bug uri cand legam cu grafica. tre vazut cum facem un lock aici
                     car.getShortestPath().remove(0);
                     car.setCurrentPosition(i);
                     car.setDirection(1);
                     nextStreet.getCars().add(new Pair<>(
-                            nextStreet.getCars().size(),
+                            carId,
                             car
                     ));
                     streetQueue.remove();
@@ -82,13 +110,14 @@ public class CarController extends Thread {
                     && nextStreet.getIntersectionDestination() == currentIntersectionId) {
                 //daca codul intra pe if ul asta, inseamna ca masina tre sa ajunga pe sensul "reversed" al urmatoarei strazi
                 //pe care tre sa ajunga pt a ajunge la intersectia destinatie
-                if (nextStreet.getCarsReversed().size() + 1 <= nextStreet.getLength()) {
+                if (carCanBeMoved(car, nextStreet.getCarsReversed(), nextStreet.getLength(), nextStreet.getIntersectionDestination())) {
+//                    if (car.getDistance() == 0 && nextStreet.getCarsReversed().size() + 1 <= nextStreet.getLength()) {
                     //sectiune in care s ar putea sa apara bug uri cand legam cu grafica. tre vazut cum facem un lock aici
                     car.getShortestPath().remove(0);
                     car.setCurrentPosition(i);
                     car.setDirection(-1);
                     nextStreet.getCarsReversed().add(new Pair<>(
-                            nextStreet.getCarsReversed().size(),
+                            carId,
                             car
                     ));
                     streetQueue.remove();
@@ -104,6 +133,13 @@ public class CarController extends Thread {
 
     @Override
     public void run() {
+        synchronized (this) {
+            //sper ca merge codul asta
+            if (isRunning) {
+                System.err.println("deja ai pornit un thread care muta masinile pe harta, nu mai poti porni inca unul");
+                return;
+            } else isRunning = true;
+        }
         try {
             System.out.println("start thread");
             while (existsACarOnStreets()) {
