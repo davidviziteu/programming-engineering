@@ -145,13 +145,12 @@ public class Car implements Comparable<Car> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return currentPosition == car.currentPosition && finalPosition == car.finalPosition && speed == car.speed && distance == car.distance && Arrays.equals(finalDestinationID, car.finalDestinationID);
+        return currentPosition == car.currentPosition && finalPosition == car.finalPosition && distance == car.distance;
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(currentPosition, finalPosition, speed, distance);
-        result = 31 * result + Arrays.hashCode(finalDestinationID);
+        int result = Objects.hash(currentPosition, finalPosition, distance);
         return result;
     }
 }

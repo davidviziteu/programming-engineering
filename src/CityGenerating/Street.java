@@ -3,6 +3,7 @@ package CityGenerating;
 import CarGenerating.Car;
 
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
 
 import static CityGenerating.CityGenerator.city;
@@ -189,5 +190,18 @@ public class Street {
                 ", trafficLights=" + trafficLights +
                 ", trafficLightsReversed=" + trafficLightsReversed +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Street street = (Street) o;
+        return Objects.equals(intersectionSource, street.intersectionSource) && Objects.equals(intersectionDestination, street.intersectionDestination);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(intersectionSource, intersectionDestination);
     }
 }
