@@ -29,6 +29,7 @@ public class CarGenerator {
 
         for (int index = 0; index < numberOfCars; index++) {
             cars.add(new Car());
+            // TODO: TODO(@cars): VERIFICATI DACA INCAPE MASINA PE STRADA SI DACA NU SE SUPRAPUNE CU ALTA
             city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
         }
     }
