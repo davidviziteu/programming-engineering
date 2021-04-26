@@ -33,7 +33,9 @@ public class City {
         nrOfStreets = strazi.size();
         nrOfIntersections = intersectii.size();
     }
-
+    public ArrayList<TrafficLights> getTrafficLights() {
+        return trafficLights;
+    }
 
     public ArrayList<Street> getStreets() {
         return streets;
