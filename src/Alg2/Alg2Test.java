@@ -6,9 +6,7 @@ import CityGenerating.CityGenerator;
 import CityGenerating.Street;
 import ShortestPath.Tuple;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -82,12 +80,15 @@ class Alg2Test {
         List<List<Street>> firstPopulation = algorithm.getPopulation();
 
         List<List<Street>> secondPopulation = algorithm.selection();
+        Set<List<Street>> set = new HashSet<>();
 
         for (List<Street> chromosomeAfterSelection : secondPopulation) {
-            // assert daca cromozomul se afla in populatia initiala
-
+            assert(firstPopulation.contains(chromosomeAfterSelection));
+            if(set.size() < 3) {
+                set.add(chromosomeAfterSelection);
+            }
         }
-        // assert daca sunt cel putin 2 cromozomi diferiti dupa selectie (set cu hash-uri pe lista or something)
+        assert(set.size() == 2);
     }
 
     @org.junit.jupiter.api.Test

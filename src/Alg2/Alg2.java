@@ -218,7 +218,6 @@ public class Alg2 {
 
         System.out.println(stackIntersections.size());
         while (stackIntersections.size() > 0) {
-            System.out.println("intru");
             Intersection intersection = stackIntersections.peek();
             int index = stackIndex.peek();
 
