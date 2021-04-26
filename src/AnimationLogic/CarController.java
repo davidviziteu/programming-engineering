@@ -7,22 +7,18 @@ import CityGenerating.Street;
 import java.util.ArrayList;
 import java.util.Queue;
 
+import static AnimationLogic.Miscellaneous.Utilities.existsACarOnStreets;
 import static CityGenerating.CityGenerator.city;
 
 public class CarController extends Thread {
-    static boolean isRunning = false;
+
+    static private boolean running = false;
 
     /**
-     * @return true daca mai exista macar o masina pe harta, false altfel
+     * @return true daca thread ul merge. false otherwise
      */
-    static boolean existsACarOnStreets() {
-        for (var st : city.getStreets()) {
-            if (!st.getCarsReversed().isEmpty())
-                return true;
-            if (!st.getCars().isEmpty())
-                return true;
-        }
-        return false;
+    public static boolean isRunning() {
+        return running;
     }
 
     /**
@@ -46,13 +42,13 @@ public class CarController extends Thread {
         if (to.size() + 1 > capacity) //poate trebuie >= ??
             return false; //masina nu mai are loc pe sensul unde vrea sa se duca
 
-        if (CarAnimator.isRunning) {
-            CarAnimator.lock.lock();
+        if (CarAnimator.isRunning()) {
+            CarAnimator.rwLock.readLock().lock();
             try {
                 if (car.getDistance() != 0)
                     return false; //masina inca nu a ajuns la "capatul" strazii (poate de abia a intrat pe strada)
             } finally {
-                CarAnimator.lock.unlock();
+                CarAnimator.rwLock.readLock().unlock();
             }
         }
 
@@ -72,6 +68,16 @@ public class CarController extends Thread {
 
         if (streetQueue.peek() == null) return;
         if (isFinalIntersection(currentIntersectionId)) {
+            var car = streetQueue.peek().getValue();
+            if (CarAnimator.isRunning()) {
+                CarAnimator.rwLock.readLock().lock();
+                try {
+                    if (car.getDistance() != 0)
+                        return; //masina nu a ajuns la capatul strazii deci n am ce i face acum
+                } finally {
+                    CarAnimator.rwLock.readLock().unlock();
+                }
+            }
             System.out.println("car that has arrived at destination[" + currentIntersectionId + "]:" + streetQueue.peek().getValue());
             city.getCars().remove(streetQueue.remove().getValue());
             return;
@@ -98,6 +104,7 @@ public class CarController extends Thread {
                     car.getShortestPath().remove(0);
                     car.setCurrentPosition(i);
                     car.setDirection(1);
+                    car.setDistance(nextStreet.getLength());
                     nextStreet.getCars().add(new Pair<>(
                             carId,
                             car
@@ -116,6 +123,7 @@ public class CarController extends Thread {
                     car.getShortestPath().remove(0);
                     car.setCurrentPosition(i);
                     car.setDirection(-1);
+                    car.setDistance(nextStreet.getLength());
                     nextStreet.getCarsReversed().add(new Pair<>(
                             carId,
                             car
@@ -135,10 +143,10 @@ public class CarController extends Thread {
     public void run() {
         synchronized (this) {
             //sper ca merge codul asta
-            if (isRunning) {
+            if (running) {
                 System.err.println("deja ai pornit un thread care muta masinile pe harta, nu mai poti porni inca unul");
                 return;
-            } else isRunning = true;
+            } else running = true;
         }
         try {
             System.out.println("start thread");

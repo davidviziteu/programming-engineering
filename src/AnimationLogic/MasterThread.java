@@ -1,7 +1,9 @@
 package AnimationLogic;
 
+import AnimationLogic.Miscellaneous.CarFollower;
 import CityGenerating.CityGenerator;
-import static AnimationLogic.Utilities.*;
+
+import static AnimationLogic.Miscellaneous.Utilities.*;
 
 
 public class MasterThread {
@@ -9,15 +11,28 @@ public class MasterThread {
         CityGenerator.generateCity();
         computeShortestPathForAllCars();
         correctDistanceOfAllCars();
+        setAllCarsSpeed(1); //1 patratel pe secunda. pls nu pune ceva negativ nush ce se intampla
         var carsControllerInstance = new CarController();
+        var carsControllerThread = new Thread(carsControllerInstance);
+
+        var carAnimatorInstance = new CarAnimator();
+        var carAnimatorThread = new Thread(carAnimatorInstance);
+
         var semaphoreControllerInstance = new SemaphoreController();
-        var threadController1 = new Thread(carsControllerInstance);
-        var threadController2 = new Thread(semaphoreControllerInstance);
-        threadController1.start();
-        threadController2.start();
+        var semaphoreControllerThread = new Thread(semaphoreControllerInstance);
+
+        var CarFollower1 = new CarFollower(0, "0");
+        var Follower1Thread = new Thread(CarFollower1);
+
+        carsControllerThread.start();
+        semaphoreControllerThread.start();
+        carAnimatorThread.start();
+        Follower1Thread.start();
         try {
-            threadController1.join();
-            threadController2.join();
+            carsControllerThread.join();
+            semaphoreControllerThread.join();
+            carAnimatorThread.join();
+            Follower1Thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

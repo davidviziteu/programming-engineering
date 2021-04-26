@@ -1,4 +1,4 @@
-package AnimationLogic;
+package AnimationLogic.Miscellaneous;
 
 import CarGenerating.Car;
 import CityGenerating.Pair;
@@ -49,6 +49,7 @@ public class Utilities {
     /**
      * noi avem pt fiecare sens un Queue<Pair<Integer, Car>>
      * car.distance va fi offset ul fata de indexul 0 al cozii din care face parte
+     * tre executat doar la inceput
      */
     public static void correctDistanceOfAllCars() {
         for (var st : city.getStreets()) {
@@ -65,6 +66,19 @@ public class Utilities {
                 else pair.getValue().setDistance(offset);
             });
         }
+    }
+
+    /**
+     * @return true daca mai exista macar o masina pe harta, false altfel
+     */
+    public static boolean existsACarOnStreets() {
+        for (var st : city.getStreets()) {
+            if (!st.getCarsReversed().isEmpty())
+                return true;
+            if (!st.getCars().isEmpty())
+                return true;
+        }
+        return false;
     }
 
     public static void setAllCarsSpeed(int squaresPerSecond){

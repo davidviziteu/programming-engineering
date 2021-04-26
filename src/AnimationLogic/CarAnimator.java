@@ -1,29 +1,86 @@
 package AnimationLogic;
 
-import CityGenerating.Street;
+import AnimationLogic.Miscellaneous.CarFollower;
+import AnimationLogic.Miscellaneous.ConsoleColors;
+import AnimationLogic.Miscellaneous.Utilities;
+import CarGenerating.Car;
+import CityGenerating.Pair;
 
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.Queue;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import static AnimationLogic.Miscellaneous.Utilities.existsACarOnStreets;
+import static CityGenerating.CityGenerator.city;
 
 /**
- * face masinile sa mearga patratel cu patratel pe harta
+ * face masinile sa mearga patratel cu patratel pe harta in functie de viteza
  */
 public class CarAnimator extends Thread {
-    static public boolean isRunning = false;
-    static public ReentrantLock lock = new ReentrantLock();
-
-
-    static public void updateStreetQueues(Street st){
-
+    public static boolean isRunning() {
+        return running;
     }
-    CarAnimator() {}
+
+    static private boolean running = false;
+    static public ReadWriteLock rwLock = new ReentrantReadWriteLock();
+    static public int carToFollow = -1; //for debugging
+    static private int carSpeed;
+
+    /**
+     * e 1:28 AM, nu mi vin cuvinte ca sa descriu ce face functia asta da stiu ca trebuie si ca merge bine
+     * poate fi pusa pe mai multe thread uri tho
+     *
+     * @param q
+     */
+    static public void updateStreetQueue(Queue<Pair<Integer, Car>> q) {
+        rwLock.writeLock().lock();
+        try {
+            q.stream().forEachOrdered(pair -> {
+                var currentOffset = pair.getValue().getDistance();
+                if (currentOffset != Utilities.getIndexOfCarInQueue(q, pair.getValue()))
+                    pair.getValue().setDistance(--currentOffset);
+            });
+        } finally {
+            rwLock.writeLock().unlock();
+        }
+    }
+
+    CarAnimator() {
+        carSpeed = city.getCars().get(0).getSpeed();
+        if (carSpeed == 0)
+            System.out.println(ConsoleColors.RED_BOLD + "Car speed set to 0 => they are moving as fast as possible" + ConsoleColors.RESET);
+    }
+
     @Override
     public void run() {
         synchronized (this) {
             //sper ca merge codul asta
-            if (isRunning) {
+            if (running) {
                 System.err.println("deja ai pornit un thread care animeaza masinile pe harta, nu mai poti porni inca unul");
                 return;
-            } else isRunning = true;
+            } else running = true;
+        }
+        try {
+            System.out.println("started animator thread");
+            while (existsACarOnStreets()) {
+                for (var st : city.getStreets()) {
+                    updateStreetQueue(st.getCars());
+                    updateStreetQueue(st.getCarsReversed());
+                }
+                synchronized (CarFollower.pool.get(0)) {
+                    CarFollower.pool.get(0).notify();
+                }
+                sleep(1000 / carSpeed);
+            }
+            if (CarFollower.pool.size() > 0) {
+                synchronized (CarFollower.pool.get(0)) {
+                    CarFollower.pool.get(0).notifyAll();
+                }
+                sleep(100); // for car follower
+            }
+            System.out.println("animator thread ended");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
     }
