@@ -100,7 +100,8 @@ public class Car implements Comparable<Car> {
             index = rand.nextInt(8);
             this.finalPosition = finalDestinationID[index];
         } while (this.currentPosition == this.finalPosition);
-        Integer directionOption = city.getStreetByIndex(this.currentPosition).getLane();
+        Integer directionOption = 1;
+        if (CityGenerating.CityGenerator.city != null)directionOption= city.getStreetByIndex(this.currentPosition).getLane();
         switch (directionOption) {
             case 1:
                 this.direction = 1;
