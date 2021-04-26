@@ -19,7 +19,7 @@ public class Intersection {
     Intersection(String nume, ArrayList<Integer> strazi, Boolean park) {
         name = nume;
         streets = strazi;
-        canPark = true;
+        canPark = park;
     }
 
     Intersection(String nume, ArrayList<Integer> strazi, Integer pozX, Integer pozY) {
