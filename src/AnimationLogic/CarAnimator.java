@@ -27,7 +27,7 @@ public class CarAnimator extends Thread {
     static private int carSpeed;
 
     /**
-     * e 1:28 AM, nu mi vin cuvinte ca sa descriu ce face functia asta da stiu ca trebuie si ca merge bine
+     * e 3:10 AM, nu mi vin cuvinte ca sa descriu ce face functia asta da stiu ca trebuie si ca merge bine
      * poate fi pusa pe mai multe thread uri tho
      *
      * @param q
