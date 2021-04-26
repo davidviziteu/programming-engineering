@@ -83,9 +83,11 @@ class Alg2Test {
 
         List<List<Street>> secondPopulation = algorithm.selection();
 
-        for (List<Street> afterSelection : secondPopulation) {
+        for (List<Street> chromosomeAfterSelection : secondPopulation) {
+            // assert daca cromozomul se afla in populatia initiala
 
         }
+        // assert daca sunt cel putin 2 cromozomi diferiti dupa selectie (set cu hash-uri pe lista or something)
     }
 
     @org.junit.jupiter.api.Test

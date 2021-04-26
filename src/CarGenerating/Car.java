@@ -61,20 +61,21 @@ public class Car implements Comparable<Car> {
         return finalPosition;
     }
 
+    public void setDistance(int distance) {
+        if(distance>=0&&distance<6)this.distance = distance;
+        else this.distance = -1;//daca e -1 atunci e eroare
+    }
+
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+    }
+
     public int getSpeed() {
         return speed;
     }
 
     public int getDistance() {
         return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
-
-    public void setCurrentPosition(int currentPosition) {
-        this.currentPosition = currentPosition;
     }
 
     public void setFinalPosition(int finalPosition) {
@@ -101,7 +102,7 @@ public class Car implements Comparable<Car> {
         int maximumLengthOfStreet;
         Random rand = new Random();
 
-        do{
+        if (CityGenerating.CityGenerator.city != null) do{
             // There are only 12 streets.
             this.currentPosition = rand.nextInt(12) + 1;
 
