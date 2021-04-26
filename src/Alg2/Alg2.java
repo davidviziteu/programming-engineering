@@ -4,17 +4,18 @@ import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.Intersection;
 import CityGenerating.Street;
-import ShortestPath.*;
+import ShortestPath.ShortestPath2;
+import ShortestPath.Tuple;
 
 import java.util.*;
 
 
 public class Alg2 {
     // TODO: what is car size
-    private static final int K_CAR_SIZE = 10;
-    private static final int K_POP_SIZE = 20;
-    private static final int K_GENERATION_NUMBER = 100;
-    private static final double K_MUTATION_CHANCE = 0.01;
+    public static final int K_CAR_SIZE = 10;
+    public static final int K_POP_SIZE = 20;
+    public static final int K_GENERATION_NUMBER = 100;
+    public static final double K_MUTATION_CHANCE = 0.01;
 
     private final City city;
     private List<List<Street>> population;
@@ -54,9 +55,9 @@ public class Alg2 {
 
                 double randNum = random.nextDouble();
 
-                if (randNum < K_MUTATION_CHANCE) {
-                    population.set(i, mutate(population.get(i)));
-                }
+//                if (randNum < K_MUTATION_CHANCE) {
+                   population.set(i, mutate(population.get(i)));
+//                }
             }
             // cross-over
             for (int i = 0; i < population.size() - 1; i = i + 2) {
@@ -97,6 +98,10 @@ public class Alg2 {
         }
     }
 
+    public List<List<Street>> getPopulation() {
+        return population;
+    }
+
     public double fitness(List<Street> chromosome) {
         // TODO: optimise; don't compute these arrays every time
         List<Street> streets = city.getStreets();
@@ -111,15 +116,15 @@ public class Alg2 {
         for (Street street : streets) {
             // TODO: add getCapacity, return street capacity considering "average" car size
             capacity[street.getIntersectionDestination()] += street.getLength() / K_CAR_SIZE;
-//            capacity[street.getIntersectionSource()] += street.getLength() / K_CAR_SIZE;
-// AM COMENTAT EU ASTA CA SA COMPLIEZE\/
-//            load[street.getIntersectionDestination()] += street.getCars().size();
-//            load[street.getIntersectionSource()] += street.getCars().size();
+            capacity[street.getIntersectionSource()] += street.getLength() / K_CAR_SIZE;
+
+            load[street.getIntersectionDestination()] += street.getCars().size();
+            load[street.getIntersectionSource()] += street.getCarsReversed().size();
         }
 
-        float[] loadDensity = new float[countTrafficLights];
+        double[] loadDensity = new double[countTrafficLights];
         for (int i = 0; i < countTrafficLights; ++i) {
-            loadDensity[i] = ((float) load[i]) / ((float) capacity[i]);
+            loadDensity[i] = ((double) load[i]) / ((double) capacity[i]);
         }
 
 //        fitness:
@@ -131,10 +136,12 @@ public class Alg2 {
 //
 //        mergem pe presupunerea ca intersectiile incarcate se mentin incarcate (si deci, incete)
 //        iar strazile putin incarcate, raman putin incarcate (si deci, mai rapide)
-        float fitness = 0.0f;
-        for (Street gene : chromosome) {
+        double fitness = 0.0;
+//      ignore last street (we check intersection at the end of the street, so map exit intersection should be ignored)
+        for (int index = 0; index < chromosome.size() - 1; ++index) {
+            Street gene = chromosome.get(index);
             int id = gene.getIntersectionDestination();
-            fitness += (((float) (load[id] + 1)) / ((float) (capacity[id]))) - loadDensity[id];
+            fitness += (((double) (load[id] + 1)) / ((double) (capacity[id]))) - loadDensity[id];
         }
         return fitness;
     }
@@ -179,6 +186,7 @@ public class Alg2 {
 
         List<Street> newChromosome = new ArrayList<>(chromosome.subList(0, firstIndex));
 
+
         List<Street> newPath = createRandomPath(
                 chromosome.get(firstIndex),
                 chromosome.get(secondIndex),
@@ -198,6 +206,9 @@ public class Alg2 {
         Intersection start = city.getIntersectionByIndex(street1.getIntersectionDestination());
         Intersection finish = city.getIntersectionByIndex(street2.getIntersectionSource());
 
+        if (visitedStreets == null) {
+            visitedStreets = new ArrayList<>();
+        }
 
         Stack<Street> stackStreets = new Stack<>();
         Stack<Intersection> stackIntersections = new Stack<>();
@@ -205,15 +216,19 @@ public class Alg2 {
         stackIntersections.push(start);
         stackIndex.push(0);
 
+        System.out.println(stackIntersections.size());
         while (stackIntersections.size() > 0) {
+            System.out.println("intru");
             Intersection intersection = stackIntersections.peek();
             int index = stackIndex.peek();
 
             List<Integer> idStreets = intersection.getStreets();
+
             for (; index < idStreets.size(); ++index) {
                 Street street = city.getStreetByIndex(idStreets.get(index));
 
                 if (!visitedStreets.contains(street)) {
+                    visitedStreets.add(street);
                     stackIndex.push(0);
                     stackIntersections.push(city.getIntersectionByIndex(street.getIntersectionDestination()));
                     stackStreets.push(street);
@@ -226,6 +241,7 @@ public class Alg2 {
             }
 
             if (index >= idStreets.size()) {
+                visitedStreets.remove(visitedStreets.size()-1);
                 stackIntersections.pop();
                 stackIndex.pop();
             }
@@ -241,6 +257,10 @@ public class Alg2 {
         Tuple<Integer, Integer> pair;
 
         pair = findCommonGeneOfTwoChromosomes(parent1, parent2);
+
+        if(pair == null) {
+            return null;
+        }
 
         // add left side of chromosome1 to chromosome1
         for (int k = 0; k <= pair.getFirst(); k++) {
@@ -269,6 +289,7 @@ public class Alg2 {
         // random common vertex of 2 chromosomes
         List<Street> commonStreets = new ArrayList<>();
         Tuple<Integer, Integer> pair = new Tuple<Integer, Integer>();
+
         // get the common streets of our 2 chromosomes
         for (Street street1 : chromosome1) {
             for (Street street2 : chromosome2) {
@@ -302,5 +323,4 @@ public class Alg2 {
     // 4 position of chromosome ++i
 
     // chromosome = [1,2,3,5,4,8,6,7]
-
 }
