@@ -37,8 +37,9 @@ public class CarAnimator extends Thread {
         try {
             q.stream().forEachOrdered(pair -> {
                 var currentOffset = pair.getValue().getDistance();
-                if (currentOffset != Utilities.getIndexOfCarInQueue(q, pair.getValue()))
-                    pair.getValue().setDistance(--currentOffset);
+                if (currentOffset > 0) //daca e 0 sau -1 inseamna ca tre mutata sau ca e scoasa
+                    if (currentOffset != Utilities.getIndexOfCarInQueue(q, pair.getValue()))
+                        pair.getValue().setDistance(--currentOffset);
             });
         } finally {
             rwLock.writeLock().unlock();

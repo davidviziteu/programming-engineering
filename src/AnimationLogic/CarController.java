@@ -78,8 +78,9 @@ public class CarController extends Thread {
                     CarAnimator.rwLock.readLock().unlock();
                 }
             }
-            System.out.println("car that has arrived at destination[" + currentIntersectionId + "]:" + streetQueue.peek().getValue());
-            city.getCars().remove(streetQueue.remove().getValue());
+            var finishedCar = streetQueue.remove();
+            finishedCar.getValue().setDistance(-1);
+            System.out.println("car[??] that has arrived at destination[" + currentIntersectionId + "]: " + finishedCar.getValue());
             return;
         }
         var car = streetQueue.peek().getValue();

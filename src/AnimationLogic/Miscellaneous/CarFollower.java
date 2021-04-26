@@ -48,7 +48,7 @@ public class CarFollower extends Thread {
         System.out.println(
                 ConsoleColors.GREEN + "following " + this.name + previousState.toString() + ConsoleColors.RESET
         );
-        while (true) {
+        while (Utilities.existsACarOnStreets()) {
             synchronized (this) {
                 try {
                     wait();
@@ -60,6 +60,7 @@ public class CarFollower extends Thread {
                 CarAnimator.rwLock.readLock().lock();
                 try {
                     var newState = CityGenerator.city.getCars().get(carIdxToFollow);
+                    if(newState.getDistance() == -1) break;
                     System.out.println(
                             ConsoleColors.GREEN + this.name + newState.toString() + ConsoleColors.RESET
                     );
@@ -78,6 +79,9 @@ public class CarFollower extends Thread {
                 return;
             }
         }
+        System.out.println(
+                ConsoleColors.GREEN + this.name + "Has arrived at destination: " + previousState.toString() + ConsoleColors.RESET
+        );
     }
 
 }
