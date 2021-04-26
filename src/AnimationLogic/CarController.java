@@ -22,14 +22,14 @@ public class CarController extends Thread {
     }
 
     /**
-     * vede daca o intersectie este din aia finala
+     * vede daca o intersectie este din aia finala. hardcodat
      */
     static boolean isFinalIntersection(int id) {
         return id >= 0 && id <= 7;
     }
 
     /**
-     * momentan fac teste cu functia asta
+     * vede daca o masina poate fi mutata unde trebuie (are semaforul verde, a ajuns la intersectie, are loc pe strada etc)
      *
      * @param car          pt a vedea daca masina a ajuns "aproape de intersectie" aka sa nu sara de pe o strada pe alta
      * @param to           coada unei strazi unde masina ar trebui / vrea sa ajunga
