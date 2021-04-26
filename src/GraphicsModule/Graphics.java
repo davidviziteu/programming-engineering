@@ -18,11 +18,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Thread.sleep;
 
 public class Graphics {
 
@@ -35,28 +33,26 @@ public class Graphics {
     ObservableList<String> trafficTypes;
     Spinner<String> trafficSpinner = new Spinner<>();
     String trafficFrequencyInput;
-    public static Integer[][] map = {
+    public static Integer[][] map = new Integer[10][10];
 
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {4, 5, 4, 4, 5, 4, 4, 4, 4, 4},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {4, 5, 4, 4, 5, 4, 4, 4, 4, 4},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0}
-
-    };
     //We use gridpane for a visual representation of the matrix
     GridPane gridpane;
     List<ImageView> carsToDraw = new ArrayList<>();
     List<Integer> firstCoord = new ArrayList<>();
     List<Integer> secondCoord = new ArrayList<>();
 
+    public void transposeMatrix() {
+        map = CityGenerator.city.mapPreGenerated;
+        Integer[][] transpose = new Integer[10][10];
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++)
+                transpose[i][j] = map [j][i];
+
+            map = transpose;
+    }
     public void drawMap() {
         gridpane = new GridPane();
+        transposeMatrix();
         Image streetBlock = new Image("/GraphicsModule/resources/StreetBlock.jpg");
         Image streetBlockUp = new Image("/GraphicsModule/resources/StreetBlockUp.jpg");
         Image grass = new Image("/GraphicsModule/resources/grass.png");
