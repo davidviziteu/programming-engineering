@@ -46,7 +46,7 @@ public class CarFollower extends Thread {
     @Override
     public void run() {
         System.out.println(
-                ConsoleColors.GREEN + "following " + this.name + previousState.toString() + ConsoleColors.RESET
+                ConsoleColors.GREEN + this.name + previousState.toString() + ConsoleColors.RESET
         );
         while (Utilities.existsACarOnStreets()) {
             synchronized (this) {
@@ -80,7 +80,7 @@ public class CarFollower extends Thread {
             }
         }
         System.out.println(
-                ConsoleColors.GREEN + this.name + "Has arrived at destination: " + previousState.toString() + ConsoleColors.RESET
+                ConsoleColors.GREEN + this.name + previousState.toString() + ConsoleColors.GREEN_UNDERLINED + " Has arrived at destination" + ConsoleColors.RESET
         );
     }
 
