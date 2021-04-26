@@ -1,13 +1,27 @@
 package CarGenerating;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CarGeneratorTest {
 
     @Test
-    void generate() {
-        //equals la car - modificari
+    void generate_Low() {
+        CarGenerator carGenerator = new CarGenerator("Low");
+        Assertions.assertEquals(CarGenerator.numberOfCars , (int) (0.2 * carGenerator.totalStreetsLength()));
     }
+
+    @Test
+    void generate_Medium() {
+        CarGenerator carGenerator = new CarGenerator("Medium");
+        Assertions.assertEquals(CarGenerator.numberOfCars , (int) (0.4 * carGenerator.totalStreetsLength()));
+    }
+
+    @Test
+    void generate_High() {
+        CarGenerator carGenerator = new CarGenerator("High");
+        Assertions.assertEquals(CarGenerator.numberOfCars , (int) (0.6 * carGenerator.totalStreetsLength()));
+    }
+
+
 }

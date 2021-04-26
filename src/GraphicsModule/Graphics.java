@@ -18,6 +18,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class Graphics {
 
     public BorderPane window = new BorderPane();
@@ -28,26 +32,27 @@ public class Graphics {
     Label trafficLabel;
     ObservableList<String> trafficTypes;
     Spinner<String> trafficSpinner = new Spinner<>();
-    String trafficFrequencyInput;
-    public static Integer[][] map = {
+    static String trafficFrequencyInput;
+    public static Integer[][] map = new Integer[10][10];
 
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {4, 5, 4, 4, 5, 4, 4, 4, 4, 4},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {4, 5, 4, 4, 5, 4, 4, 4, 4, 4},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
-            {0, 2, 0, 0, 2, 0, 0, 0, 0, 0}
-
-    };
     //We use gridpane for a visual representation of the matrix
     GridPane gridpane;
+    List<ImageView> carsToDraw = new ArrayList<>();
+    List<Integer> firstCoord = new ArrayList<>();
+    List<Integer> secondCoord = new ArrayList<>();
 
+    public void transposeMatrix() {
+        map = CityGenerator.city.mapPreGenerated;
+        Integer[][] transpose = new Integer[10][10];
+        for (int i = 0; i < 10; i++)
+            for (int j = 0; j < 10; j++)
+                transpose[i][j] = map [j][i];
+
+            map = transpose;
+    }
     public void drawMap() {
         gridpane = new GridPane();
+        transposeMatrix();
         Image streetBlock = new Image("/GraphicsModule/resources/StreetBlock.jpg");
         Image streetBlockUp = new Image("/GraphicsModule/resources/StreetBlockUp.jpg");
         Image grass = new Image("/GraphicsModule/resources/grass.png");
@@ -72,7 +77,6 @@ public class Graphics {
     }
 
     public void addUserPane() {
-
         drawMap();
         user = new HBox();
         submit = new Button("Submit");
@@ -110,13 +114,16 @@ public class Graphics {
         return trafficFrequencyInput;
     }
 
-    public void printStreets() {
+    public static String getTrafficFrequencyInput() {
 
-        System.out.println("Strada de la coordonatele " + " " + CityGenerator.city.getStreetByIndex(CityGenerator.city.getStreetByCoordonates(4, 4)).getName());
+        return trafficFrequencyInput;
+    }//am facut un getter
 
-    }
-
-    public void drawCars() {
+    public void drawCars(){
+        //dam remove ca sa fie actualizata pozitia de fiecare data
+        for (int i = 0; i < carsToDraw.size(); i++) {
+            gridpane.getChildren().remove(carsToDraw.get(i));
+        }
         for (Car car : CityGenerator.city.getCars()) {
             //daca strada e orizontala
             if (CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getDirection() == 1)
@@ -126,18 +133,18 @@ public class Graphics {
                     ImageView carToRight = new ImageView(newCar);
                     int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
                     int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
-                    //System.out.println("Street: " + (car.getCurrentPosition() + 1) + "          Position: " + car.getDistance() + "Direction" + car.getDirection());
-                    //System.out.println(X + " " + Y);
-                    gridpane.add(carToRight, Y, X);
+                    carsToDraw.add(carToRight);
+                    firstCoord.add(Y);
+                    secondCoord.add(X);
 
             } else { //daca sensul e invers (de la dreapta la stanga)
                     Image newCar = new Image("/GraphicsModule/resources/carGoingLeft.png");
                     ImageView carToLeft = new ImageView(newCar);
                     int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
                     int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
-                    //System.out.println("Street: " + (car.getCurrentPosition() + 1) + "          Position: " + car.getDistance() + "Direction" + car.getDirection());
-                    //System.out.println(X + " " + Y);
-                    gridpane.add(carToLeft, Y, X);
+                    carsToDraw.add(carToLeft);
+                    firstCoord.add(Y);
+                    secondCoord.add(X);
                 }
             //daca strada e verticala
             else if (car.getDirection()== 1) {
@@ -146,22 +153,28 @@ public class Graphics {
                 ImageView carToUp = new ImageView(newCar);
                 int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
                 int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
-                //System.out.println("Street: " + (car.getCurrentPosition() + 1) + "          Position: " + car.getDistance() + "Direction" + car.getDirection());
-                //System.out.println(X + " " + Y);
-                gridpane.add(carToUp, Y, X);
+                carsToDraw.add(carToUp);
+                firstCoord.add(Y);
+                secondCoord.add(X);
             }
             else { //daca masina merge in sens invers (in jos)
                 Image newCar = new Image("/GraphicsModule/resources/carGoingDown.png");
                 ImageView carToDown = new ImageView(newCar);
                 int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
                 int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
-                //System.out.println("Street: " + (car.getCurrentPosition() + 1) + "          Position: " + car.getDistance() + "Direction" + car.getDirection());
-                //System.out.println(X + " " + Y);
-                gridpane.add(carToDown, Y, X);
-
+                carsToDraw.add(carToDown);
+                firstCoord.add(Y);
+                secondCoord.add(X);
             }
-
-
         }
+
+        for (int i = 0; i < carsToDraw.size(); i++)
+            gridpane.add(carsToDraw.get(i), firstCoord.get(i), secondCoord.get(i));
+
+        //golim array-urile pentru a le pregati de urmatoarele pozitii
+        carsToDraw.clear();
+        firstCoord.clear();
+        secondCoord.clear();
+
     }
 }

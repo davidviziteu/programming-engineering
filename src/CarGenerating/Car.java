@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
+
 import static CityGenerating.CityGenerator.city;
 
 public class Car implements Comparable<Car> {
+    static private int LastID = 0;
+    private int ID;
     protected int currentPosition; //INDEX-ul unei strazi (pe poza strazile incep de la 1, in cod incep de la 0)
     protected int finalPosition; //ID-ul unei intersectii
     protected int speed;
     protected int distance; //offset ul fata de intersectie. dar daca se spawneaza direct in queue... atunci idk pare useless
-    protected int direction; // 1 pt normal, 0 pt reversed
+    protected int direction; // 1 pt normal, -1 pt reversed
     protected List<Integer> shortestPath;
     protected int shortestPathTime;
     protected int shortestPathDistance;
@@ -58,20 +61,21 @@ public class Car implements Comparable<Car> {
         return finalPosition;
     }
 
+    public void setDistance(int distance) {
+        if(distance>=0&&distance<6)this.distance = distance;
+        else this.distance = -1;//daca e -1 atunci e eroare
+    }
+
+    public void setCurrentPosition(int currentPosition) {
+        this.currentPosition = currentPosition;
+    }
+
     public int getSpeed() {
         return speed;
     }
 
     public int getDistance() {
         return distance;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
-    }
-
-    public void setCurrentPosition(int currentPosition) {
-        this.currentPosition = currentPosition;
     }
 
     public void setFinalPosition(int finalPosition) {
@@ -87,43 +91,55 @@ public class Car implements Comparable<Car> {
         return direction;
     }
 
+    public int getID() {
+        return ID;
+    }
+
     public Car() {
+        ID=LastID++;
         this.speed = 0;
-        Random rand = new Random();
-        // There are only 23 streets.
-        this.currentPosition = rand.nextInt(12);
         int index;
         int maximumLengthOfStreet;
+        Random rand = new Random();
+
+        if (CityGenerating.CityGenerator.city != null) do{
+            // There are only 12 streets.
+            this.currentPosition = rand.nextInt(12) + 1;
+
+            Integer directionOption = 1;
+            if (CityGenerating.CityGenerator.city != null)directionOption= city.getStreetByIndex(this.currentPosition).getLane();
+            switch (directionOption) {
+                case 1:
+                    this.direction = 1;
+                    break;
+                case -1:
+                    this.direction = -1;
+                    break;
+                default:
+                    this.direction = Math.random() > 0.5 ? 1 : -1;
+                    break;
+            }
+            if (CityGenerating.CityGenerator.city != null) {
+                maximumLengthOfStreet = city.getStreetByIndex(currentPosition).getLength();
+                this.distance = city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction);
+            }
+
+        }while(city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction)>city.getStreetByIndex(currentPosition).getLength());
+
 
         // We generate a final position until the final position is not equal to the initial one.
         do {
             index = rand.nextInt(8);
             this.finalPosition = finalDestinationID[index];
         } while (this.currentPosition == this.finalPosition);
-        Integer directionOption = city.getStreetByIndex(this.currentPosition).getLane();
-        switch (directionOption) {
-            case 1:
-                this.direction = 1;
-                break;
-            case -1:
-                this.direction = -1;
-                break;
-            default:
-                this.direction = Math.random() > 0.5 ? 1 : -1;
-                break;
-        }
 
-        // A street has the maximum length 5.
-        if (CityGenerating.CityGenerator.city != null) {
-            maximumLengthOfStreet = city.getStreetByIndex(currentPosition).getLength();
-            this.distance = city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction);
-        }
     }
 
     @Override
     public String toString() {
         return "Car{" +
-                "currentPositionStreetIdx=" + currentPosition +
+                "ID=" + ID +
+                ", currentPositionStreetIdx=" + currentPosition +
                 ", finalPosition=" + finalPosition +
                 ", speed=" + speed +
                 ", distance=" + distance +
@@ -144,12 +160,12 @@ public class Car implements Comparable<Car> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Car car = (Car) o;
-        return currentPosition == car.currentPosition && finalPosition == car.finalPosition && distance == car.distance;
+        return ID == car.ID;
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(currentPosition, finalPosition, distance);
+        int result = Objects.hash(ID);
         return result;
     }
 }
