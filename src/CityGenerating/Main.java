@@ -19,7 +19,7 @@ public class Main extends Application {
         Scene scene = new Scene(ourCity.window, 1000, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
-        ourCity.printStreets();
+        ourCity.drawCars();
 
     }
 

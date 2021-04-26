@@ -1,5 +1,6 @@
 package GraphicsModule;
 
+import CarGenerating.Car;
 import CityGenerating.CityGenerator;
 import CityGenerating.Intersection;
 import javafx.collections.FXCollections;
@@ -28,7 +29,7 @@ public class Graphics {
     ObservableList<String> trafficTypes;
     Spinner<String> trafficSpinner = new Spinner<>();
     String trafficFrequencyInput;
-    public static Integer[][] map={
+    public static Integer[][] map = {
 
             {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
             {0, 2, 0, 0, 2, 0, 0, 0, 0, 0},
@@ -63,21 +64,20 @@ public class Graphics {
                 } else if (map[i][j] == 5) {
                     ImageView intersectionView = new ImageView(intersection);
                     gridpane.add(intersectionView, i, j);
-                }
-                else {
+                } else {
                     ImageView grassView = new ImageView(grass);
                     gridpane.add(grassView, i, j);
                 }
             }
     }
 
-    public void addUserPane(){
+    public void addUserPane() {
 
         drawMap();
         user = new HBox();
         submit = new Button("Submit");
         trafficLabel = new Label("Select Traffic:");
-        trafficTypes = FXCollections.observableArrayList("Low","Medium","High");
+        trafficTypes = FXCollections.observableArrayList("Low", "Medium", "High");
         SpinnerValueFactory<String> values = new SpinnerValueFactory.ListSpinnerValueFactory<>(trafficTypes);
         trafficSpinner.setValueFactory(values);
         user.getChildren().addAll(trafficLabel, trafficSpinner, submit);
@@ -99,7 +99,7 @@ public class Graphics {
         }
     }
 
-    public String getTrafficFrequency(){
+    public String getTrafficFrequency() {
 
         submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -110,9 +110,58 @@ public class Graphics {
         return trafficFrequencyInput;
     }
 
-    public void printStreets(){
+    public void printStreets() {
 
-        System.out.println("Strada de la coordonatele " +" " + CityGenerator.city.getStreetByIndex(CityGenerator.city.getStreetByCoordonates(4, 4)).getName());
+        System.out.println("Strada de la coordonatele " + " " + CityGenerator.city.getStreetByIndex(CityGenerator.city.getStreetByCoordonates(4, 4)).getName());
 
+    }
+
+    public void drawCars() {
+        for (Car car : CityGenerator.city.getCars()) {
+            //daca strada e orizontala
+            if (CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getDirection() == 1)
+                //daca sensul e normal (de la stanga la dreapta)
+                if (car.getDirection() == 1) {
+                    Image newCar = new Image("/GraphicsModule/resources/carGoingRight.png");
+                    ImageView carToRight = new ImageView(newCar);
+                    int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
+                    int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
+                    //System.out.println("Street: " + (car.getCurrentPosition() + 1) + "          Position: " + car.getDistance() + "Direction" + car.getDirection());
+                    //System.out.println(X + " " + Y);
+                    gridpane.add(carToRight, Y, X);
+
+            } else { //daca sensul e invers (de la dreapta la stanga)
+                    Image newCar = new Image("/GraphicsModule/resources/carGoingLeft.png");
+                    ImageView carToLeft = new ImageView(newCar);
+                    int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
+                    int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
+                    //System.out.println("Street: " + (car.getCurrentPosition() + 1) + "          Position: " + car.getDistance() + "Direction" + car.getDirection());
+                    //System.out.println(X + " " + Y);
+                    gridpane.add(carToLeft, Y, X);
+                }
+            //daca strada e verticala
+            else if (car.getDirection()== 1) {
+                //daca masina merge normal (in sus)
+                Image newCar = new Image("/GraphicsModule/resources/carGoingUp.png");
+                ImageView carToUp = new ImageView(newCar);
+                int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
+                int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
+                //System.out.println("Street: " + (car.getCurrentPosition() + 1) + "          Position: " + car.getDistance() + "Direction" + car.getDirection());
+                //System.out.println(X + " " + Y);
+                gridpane.add(carToUp, Y, X);
+            }
+            else { //daca masina merge in sens invers (in jos)
+                Image newCar = new Image("/GraphicsModule/resources/carGoingDown.png");
+                ImageView carToDown = new ImageView(newCar);
+                int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
+                int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
+                //System.out.println("Street: " + (car.getCurrentPosition() + 1) + "          Position: " + car.getDistance() + "Direction" + car.getDirection());
+                //System.out.println(X + " " + Y);
+                gridpane.add(carToDown, Y, X);
+
+            }
+
+
+        }
     }
 }
