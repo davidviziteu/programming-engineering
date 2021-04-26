@@ -1,4 +1,4 @@
-Inter1 4 1 2 3 6 1 2
-Inter2 4 3 4 5 7 1 5
-Inter3 4 8 6 9 11 4 2
-Inter4 4 9 7 10 12 4 5
+Inter1 4 0 1 2 5 1 2
+Inter2 4 2 3 4 6 1 5
+Inter3 4 7 5 8 10 4 2
+Inter4 4 8 6 9 11 4 5

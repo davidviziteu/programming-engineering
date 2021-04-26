@@ -1,29 +1,20 @@
 package Alg2;
 
-import ShortestPath.Tuple;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+import CarGenerating.Car;
 import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.Street;
-
-import CarGenerating.Car;
+import ShortestPath.Tuple;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 class Alg2Test {
-
-    @org.junit.jupiter.api.Test
-    void main() {
-    }
-
-    @org.junit.jupiter.api.Test
-    void run() {
-    }
 
     @org.junit.jupiter.api.Test
     void populate() {
@@ -83,6 +74,18 @@ class Alg2Test {
 
     @org.junit.jupiter.api.Test
     void selection() {
+        CityGenerator.generateCity();
+        City city = CityGenerator.city;
+        Alg2 algorithm = new Alg2(city);
+
+        algorithm.populate();
+        List<List<Street>> firstPopulation = algorithm.getPopulation();
+
+        List<List<Street>> secondPopulation = algorithm.selection();
+
+        for (List<Street> afterSelection : secondPopulation) {
+
+        }
     }
 
     @org.junit.jupiter.api.Test

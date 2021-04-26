@@ -4,9 +4,9 @@ import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.Intersection;
 import CityGenerating.Street;
-import ShortestPath.*;
+import ShortestPath.ShortestPath2;
+import ShortestPath.Tuple;
 
-import java.sql.Array;
 import java.util.*;
 
 
@@ -55,9 +55,9 @@ public class Alg2 {
 
                 double randNum = random.nextDouble();
 
-                if (randNum < K_MUTATION_CHANCE) {
-                    population.set(i, mutate(population.get(i)));
-                }
+//                if (randNum < K_MUTATION_CHANCE) {
+                   population.set(i, mutate(population.get(i)));
+//                }
             }
             // cross-over
             for (int i = 0; i < population.size() - 1; i = i + 2) {
@@ -186,6 +186,7 @@ public class Alg2 {
 
         List<Street> newChromosome = new ArrayList<>(chromosome.subList(0, firstIndex));
 
+
         List<Street> newPath = createRandomPath(
                 chromosome.get(firstIndex),
                 chromosome.get(secondIndex),
@@ -215,11 +216,14 @@ public class Alg2 {
         stackIntersections.push(start);
         stackIndex.push(0);
 
+        System.out.println(stackIntersections.size());
         while (stackIntersections.size() > 0) {
+            System.out.println("intru");
             Intersection intersection = stackIntersections.peek();
             int index = stackIndex.peek();
 
             List<Integer> idStreets = intersection.getStreets();
+
             for (; index < idStreets.size(); ++index) {
                 Street street = city.getStreetByIndex(idStreets.get(index));
 
