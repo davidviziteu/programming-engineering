@@ -32,7 +32,7 @@ public class Graphics {
     Label trafficLabel;
     ObservableList<String> trafficTypes;
     Spinner<String> trafficSpinner = new Spinner<>();
-    String trafficFrequencyInput;
+    static String trafficFrequencyInput;
     public static Integer[][] map = new Integer[10][10];
 
     //We use gridpane for a visual representation of the matrix
@@ -113,6 +113,11 @@ public class Graphics {
         });
         return trafficFrequencyInput;
     }
+
+    public static String getTrafficFrequencyInput() {
+
+        return trafficFrequencyInput;
+    }//am facut un getter
 
     public void drawCars(){
         //dam remove ca sa fie actualizata pozitia de fiecare data
