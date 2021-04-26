@@ -80,7 +80,7 @@ public class CityGenerator {
         }
 
         city = new City(streets, intersections, trafficLights, cars);
-        CarGenerator carGenerator = new CarGenerator("Low");
+        CarGenerator carGenerator = new CarGenerator("Medium");
         carGenerator.generate();
         city.setCars(carGenerator.cars);
 

@@ -68,9 +68,10 @@ public class CarAnimator extends Thread {
                     updateStreetQueue(st.getCars());
                     updateStreetQueue(st.getCarsReversed());
                 }
-                synchronized (CarFollower.pool.get(0)) {
-                    CarFollower.pool.get(0).notify();
-                }
+                if (CarFollower.pool.size() > 0)
+                    synchronized (CarFollower.pool.get(0)) {
+                        CarFollower.pool.get(0).notify();
+                    }
                 sleep(1000 / carSpeed);
             }
             if (CarFollower.pool.size() > 0) {
