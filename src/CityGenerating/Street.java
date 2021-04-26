@@ -96,6 +96,10 @@ public class Street {
         this.trafficLights = trafficLights;
     }
 
+    public Integer getTrafficLightsReversed() {
+        return trafficLightsReversed;
+    }
+
     //methods
     public void addCar(Car car, Integer direction) {
         if (direction == 1) {
