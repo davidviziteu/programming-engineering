@@ -13,7 +13,7 @@ import static CityGenerating.CityGenerator.city;
 public class CarController extends Thread {
 
     static private boolean running = false;
-
+    static private CarController instance;
     /**
      * @return true daca thread ul merge. false otherwise
      */
@@ -89,7 +89,7 @@ public class CarController extends Thread {
         try {
             destinationIntersectionId = car.getShortestPath().get(0);
         } catch (IndexOutOfBoundsException e) {
-            System.err.println("ceva nu ie bine, stergem masina " + car);
+            System.err.println("ceva nu e bine, stergem masina " + car);
             city.getCars().remove(car);
             return;
         }
@@ -141,7 +141,14 @@ public class CarController extends Thread {
 
     }
 
-    public CarController() {
+    static
+    public CarController getInstance(){
+        if(instance == null)
+            instance = new CarController();
+        return instance;
+    }
+
+    private CarController() {
     }
 
     @Override
