@@ -22,7 +22,6 @@ public class SemaphoreController extends Thread  {
                 } else {
                     trafficLights.setTimer(trafficLights.getMaxTime());
                     trafficLights.setColor(trafficLights.getStare().next());
-                    trafficLights.setPoz((trafficLights.getPoz() + 1) % 4);
                 }
             }
             try {
