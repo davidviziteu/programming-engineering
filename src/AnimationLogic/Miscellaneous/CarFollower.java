@@ -25,6 +25,9 @@ public class CarFollower extends Thread {
         sleepSeconds = 0;
         try {
             previousState = CityGenerator.city.getCars().get(carIdxToFollow);
+            System.out.println(
+                    ConsoleColors.GREEN + this.name + previousState.toString() + ConsoleColors.RESET
+            );
         } catch (IndexOutOfBoundsException e) {
             System.out.println(ConsoleColors.RED_BOLD + "Car with index " + carIdxToFollow + " doesnt exist" + ConsoleColors.RESET);
             dontRun = true;
@@ -45,9 +48,6 @@ public class CarFollower extends Thread {
 
     @Override
     public void run() {
-        System.out.println(
-                ConsoleColors.GREEN + this.name + previousState.toString() + ConsoleColors.RESET
-        );
         while (Utilities.existsACarOnStreets()) {
             synchronized (this) {
                 try {

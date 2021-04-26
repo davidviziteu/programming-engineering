@@ -23,16 +23,19 @@ public class MasterThread {
 
         var CarFollower1 = new CarFollower(0, "0");
         var Follower1Thread = new Thread(CarFollower1);
-
+        var CarFollower2 = new CarFollower(1, "1");
+        var Follower2Thread = new Thread(CarFollower2);
         carsControllerThread.start();
         semaphoreControllerThread.start();
         carAnimatorThread.start();
         Follower1Thread.start();
+        Follower2Thread.start();
         try {
             carsControllerThread.join();
             semaphoreControllerThread.join();
             carAnimatorThread.join();
             Follower1Thread.join();
+            Follower2Thread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -102,6 +102,7 @@ public class CarController extends Thread {
                 //pe care tre sa ajunga pt a ajunge la intersectia destinatie
                 if (carCanBeMoved(car, nextStreet.getCars(), nextStreet.getLength(), nextStreet.getIntersectionSource())) {
                     //sectiune in care s ar putea sa apara bug uri cand legam cu grafica. tre vazut cum facem un lock aici
+                    CarAnimator.rwLock.writeLock().lock();
                     car.getShortestPath().remove(0);
                     car.setCurrentPosition(i);
                     car.setDirection(1);
@@ -111,6 +112,7 @@ public class CarController extends Thread {
                             car
                     ));
                     streetQueue.remove();
+                    CarAnimator.rwLock.writeLock().unlock();
                 }
                 return;
             }
@@ -121,6 +123,7 @@ public class CarController extends Thread {
                 if (carCanBeMoved(car, nextStreet.getCarsReversed(), nextStreet.getLength(), nextStreet.getIntersectionDestination())) {
 //                    if (car.getDistance() == 0 && nextStreet.getCarsReversed().size() + 1 <= nextStreet.getLength()) {
                     //sectiune in care s ar putea sa apara bug uri cand legam cu grafica. tre vazut cum facem un lock aici
+                    CarAnimator.rwLock.writeLock().lock();
                     car.getShortestPath().remove(0);
                     car.setCurrentPosition(i);
                     car.setDirection(-1);
@@ -130,6 +133,7 @@ public class CarController extends Thread {
                             car
                     ));
                     streetQueue.remove();
+                    CarAnimator.rwLock.writeLock().unlock();
                 }
                 return;
             }
