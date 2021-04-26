@@ -1,17 +1,46 @@
 package AnimationLogic;
 
 import AnimationLogic.Miscellaneous.CarFollower;
+import AnimationLogic.Miscellaneous.ConsoleColors;
+import CarGenerating.Car;
 import CityGenerating.CityGenerator;
+
+import java.util.ArrayList;
 
 import static AnimationLogic.Miscellaneous.Utilities.*;
 
 
 public class MasterThread {
+    public static ArrayList<Thread> followCarThreadPool = new ArrayList<>();
+
+    public static void followAllCars() {
+        ArrayList<Car> cars = CityGenerator.city.getCars();
+        for (int i = 0; i < cars.size(); i++) {
+            Car car = cars.get(i);
+            var carFollower = new CarFollower(i, Integer.toString(i), ConsoleColors.GREEN);
+            var th = new Thread(carFollower);
+            followCarThreadPool.add(th);
+            th.start();
+        }
+    }
+
+    public static void followCar(int carIdxToFollow, String consoleColor) {
+        var carFollower = new CarFollower(carIdxToFollow, Integer.toString(carIdxToFollow), consoleColor);
+        var th = new Thread(carFollower);
+        followCarThreadPool.add(th);
+        th.start();
+    }
+
+    public static void joinFollowCarThreads() throws InterruptedException {
+        for (var th : followCarThreadPool)
+            th.join();
+    }
+
     public static void main(String[] args) {
         CityGenerator.generateCity();
         computeShortestPathForAllCars();
         correctDistanceOfAllCars();
-        setAllCarsSpeed(1); //1 patratel pe secunda. pls nu pune ceva negativ nush ce se intampla
+        setAllCarsSpeed(2); //- patratele pe secunda. pls nu pune ceva negativ nush ce se intampla
         var carsControllerInstance = new CarController();
         var carsControllerThread = new Thread(carsControllerInstance);
 
@@ -20,22 +49,19 @@ public class MasterThread {
 
         var semaphoreControllerInstance = new SemaphoreController();
         var semaphoreControllerThread = new Thread(semaphoreControllerInstance);
-
-        var CarFollower1 = new CarFollower(0, "0");
-        var Follower1Thread = new Thread(CarFollower1);
-        var CarFollower2 = new CarFollower(1, "1");
-        var Follower2Thread = new Thread(CarFollower2);
+        //asta
+        followAllCars();
+        //sau
+//        followCar(0, ConsoleColors.YELLOW);
+//        followCar(1, ConsoleColors.GREEN);
         carsControllerThread.start();
         semaphoreControllerThread.start();
         carAnimatorThread.start();
-        Follower1Thread.start();
-        Follower2Thread.start();
         try {
             carsControllerThread.join();
             semaphoreControllerThread.join();
             carAnimatorThread.join();
-            Follower1Thread.join();
-            Follower2Thread.join();
+            joinFollowCarThreads();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

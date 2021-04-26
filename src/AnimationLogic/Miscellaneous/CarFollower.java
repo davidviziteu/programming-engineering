@@ -17,16 +17,17 @@ public class CarFollower extends Thread {
     private Car previousState; //nu stiu sa folosesc wait notify asa ca fac manevra
     private boolean dontRun;
     private int sleepSeconds;
-
-    public CarFollower(int carIdxToFollow, String plsGiveName) {
+    private String consoleColor;
+    public CarFollower(int carIdxToFollow, String plsGiveName, String consoleColor) {
         this.carIdxToFollow = carIdxToFollow;
+        this.consoleColor = consoleColor;
         name = plsGiveName;
         name += " - ";
         sleepSeconds = 0;
         try {
             previousState = CityGenerator.city.getCars().get(carIdxToFollow);
             System.out.println(
-                    ConsoleColors.GREEN + this.name + previousState.toString() + ConsoleColors.RESET
+                    consoleColor + this.name + previousState.toString() + ConsoleColors.RESET
             );
         } catch (IndexOutOfBoundsException e) {
             System.out.println(ConsoleColors.RED_BOLD + "Car with index " + carIdxToFollow + " doesnt exist" + ConsoleColors.RESET);
@@ -36,15 +37,6 @@ public class CarFollower extends Thread {
         pool.add(this);
     }
 
-    public void setRefreshRate(int sleepSeconds) {
-        if (sleepSeconds < 50)
-            System.out.println(ConsoleColors.RED_BACKGROUND_BRIGHT +
-                    "Ba esti nebun? "
-                    + sleepSeconds + "ms?\nNu te las"
-                    + ConsoleColors.RESET
-            );
-        else this.sleepSeconds = sleepSeconds;
-    }
 
     @Override
     public void run() {
@@ -62,10 +54,10 @@ public class CarFollower extends Thread {
                     var newState = CityGenerator.city.getCars().get(carIdxToFollow);
                     if(newState.getDistance() == -1) break;
                     System.out.println(
-                            ConsoleColors.GREEN + this.name + newState.toString() + ConsoleColors.RESET
+                            consoleColor + this.name + newState.toString() + ConsoleColors.RESET
                     );
                 } catch (IndexOutOfBoundsException e) {
-                    System.out.println(ConsoleColors.GREEN +
+                    System.out.println(consoleColor +
                             "Car " + this.name + " has exited the map.\n"
                             + ConsoleColors.RESET
                             + "Last known: " + this.previousState.toString()
@@ -80,7 +72,7 @@ public class CarFollower extends Thread {
             }
         }
         System.out.println(
-                ConsoleColors.GREEN + this.name + previousState.toString() + ConsoleColors.GREEN_UNDERLINED + " Has arrived at destination" + ConsoleColors.RESET
+                consoleColor + this.name + previousState.toString() + ConsoleColors.GREEN_UNDERLINED + " Has arrived at destination" + ConsoleColors.RESET
         );
     }
 

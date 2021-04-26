@@ -161,6 +161,7 @@ public class CarController extends Thread {
                     tryMoveFirstCar(st.getCarsReversed(), st.getIntersectionSource());
                 }
                 sleep(0);
+//                System.out.println("iter"); //pune sleep 1000 daca vrei sa afisezi iter
             }
             System.out.println("all streets are empty now");
         } catch (InterruptedException e) {
