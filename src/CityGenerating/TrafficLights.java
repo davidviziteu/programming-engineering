@@ -1,7 +1,17 @@
 package CityGenerating;
 
 public class TrafficLights extends Thread{
-    private enum StareSemafor { Green, YellowGreen, Red, YellowRed};
+    public enum StareSemafor { Green, YellowGreen, Red, YellowRed;
+
+        static
+        public final StareSemafor[] values=values();
+        public StareSemafor prev() {
+            return values[(ordinal() - 1  + values.length) % values.length];
+        }
+
+        public StareSemafor next() {
+            return values[(ordinal() + 1) % values.length];
+        }};
     private StareSemafor stare;
     private Integer timeMax,timer,poz;
 
@@ -14,6 +24,30 @@ public class TrafficLights extends Thread{
         if (st == 0) {
             this.stare = StareSemafor.Red;
         }
+        this.poz = poz;
+    }
+
+    public StareSemafor getStare() {
+        return stare;
+    }
+
+    public void setStare(StareSemafor stare) {
+        this.stare = stare;
+    }
+
+    public Integer getTimeMax() {
+        return timeMax;
+    }
+
+    public void setTimeMax(Integer timeMax) {
+        this.timeMax = timeMax;
+    }
+
+    public Integer getPoz() {
+        return poz;
+    }
+
+    public void setPoz(Integer poz) {
         this.poz = poz;
     }
 
@@ -41,24 +75,15 @@ public class TrafficLights extends Thread{
         return timeMax;
     }
 
-    // Decrements a light time, implemented with threads
-    // so the lights can me changed from different threads.
-    public synchronized void decrementTime(){
-        System.out.println("We are decrementing");
-        if(timer>0)
-        {
-            timer-=1;
-        }else{
-            timer=timeMax;
-            stare=StareSemafor.values()[poz];
-            poz=(poz+1)%4;
-        }
-        System.out.println("The new value is " + timer);
+    @Override
+    public String toString() {
+        return "TrafficLights{" +
+                "stare=" + stare +
+                ", timeMax=" + timeMax +
+                ", timer=" + timer +
+                ", poz=" + poz +
+                '}';
     }
 
-    @Override
-    public void run(){
-        decrementTime();
-    }
 
 }

@@ -41,21 +41,21 @@ public class MasterThread {
         computeShortestPathForAllCars();
         correctDistanceOfAllCars();
         setAllCarsSpeed(2); //- patratele pe secunda. pls nu pune ceva negativ nush ce se intampla
-        var carsControllerInstance = new CarController();
+        var carsControllerInstance = CarController.getInstance();
         var carsControllerThread = new Thread(carsControllerInstance);
 
-        var carAnimatorInstance = new CarAnimator();
+        var carAnimatorInstance = CarAnimator.getInstance();
         var carAnimatorThread = new Thread(carAnimatorInstance);
 
         var semaphoreControllerInstance = new SemaphoreController();
         var semaphoreControllerThread = new Thread(semaphoreControllerInstance);
         //asta
-        followAllCars();
+//        followAllCars();
         //sau
-//        followCar(0, ConsoleColors.YELLOW);
+        followCar(0, ConsoleColors.YELLOW);
 //        followCar(1, ConsoleColors.GREEN);
         carsControllerThread.start();
-        semaphoreControllerThread.start();
+//        semaphoreControllerThread.start();
         carAnimatorThread.start();
         try {
             carsControllerThread.join();

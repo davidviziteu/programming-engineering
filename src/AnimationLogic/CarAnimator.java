@@ -25,7 +25,7 @@ public class CarAnimator extends Thread {
     static public ReadWriteLock rwLock = new ReentrantReadWriteLock();
     static public int carToFollow = -1; //for debugging
     static private int carSpeed;
-
+    static private CarAnimator instance = null;
     /**
      * e 3:10 AM, nu mi vin cuvinte ca sa descriu ce face functia asta da stiu ca trebuie si ca merge bine
      * poate fi pusa pe mai multe thread uri tho
@@ -45,8 +45,13 @@ public class CarAnimator extends Thread {
             rwLock.writeLock().unlock();
         }
     }
-
-    CarAnimator() {
+    static
+    public CarAnimator getInstance(){
+        if(instance == null)
+            instance = new CarAnimator();
+        return instance;
+    }
+    private CarAnimator() {
         carSpeed = city.getCars().get(0).getSpeed();
         if (carSpeed == 0)
             System.out.println(ConsoleColors.RED_BOLD + "Car speed set to 0 => they are moving as fast as possible" + ConsoleColors.RESET);
