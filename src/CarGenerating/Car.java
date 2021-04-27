@@ -21,7 +21,7 @@ public class Car implements Comparable<Car> {
 
 
     public void setDirection(int direction) {
-        this.direction = direction;
+        if(direction==1||direction==-1)this.direction = direction;
     }
 
     public int getShortestPathDistance() {
@@ -79,7 +79,7 @@ public class Car implements Comparable<Car> {
     }
 
     public void setFinalPosition(int finalPosition) {
-        this.finalPosition = finalPosition;
+        if(finalPosition>=1&&finalPosition<=8)this.finalPosition = finalPosition;
     }
 
     public void setSpeed(int speed) {

@@ -88,4 +88,68 @@ class CarTest {
         Assertions.assertEquals(-1, car.getDistance());
     }
 
+    @org.junit.jupiter.api.Test
+    void testEquals(){
+        Car first=new Car();
+        Car second=first;
+        Assertions.assertEquals(true,first==second);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testEquals_null(){
+        Car first=new Car();
+        Car second=null;
+        Assertions.assertEquals(false,first==second);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testEquals_different(){
+        Car first=new Car();
+        Car second=new Car();
+        Assertions.assertEquals(false,first==second);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testSetDirection_1(){
+        Car car = new Car();
+        car.setDirection(1);
+        Assertions.assertEquals(1, car.getDirection());
+    }
+
+    @org.junit.jupiter.api.Test
+    void testSetDirection_2(){
+        Car car = new Car();
+        int expectedDirection=car.getDirection();
+        car.setDirection(2);
+
+        Assertions.assertEquals(expectedDirection, car.getDirection());
+    }
+
+    @org.junit.jupiter.api.Test
+    void testSetFinalPosition_10(){
+        Car car=new Car();
+        int expectedFinalPosition=car.getFinalPosition();
+        car.setFinalPosition(10);
+
+        Assertions.assertEquals(expectedFinalPosition, car.getFinalPosition());
+    }
+
+    @org.junit.jupiter.api.Test
+    void testSetFinalPosition_neg5(){
+        Car car=new Car();
+        int expectedFinalPosition=car.getFinalPosition();
+        car.setFinalPosition(-5);
+
+        Assertions.assertEquals(expectedFinalPosition, car.getFinalPosition());
+    }
+
+    @org.junit.jupiter.api.Test
+    void testSetFinalPosition_6(){
+        Car car=new Car();
+        car.setFinalPosition(6);
+
+        Assertions.assertEquals(6, car.getFinalPosition());
+    }
+
+
 }
