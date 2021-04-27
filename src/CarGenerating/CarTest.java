@@ -6,15 +6,16 @@ import org.junit.jupiter.api.Assertions;
 class CarTest {
 
     @org.junit.jupiter.api.Test
-    void setSpeed_5() {
+    void testSetSpeed_5() {
         Car car = new Car();
+        int expectedSpeed=car.getSpeed();
         car.setSpeed(-5);
 
-        Assertions.assertEquals(0, car.getSpeed());
+        Assertions.assertEquals(expectedSpeed, car.getSpeed());
     }
 
     @org.junit.jupiter.api.Test
-    void setSpeed_50() {
+    void testSetSpeed_50() {
         Car car = new Car();
         car.setSpeed(50);
 
@@ -22,7 +23,7 @@ class CarTest {
     }
 
     @org.junit.jupiter.api.Test
-    void setSpeed_150() {
+    void testSetSpeed_150() {
         Car car = new Car();
         car.setSpeed(150);
 
@@ -30,7 +31,7 @@ class CarTest {
     }
 
     @org.junit.jupiter.api.Test
-    void setSpeed_0() {
+    void testSetSpeed_0() {
         Car car = new Car();
         car.setSpeed(0);
 

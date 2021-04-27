@@ -67,7 +67,7 @@ public class Car implements Comparable<Car> {
     }
 
     public void setCurrentPosition(int currentPosition) {
-        this.currentPosition = currentPosition;
+        if(currentPosition>=1&&currentPosition<=12)this.currentPosition = currentPosition;
     }
 
     public int getSpeed() {
@@ -102,7 +102,8 @@ public class Car implements Comparable<Car> {
         int maximumLengthOfStreet;
         Random rand = new Random();
 
-        if (CityGenerating.CityGenerator.city != null) do{
+        if (CityGenerating.CityGenerator.city != null)
+            do{
             // There are only 12 streets.
             this.currentPosition = rand.nextInt(12) + 1;
 
