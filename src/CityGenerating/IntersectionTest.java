@@ -8,9 +8,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class IntersectionTest {
     @Test
-    void setName() {
+    void testSetNamePositive() {
         Intersection intersection = new Intersection("try", null);
         intersection.setName("try3");
+        var name = intersection.getName();
+        assertEquals(name,"try3");
+    }
+
+    @Test
+    void testSetNameNegative() {
+        Intersection intersection = new Intersection("try", null);
+        intersection.setName("try3");
+        intersection.setName("");
         var name = intersection.getName();
         assertEquals(name,"try3");
     }

@@ -43,6 +43,7 @@ public class Intersection {
     }
 
     public void setName(String name) {
+        if(name.length()>=1 && name!= null)
         this.name = name;
     }
 
