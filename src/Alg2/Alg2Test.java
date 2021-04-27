@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class Alg2Test {
 
     @org.junit.jupiter.api.Test
-    void populate() {
+    void testPopulatePositive() {
         CityGenerator.generateCity();
         City city = CityGenerator.city;
         Alg2 algorithm = new Alg2(city);
@@ -26,7 +26,18 @@ class Alg2Test {
     }
 
     @org.junit.jupiter.api.Test
-    void fitness() {
+    void testPopulateNegative() {
+        CityGenerator.generateCity();
+        City city = null;
+        Alg2 algorithm = new Alg2(city);
+
+        algorithm.populate();
+
+        assertEquals(0, algorithm.getPopulation().size()); // TODO: check values @ populate
+    }
+
+    @org.junit.jupiter.api.Test
+    void testFitness() {
         CityGenerator.generateCity();
         City city = CityGenerator.city;
         Alg2 algorithm = new Alg2(city);
@@ -51,16 +62,16 @@ class Alg2Test {
         chromosome.add(city.getStreetByName("Strada12"));
 
 
-        city.getStreetByIndex(1).addCar(new Car(), 0); // should not influence
-        city.getStreetByIndex(1).addCar(new Car(), 1);
-        city.getStreetByIndex(3).addCar(new Car(), 0);
-        city.getStreetByIndex(3).addCar(new Car(), 0);
-        city.getStreetByIndex(7).addCar(new Car(), 1);
-        city.getStreetByIndex(8).addCar(new Car(), 1);
-        city.getStreetByIndex(9).addCar(new Car(), 1);
-        city.getStreetByIndex(9).addCar(new Car(), 0);
-        city.getStreetByIndex(10).addCar(new Car(), 0);
-        city.getStreetByIndex(11).addCar(new Car(), 1); // should not influence
+        city.getStreetByName("Strada1").addCar(new Car(), 0); // should not influence
+        city.getStreetByName("Strada1").addCar(new Car(), 1);
+        city.getStreetByName("Strada3").addCar(new Car(), 0);
+        city.getStreetByName("Strada3").addCar(new Car(), 0);
+        city.getStreetByName("Strada7").addCar(new Car(), 1);
+        city.getStreetByName("Strada8").addCar(new Car(), 1);
+        city.getStreetByName("Strada9").addCar(new Car(), 1);
+        city.getStreetByName("Strada9").addCar(new Car(), 0);
+        city.getStreetByName("Strada10").addCar(new Car(), 0);
+        city.getStreetByName("Strada11").addCar(new Car(), 1); // should not influence
 
 
         final double epsilon = 1e-4;
@@ -71,7 +82,7 @@ class Alg2Test {
     }
 
     @org.junit.jupiter.api.Test
-    void selection() {
+    void testSelection() {
         CityGenerator.generateCity();
         City city = CityGenerator.city;
         Alg2 algorithm = new Alg2(city);
@@ -88,11 +99,11 @@ class Alg2Test {
                 set.add(chromosomeAfterSelection);
             }
         }
-        assert(set.size() == 2);
+        assertEquals(2, set.size());
     }
 
     @org.junit.jupiter.api.Test
-    void mutate() {
+    void testMutate() {
         CityGenerator.generateCity();
         City city = CityGenerator.city;
         Alg2 algorithm = new Alg2(city);
@@ -107,25 +118,36 @@ class Alg2Test {
         List<Street> newChromosome = algorithm.mutate(chromosome);
         for (int index = 1; index < newChromosome.size(); ++index) {
             // check if sequence is properly connected
-            assertEquals(newChromosome.get(index - 1).getIntersectionDestination(), newChromosome.get(index).getIntersectionSource());
+            int destination = newChromosome.get(index - 1).getIntersectionDestination();
+            int endStart = newChromosome.get(index).getIntersectionSource();
+            int endFinish = newChromosome.get(index).getIntersectionDestination();
+            assert(destination == endStart || destination == endFinish);
         }
     }
 
     @org.junit.jupiter.api.Test
-    void createRandomPath() {
+    void testCreateRandomPath() {
         CityGenerator.generateCity();
         City city = CityGenerator.city;
         Alg2 algorithm = new Alg2(city);
 
-        List<Street> newChromosomeSection = algorithm.createRandomPath(city.getStreetByIndex(0), city.getStreetByIndex(3), null);
-        for (int index = 1; index < newChromosomeSection.size(); ++index) {
-            // check if sequence is properly connected
-            assertEquals(newChromosomeSection.get(index - 1).getIntersectionDestination(), newChromosomeSection.get(index).getIntersectionSource());
+        List<Street> newChromosomeSection = algorithm.createRandomPath(
+                city.getIntersectionByIndex(city.getStreetByName("Strada1").getIntersectionDestination()),
+                city.getIntersectionByIndex(city.getStreetByName("Strada12").getIntersectionSource()),
+                null);
+        if (newChromosomeSection != null) {
+            for (int index = 1; index < newChromosomeSection.size(); ++index) {
+                // check if sequence is properly connected
+                int destination = newChromosomeSection.get(index - 1).getIntersectionDestination();
+                int endStart = newChromosomeSection.get(index).getIntersectionSource();
+                int endFinish = newChromosomeSection.get(index).getIntersectionDestination();
+                assert(destination == endStart || destination == endFinish);
+            }
         }
     }
 
     @org.junit.jupiter.api.Test
-    void crossover() {
+    void testCrossover() {
         CityGenerator.generateCity();
         City city = CityGenerator.city;
         Alg2 algorithm = new Alg2(city);
@@ -171,7 +193,31 @@ class Alg2Test {
     }
 
     @org.junit.jupiter.api.Test
-    void findCommonGeneOfTwoChromosomes() {
+    void testCrossoverNegative() {
+        CityGenerator.generateCity();
+        City city = CityGenerator.city;
+        Alg2 algorithm = new Alg2(city);
+
+        // our two chromosomes
+        List<Street> chromosome1 = new ArrayList<>();
+        List<Street> chromosome2 = new ArrayList<>();
+
+        chromosome1.add(city.getStreetByName("Strada5"));
+        chromosome1.add(city.getStreetByName("Strada7"));
+        chromosome1.add(city.getStreetByName("Strada12"));
+
+        chromosome2.add(city.getStreetByName("Strada1"));
+        chromosome2.add(city.getStreetByName("Strada6"));
+        chromosome2.add(city.getStreetByName("Strada9"));
+        chromosome2.add(city.getStreetByName("Strada10"));
+
+        Tuple<List<Street>, List<Street>> chromosomes = algorithm.crossover(chromosome1, chromosome2);
+
+        assert(chromosomes == null);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testFindCommonGeneOfTwoChromosomes() {
         CityGenerator.generateCity();
         City city = CityGenerator.city;
         Alg2 algorithm = new Alg2(city);
@@ -201,5 +247,29 @@ class Alg2Test {
 
         // compare our solution with findCommonGeneOfTwoChromosomes solution
         assert (pair.getFirst().equals(ourPair.getFirst()) && pair.getSecond().equals(ourPair.getSecond()));
+    }
+
+    @org.junit.jupiter.api.Test
+    void testFindCommonGeneOfTwoChromosomesNegative() {
+        CityGenerator.generateCity();
+        City city = CityGenerator.city;
+        Alg2 algorithm = new Alg2(city);
+
+        // our two chromosomes
+        List<Street> chromosome1 = new ArrayList<>();
+        List<Street> chromosome2 = new ArrayList<>();
+
+        chromosome1.add(city.getStreetByName("Strada5"));
+        chromosome1.add(city.getStreetByName("Strada7"));
+        chromosome1.add(city.getStreetByName("Strada12"));
+
+        chromosome2.add(city.getStreetByName("Strada1"));
+        chromosome2.add(city.getStreetByName("Strada6"));
+        chromosome2.add(city.getStreetByName("Strada9"));
+        chromosome2.add(city.getStreetByName("Strada10"));
+
+        Tuple<Integer, Integer> pair = algorithm.findCommonGeneOfTwoChromosomes(chromosome1, chromosome2);
+
+        assert(pair == null);
     }
 }
