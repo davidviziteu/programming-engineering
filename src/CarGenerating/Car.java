@@ -105,7 +105,7 @@ public class Car implements Comparable<Car> {
         if (CityGenerating.CityGenerator.city != null)
             do{
             // There are only 12 streets.
-            this.currentPosition = rand.nextInt(12) + 1;
+            this.currentPosition = rand.nextInt(11) + 1;
 
             Integer directionOption = 1;
             if (CityGenerating.CityGenerator.city != null)directionOption= city.getStreetByIndex(this.currentPosition).getLane();

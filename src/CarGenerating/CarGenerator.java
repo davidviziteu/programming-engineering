@@ -17,7 +17,7 @@ public class CarGenerator {
     public void generate() {
         //in functie de frecventa pe fiecare strada vor fi generate un numar de masini(strict <= capacitatea strazii)
         this.frequency= GraphicsModule.Graphics.getTrafficFrequencyInput();
-
+        this.frequency="Low";
         if (this.frequency == "Low" ) {
             numberOfCars = (int) (frequencyLow * totalStreetsLength());
         }

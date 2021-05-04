@@ -25,7 +25,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        CityGenerator.generateCity();
+        //CityGenerator.generateCity();
         Street temp;
         for (int i = 0; i < CityGenerator.city.getNrOfStreets(); i++) {
             temp = CityGenerator.city.getStreetByIndex(i);
@@ -55,5 +55,6 @@ public class Main extends Application {
         for (Car temp3 : CityGenerator.city.getCars()) {
             System.out.println("Street: " + temp3.getCurrentPosition() + "          Position: " + temp3.getDistance());
         }
+
     }
 }
