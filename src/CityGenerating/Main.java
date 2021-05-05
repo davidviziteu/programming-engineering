@@ -1,4 +1,8 @@
 package CityGenerating;
+import AnimationLogic.CarAnimator;
+import AnimationLogic.CarController;
+import AnimationLogic.Miscellaneous.Utilities;
+import GraphicsModule.DrawingThread;
 import GraphicsModule.Graphics;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -7,10 +11,13 @@ import javafx.stage.Stage;
 
 import java.util.Scanner;
 
+import static AnimationLogic.Miscellaneous.Utilities.existsACarOnStreets;
+import static java.lang.Thread.sleep;
+
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws InterruptedException {
 
         CityGenerator.generateCity();
         Graphics ourCity = new Graphics();
@@ -19,7 +26,34 @@ public class Main extends Application {
         Scene scene = new Scene(ourCity.window, 1000, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
-        ourCity.drawCars();
+
+        Utilities.correctDistanceOfAllCars();
+        Utilities.computeShortestPathForAllCars();
+        Utilities.setAllCarsSpeed(1);
+
+        var carsControllerInstance = CarController.getInstance();
+        var carsControllerThread = new Thread(carsControllerInstance);
+
+        var carAnimatorInstance = CarAnimator.getInstance();
+        var carAnimatorThread = new Thread(carAnimatorInstance);
+
+        //        var drawingInstance = new DrawingThread();
+//        DrawingThread.ourCity = ourCity;
+//        var drawingThread = new Thread(drawingInstance);
+        carsControllerThread.start();
+        carAnimatorThread.start();
+
+//        drawingThread.start();
+
+
+        try {
+            carsControllerThread.join();
+            carAnimatorThread.join();
+//            drawingThread.join();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
     }
 

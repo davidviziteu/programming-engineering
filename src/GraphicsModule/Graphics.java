@@ -21,6 +21,8 @@ import javafx.scene.layout.HBox;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Thread.sleep;
+
 
 public class Graphics {
 
@@ -120,11 +122,17 @@ public class Graphics {
     }//am facut un getter
 
     public void drawCars(){
+        //TODO: ruleaza functia asta intr-un thread javafx
+
+        //TODO: luati in considerare car.getDistance cand o puneti pe strada
+
         //dam remove ca sa fie actualizata pozitia de fiecare data
         for (int i = 0; i < carsToDraw.size(); i++) {
             gridpane.getChildren().remove(carsToDraw.get(i));
         }
         for (Car car : CityGenerator.city.getCars()) {
+//            if(car.getDistance() == -1)
+//                continue; //probabil tre sa faci si asta
             //daca strada e orizontala
             if (CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getDirection() == 1)
                 //daca sensul e normal (de la stanga la dreapta)
@@ -175,6 +183,5 @@ public class Graphics {
         carsToDraw.clear();
         firstCoord.clear();
         secondCoord.clear();
-
     }
 }
