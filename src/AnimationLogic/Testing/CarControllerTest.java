@@ -52,7 +52,7 @@ class CarControllerTest {
         Utilities.setAllCarsSpeed(1);
         var t = new Thread(CarAnimator.getInstance());
         t.start();
-        assertFalse(CarController.carCanBeMoved(carObject, testq, 5, 0));
+        assertTrue(CarController.carCanBeMoved(carObject, testq, 5, 0));
     }
     @Test
     void carCanBeMovedTrue1() {

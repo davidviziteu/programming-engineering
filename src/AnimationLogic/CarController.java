@@ -3,9 +3,11 @@ package AnimationLogic;
 import CarGenerating.Car;
 import CityGenerating.Pair;
 import CityGenerating.Street;
+import CityGenerating.TrafficLights;
 
 import java.util.ArrayList;
 import java.util.Queue;
+import java.util.concurrent.Semaphore;
 
 import static AnimationLogic.Miscellaneous.Utilities.existsACarOnStreets;
 import static CityGenerating.CityGenerator.city;
@@ -52,7 +54,20 @@ public class CarController extends Thread {
             }
         }
 
-        //if(intersection.semaphoreIsRed) return false; //@TODO
+        if(SemaphoreController.isRunning()) {
+            if (car.getDirection() == 1) {
+                var currentStreet = city.getStreetByIndex(car.getCurrentPosition());
+                var semaphoreId = currentStreet.getTrafficLights();
+                return city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.Red
+                        || city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.YellowRed;
+            }
+            else {
+                var currentStreet = city.getStreetByIndex(car.getCurrentPosition());
+                var semaphoreId = currentStreet.getTrafficLightsReversed();
+                return city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.Red
+                        || city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.YellowRed;
+            }
+        }
 
         return true;
     }
@@ -141,7 +156,7 @@ public class CarController extends Thread {
 
     }
 
-    static
+    static synchronized
     public CarController getInstance(){
         if(instance == null)
             instance = new CarController();

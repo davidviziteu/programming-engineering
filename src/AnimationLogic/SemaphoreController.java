@@ -8,7 +8,24 @@ import static AnimationLogic.Miscellaneous.Utilities.existsACarOnStreets;
 
 public class SemaphoreController extends Thread  {
 
-    SemaphoreController(){}
+    static
+    private SemaphoreController instance = null;
+
+    static
+    public boolean isRunning() {
+        return running;
+    }
+    static
+    private boolean running = false;
+
+    static synchronized
+    public SemaphoreController getInstance(){
+        if(instance == null)
+            instance = new SemaphoreController();
+        return instance;
+    }
+
+    private SemaphoreController(){}
 
     public static void change(TrafficLights trafficLights){
         if (trafficLights.getTimer() > 0) {
@@ -41,11 +58,20 @@ public class SemaphoreController extends Thread  {
     */
     @Override
     public void run() {
+        if(!running) {
+            running = true;
+            System.out.println("Semaphore controller started");
+
+        }
+        else {
+            System.err.println("Semaphore controller already running");
+            return;
+        }
 
         while (existsACarOnStreets()){
             changeAll();
             try {
-                sleep(100);
+                sleep(1000);
             } catch (InterruptedException e) {
                // e.printStackTrace();
             }

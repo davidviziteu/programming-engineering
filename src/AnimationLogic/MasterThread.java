@@ -47,7 +47,7 @@ public class MasterThread {
         var carAnimatorInstance = CarAnimator.getInstance();
         var carAnimatorThread = new Thread(carAnimatorInstance);
 
-        var semaphoreControllerInstance = new SemaphoreController();
+        var semaphoreControllerInstance = SemaphoreController.getInstance();
         var semaphoreControllerThread = new Thread(semaphoreControllerInstance);
         //asta
 //        followAllCars();
@@ -55,7 +55,7 @@ public class MasterThread {
         followCar(0, ConsoleColors.YELLOW);
 //        followCar(1, ConsoleColors.GREEN);
         carsControllerThread.start();
-//        semaphoreControllerThread.start();
+        semaphoreControllerThread.start();
         carAnimatorThread.start();
         try {
             carsControllerThread.join();
