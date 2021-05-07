@@ -15,7 +15,7 @@ public class TrafficLights extends Thread{
     private StareSemafor stare;
     private Integer timeMax,timer,poz,timeMax2;
 
-    TrafficLights(Integer timeMax, int st, int poz, Integer timeMax2) {
+    public TrafficLights(Integer timeMax, int st, int poz, Integer timeMax2) {
         this.timeMax = timeMax;
                 this.timeMax2=timeMax2;
 

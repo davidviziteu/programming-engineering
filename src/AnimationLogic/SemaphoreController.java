@@ -61,7 +61,6 @@ public class SemaphoreController extends Thread  {
         if(!running) {
             running = true;
             System.out.println("Semaphore controller started");
-
         }
         else {
             System.err.println("Semaphore controller already running");
@@ -75,9 +74,9 @@ public class SemaphoreController extends Thread  {
             } catch (InterruptedException e) {
                // e.printStackTrace();
             }
-            for(int i=0; i< CityGenerator.city.getTrafficLights().size(); i++){
-                System.out.println(CityGenerator.city.getTLightsById(i));
-            }
+            //for(int i=0; i< CityGenerator.city.getTrafficLights().size(); i++){
+            //    System.out.println(CityGenerator.city.getTLightsById(i));
+           // }
         }
     }
 }
