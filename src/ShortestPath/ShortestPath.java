@@ -28,6 +28,7 @@ public class ShortestPath {
 //        System.out.println("Shortest Path: "+p.Dijkstra(streets, startingPoint, finishPoint,numberOfIntersections));
 //
 //    }
+    /*
     int INT_MAX = 10000;
 
     int minimumDistance(int distance[], boolean included[]) {
@@ -94,4 +95,6 @@ public class ShortestPath {
         return INT_MAX;
     }
 
+
+     */
 }

@@ -16,7 +16,7 @@ class CityTest {
 
     Intersection intersection = new Intersection("Intersection", new ArrayList<Integer>(Arrays.asList(2)), 0, 2, true);
 
-    TrafficLights trafficLight = new TrafficLights(60, 1, 3);
+    TrafficLights trafficLight = new TrafficLights(60, 1, 3, 3);
 
     ArrayList<Street> streets = new ArrayList<>();
     ArrayList<Intersection> intersections = new ArrayList<>();

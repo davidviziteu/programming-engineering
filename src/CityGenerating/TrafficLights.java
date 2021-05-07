@@ -92,15 +92,6 @@ public class TrafficLights extends Thread{
         return timeMax;
     }
 
-    @Override
-    public String toString() {
-        return "TrafficLights{" +
-                "stare=" + stare +
-                ", timeMax=" + timeMax +
-                ", timer=" + timer +
-                ", poz=" + poz +
-                '}';
-    }
 
 
 }

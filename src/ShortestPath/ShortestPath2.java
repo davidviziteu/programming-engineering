@@ -44,7 +44,6 @@ public class ShortestPath2 {
     }
 
 
-
     //dijkstra
     static public Tuple<Integer, List<Integer>> compute(List<Street> streets, int startPoint, int finishPoint, int numberofIntersections) {
 
@@ -76,14 +75,15 @@ public class ShortestPath2 {
 //        List<Integer> parents = Arrays.asList(parent);
         List<Integer> parents = new ArrayList<>();
         int intersectionId = finishPoint;
-        while (intersectionId != startPoint){
+        while (intersectionId != startPoint) {
             parents.add(0, intersectionId);
             intersectionId = parent[intersectionId];
         }
         return new Tuple<Integer, List<Integer>>(distance[finishPoint], parents);
     }
-    static int getTime(int length, int speed){
-        return (length*speed/60);
+
+    static int getTime(int length, int speed) {
+        return (length * speed / 60);
     }
 
 
@@ -110,35 +110,26 @@ public class ShortestPath2 {
         return INT_MAX;
     }
 
-    static boolean areStreetsConnected(Street st1, Street st2){
+    static boolean areStreetsConnected(Street st1, Street st2) {
         return st1.getIntersectionDestination() == st2.getIntersectionDestination()
                 || st1.getIntersectionSource() == st2.getIntersectionSource()
                 || st1.getIntersectionDestination() == st2.getIntersectionSource()
                 || st1.getIntersectionSource() == st2.getIntersectionDestination();
     }
 
-    static boolean areIntersectionsConnected(Intersection i1, Intersection i2){
+    static boolean areIntersectionsConnected(Intersection i1, Intersection i2) {
         var set1 = new HashSet<Integer>(i1.getStreets());
         var set2 = new HashSet<Integer>(i2.getStreets());
         set1.retainAll(set2);
         return set1.size() > 0;
     }
 
-    static int getStreetNumber(Intersection i1, Intersection i2){
 
-        /*
-        for(int i=0; i<CityGenerator.city.getStreets().size(); i++){
-            if(CityGenerator.city.getStreets().get(i).getIntersectionDestination()==i1.ID?????
-             && CityGenerator.city.getStreets().get(i).getIntersectionSource()==i2.ID????? )
-                //SAU INVERS
-                -> INSEAMNA CA E STRADA DE INTERSECTIE
-        }
 
-         */
-        return 0;
 
-    }
+}
 
+    /*
     public static void main(String[] args) {
         CityGenerator.generateCity();
         var cityInstance = CityGenerator.city;
@@ -164,6 +155,8 @@ public class ShortestPath2 {
     }
 }
 
+
+     */
 //class Tuple<K, V> {
 //    public K first;
 //    public V second;
