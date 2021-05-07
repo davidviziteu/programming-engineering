@@ -13,10 +13,12 @@ public class TrafficLights extends Thread{
             return values[(ordinal() + 1) % values.length];
         }};
     private StareSemafor stare;
-    private Integer timeMax,timer,poz;
+    private Integer timeMax,timer,poz,timeMax2;
 
-    TrafficLights(Integer timeMax, int st, int poz) {
+    TrafficLights(Integer timeMax, int st, int poz, Integer timeMax2) {
         this.timeMax = timeMax;
+                this.timeMax2=timeMax2;
+
         this.timer = timeMax;
         if (st == 1) {
             this.stare = StareSemafor.Green;
@@ -35,6 +37,13 @@ public class TrafficLights extends Thread{
         this.stare = stare;
     }
 
+    public Integer getTimeMax2() {
+        return timeMax2;
+    }
+
+    public void setTimeMax2(Integer timeMax2) {
+        this.timeMax2 = timeMax2;
+    }
     public Integer getTimeMax() {
         return timeMax;
     }
@@ -70,7 +79,15 @@ public class TrafficLights extends Thread{
     public void setMaxTime(Integer time) {
         this.timeMax = time;
     }
-
+    @Override
+    public String toString() {
+        return "TrafficLights{" +
+                "stare=" + stare +
+                ", timeMax=" + timeMax +
+                ", timer=" + timer +
+                ", poz=" + poz +
+                '}';
+    }
     public Integer getMaxTime(){
         return timeMax;
     }
