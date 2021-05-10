@@ -42,14 +42,18 @@ public class TrafficLights extends Thread{
     }
 
     public void setTimeMax2(Integer timeMax2) {
-        this.timeMax2 = timeMax2;
+        if (timeMax2>0){
+            this.timeMax2 = timeMax2;
+        }
     }
     public Integer getTimeMax() {
         return timeMax;
     }
 
     public void setTimeMax(Integer timeMax) {
-        this.timeMax = timeMax;
+        if (timeMax > 0){
+            this.timeMax = timeMax;
+        }
     }
 
     public Integer getPoz() {
@@ -77,7 +81,8 @@ public class TrafficLights extends Thread{
     }
 
     public void setMaxTime(Integer time) {
-        this.timeMax = time;
+        if (time > 0)
+            this.timeMax = time;
     }
     @Override
     public String toString() {
@@ -91,7 +96,5 @@ public class TrafficLights extends Thread{
     public Integer getMaxTime(){
         return timeMax;
     }
-
-
 
 }
