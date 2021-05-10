@@ -33,8 +33,8 @@ public class Graphics {
     TextField finalPosition;
     Button setStart;
     Button setFinish;
-    Integer startStreet;
-    Integer finalStreet;
+    static Integer startStreet;
+    static Integer finalStreet;
     static String trafficFrequencyInput;
     public static Integer[][] map = new Integer[10][10];
 
@@ -109,11 +109,11 @@ public class Graphics {
         window.setTop(user);
     }
 
-    public Integer getStartStreet(){
+    public static Integer getStartStreet(){
         return startStreet;
     }
 
-    public Integer getFinalStreet(){
+    public static Integer getFinalStreet(){
         return finalStreet;
     }
 
