@@ -2,14 +2,11 @@ package CityGenerating;
 
 
 import CarGenerating.Car;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CityTest {
     Street street = new Street("Street", 9, 11, 2, 9, 10, 2, 5, -1);
@@ -23,138 +20,138 @@ class CityTest {
     ArrayList<TrafficLights> trafficLights = new ArrayList<>();
     ArrayList<Car> cars = new ArrayList<>();
 
-    @Test
+     @org.junit.jupiter.api.Test
     void getStreets() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         instance.setStreets(streets);
-        Assertions.assertEquals(streets, instance.getStreets());
+        assertEquals(streets, instance.getStreets());
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void setStreets() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         instance.setStreets(streets);
-        Assertions.assertEquals(streets, instance.getStreets());
+        assertEquals(streets, instance.getStreets());
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void getCity() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         instance.setIntersections(intersections);
-        Assertions.assertEquals(intersections, instance.getCity());
+        assertEquals(intersections, instance.getCity());
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void setIntersections() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         instance.setIntersections(intersections);
-        Assertions.assertEquals(intersections, instance.getCity());
+        assertEquals(intersections, instance.getCity());
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void getNrOfStreets() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         instance.setNrOfStreets(0);
-        Assertions.assertEquals(0, instance.getNrOfStreets());
+        assertEquals(0, instance.getNrOfStreets());
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void setNrOfStreets() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         instance.setNrOfStreets(0);
-        Assertions.assertEquals(0, instance.getNrOfStreets());
+        assertEquals(0, instance.getNrOfStreets());
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void getNrOfIntersections() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         instance.setNrOfIntersections(0);
-        Assertions.assertEquals(0, instance.getNrOfIntersections());
+        assertEquals(0, instance.getNrOfIntersections());
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void setNrOfIntersections() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         instance.setNrOfIntersections(0);
-        Assertions.assertEquals(0, instance.getNrOfIntersections());
+        assertEquals(0, instance.getNrOfIntersections());
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void getStreetByName() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         streets.add(street);
         instance.setStreets(streets);
-        Assertions.assertEquals(street, instance.getStreetByName("Street"));
+        assertEquals(street, instance.getStreetByName("Street"));
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void getIntersectionByName() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         intersections.add(intersection);
         instance.setIntersections(intersections);
-        Assertions.assertEquals(intersection, instance.getIntersectionByName("Intersection"));
+        assertEquals(intersection, instance.getIntersectionByName("Intersection"));
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void getStreetByIndex() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         streets.add(street);
         instance.setStreets(streets);
-        Assertions.assertEquals(street, instance.getStreetByIndex(0));
+        assertEquals(street, instance.getStreetByIndex(0));
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void getStreetByCoordonates() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         streets.add(street);
         instance.setStreets(streets);
-        Assertions.assertEquals(0, instance.getStreetByCoordonates(2, 5));
+        assertEquals(0, instance.getStreetByCoordonates(2, 5));
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void getIntersectionByIndex() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         intersections.add(intersection);
         instance.setIntersections(intersections);
-        Assertions.assertEquals(intersection, instance.getIntersectionByIndex(0));
+        assertEquals(intersection, instance.getIntersectionByIndex(0));
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void getTLightsById() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void getCars() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         Car car = new Car();
         cars.add(car);
         instance.setCars(cars);
-        Assertions.assertEquals(cars, instance.getCars());
+        assertEquals(cars, instance.getCars());
     }
 
-    @Test
+     @org.junit.jupiter.api.Test
     void setCars() {
         CityGenerator.generateCity();
         City instance = CityGenerator.city;
         Car car = new Car();
         cars.add(car);
         instance.setCars(cars);
-        Assertions.assertEquals(cars, instance.getCars());
+        assertEquals(cars, instance.getCars());
     }
 }
