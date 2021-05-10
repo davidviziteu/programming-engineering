@@ -104,14 +104,14 @@ public class Street {
     //methods
     public void addCar(Car car, Integer direction) {
         if (direction == 1) {
-            if (cars.size() > length) {
+            if (cars.size() == length) {
                 System.out.println("Street" + name + "is full!");
                 return;
             }
             cars.add(new Pair<>(cars.size() + 1, car));
             car.setDistance(cars.size());
         } else {
-            if (carsReversed.size() > length) {
+            if (carsReversed.size() == length) {
                 System.out.println("Street" + name + "is full!");
                 return;
             }
