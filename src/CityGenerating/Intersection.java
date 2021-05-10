@@ -43,8 +43,8 @@ public class Intersection {
     }
 
     public void setName(String name) {
-        if(name.length()>=1 && name!= null)
-        this.name = name;
+        if (name != null && name.length() >= 1)
+            this.name = name;
     }
 
     public ArrayList<Integer> getStreets() {
@@ -52,7 +52,8 @@ public class Intersection {
     }
 
     public void setStreets(ArrayList<Integer> streets) {
-        this.streets = streets;
+        if (streets != null && streets.size() != 0)
+            this.streets = streets;
     }
 
     public Integer getPosX() {
