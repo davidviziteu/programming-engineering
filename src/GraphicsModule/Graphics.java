@@ -20,6 +20,7 @@ import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
 
@@ -121,7 +122,7 @@ public class Graphics {
         return trafficFrequencyInput;
     }//am facut un getter
 
-    public void drawCars(){
+    public void drawCars() throws InterruptedException {
         //TODO: ruleaza functia asta intr-un thread javafx
 
         //TODO: luati in considerare car.getDistance cand o puneti pe strada
@@ -178,7 +179,6 @@ public class Graphics {
 
         for (int i = 0; i < carsToDraw.size(); i++)
             gridpane.add(carsToDraw.get(i), firstCoord.get(i), secondCoord.get(i));
-
         //golim array-urile pentru a le pregati de urmatoarele pozitii
         carsToDraw.clear();
         firstCoord.clear();

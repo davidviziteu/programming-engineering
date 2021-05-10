@@ -1,6 +1,7 @@
 package CityGenerating;
 import AnimationLogic.CarAnimator;
 import AnimationLogic.CarController;
+import AnimationLogic.MasterThread;
 import AnimationLogic.Miscellaneous.Utilities;
 import GraphicsModule.DrawingThread;
 import GraphicsModule.Graphics;
@@ -37,19 +38,20 @@ public class Main extends Application {
         var carAnimatorInstance = CarAnimator.getInstance();
         var carAnimatorThread = new Thread(carAnimatorInstance);
 
-        //        var drawingInstance = new DrawingThread();
-//        DrawingThread.ourCity = ourCity;
-//        var drawingThread = new Thread(drawingInstance);
+        var drawingInstance = new DrawingThread();
+        DrawingThread.ourCity = ourCity;
+        var drawingThread = new Thread(drawingInstance);
         carsControllerThread.start();
         carAnimatorThread.start();
-
-//        drawingThread.start();
+        MasterThread.followAllCars();
+        drawingThread.run();
 
 
         try {
             carsControllerThread.join();
             carAnimatorThread.join();
-//            drawingThread.join();
+            MasterThread.joinFollowCarThreads();
+            drawingThread.join();
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -76,7 +78,7 @@ public class Main extends Application {
         }
 
         System.out.println("Strada de la coordonatele 4,7 " + CityGenerator.city.getStreetByIndex(CityGenerator.city.getStreetByCoordonates(4, 7)).getName());
-
+        /*
         Scanner scan = new Scanner(System.in);
         Integer index = scan.nextInt();
 
@@ -89,6 +91,6 @@ public class Main extends Application {
         for (Car temp3 : CityGenerator.city.getCars()) {
             System.out.println("Street: " + temp3.getCurrentPosition() + "          Position: " + temp3.getDistance());
         }
-
+        */
     }
 }
