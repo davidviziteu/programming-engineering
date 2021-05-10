@@ -1,5 +1,6 @@
 package CarGenerating;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
@@ -101,31 +102,33 @@ public class Car implements Comparable<Car> {
         int index;
         int maximumLengthOfStreet;
         Random rand = new Random();
+        Date date = new Date();
+        rand.setSeed(date.getTime());
 
         if (CityGenerating.CityGenerator.city != null)
             do{
-            // There are only 12 streets.
-            this.currentPosition = rand.nextInt(11) + 1;
+                // There are only 12 streets.
+                this.currentPosition = rand.nextInt(11) + 1;
 
-            Integer directionOption = 1;
-            if (CityGenerating.CityGenerator.city != null)directionOption= city.getStreetByIndex(this.currentPosition).getLane();
-            switch (directionOption) {
-                case 1:
-                    this.direction = 1;
-                    break;
-                case -1:
-                    this.direction = -1;
-                    break;
-                default:
-                    this.direction = Math.random() > 0.5 ? 1 : -1;
-                    break;
-            }
-            if (CityGenerating.CityGenerator.city != null) {
-                maximumLengthOfStreet = city.getStreetByIndex(currentPosition).getLength();
-                this.distance = city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction);
-            }
+                Integer directionOption = 1;
+                if (CityGenerating.CityGenerator.city != null)directionOption= city.getStreetByIndex(this.currentPosition).getLane();
+                switch (directionOption) {
+                    case 1:
+                        this.direction = 1;
+                        break;
+                    case -1:
+                        this.direction = -1;
+                        break;
+                    default:
+                        this.direction = Math.random() > 0.5 ? 1 : -1;
+                        break;
+                }
+                if (CityGenerating.CityGenerator.city != null) {
+                    maximumLengthOfStreet = city.getStreetByIndex(currentPosition).getLength();
+                    this.distance = city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction);
+                }
 
-        }while(city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction)>city.getStreetByIndex(currentPosition).getLength());
+            }while(city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction)>city.getStreetByIndex(currentPosition).getLength());
 
 
         // We generate a final position until the final position is not equal to the initial one.

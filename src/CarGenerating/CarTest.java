@@ -1,6 +1,8 @@
 package CarGenerating;
 
 
+import CityGenerating.City;
+import CityGenerating.CityGenerator;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
@@ -220,5 +222,25 @@ class CarTest {
         Assertions.assertEquals(help,car.toString());
     }
 
+    @org.junit.jupiter.api.Test
+    void testGetID_causeIWannaGetThat100percent(){
+        Car car= new Car();
+        int help = car.getID();
+
+        Assertions.assertEquals(help,car.getID());
+    }
+
+    @org.junit.jupiter.api.Test
+    void testCar(){
+        CityGenerator.generateCity();
+
+        Car car=new Car();//testat daca totul se genereaza intre parametrii impusi
+
+
+        Assertions.assertEquals(true,car.getCurrentPosition()>=1&&car.getCurrentPosition()<=12);
+        Assertions.assertEquals(true,car.getDirection()==1||car.getDirection()==-1);
+        Assertions.assertEquals(true,car.getFinalPosition()>=0&&car.getFinalPosition()<=8);
+        Assertions.assertEquals(true,car.getDistance()>=0&&car.getDistance()<6);
+    }
 
 }
