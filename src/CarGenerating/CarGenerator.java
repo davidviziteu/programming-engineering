@@ -17,14 +17,14 @@ public class CarGenerator {
 
 
     public void generate() {
-        SpecialCar specialCar=new SpecialCar(GraphicsModule.Graphics.getStartStreet(),GraphicsModule.Graphics.getFinalStreet(),0);
+        SpecialCar specialCar = new SpecialCar(GraphicsModule.Graphics.getStartStreet(), GraphicsModule.Graphics.getFinalStreet(), 0);
         cars.add(specialCar);
-        city.getStreetByIndex(cars.get(0).getCurrentPosition()).addCar(cars.get(0),cars.get(0).getDirection());
+        city.getStreetByIndex(cars.get(0).getCurrentPosition()).addCar(cars.get(0), cars.get(0).getDirection());
 
         //in functie de frecventa pe fiecare strada vor fi generate un numar de masini(strict <= capacitatea strazii)
-        this.frequency= GraphicsModule.Graphics.getTrafficFrequencyInput();
-        this.frequency="Low";
-        if (this.frequency == "Low" ) {
+        this.frequency = GraphicsModule.Graphics.getTrafficFrequencyInput();
+        this.frequency = "Low";
+        if (this.frequency == "Low") {
             numberOfCars = (int) (frequencyLow * totalStreetsLength());
         }
         if (this.frequency == "Medium") {
@@ -52,7 +52,7 @@ public class CarGenerator {
 
     public int totalStreetsLength() {
         int sum = 0;
-        if( CityGenerating.CityGenerator.city != null) {
+        if (CityGenerating.CityGenerator.city != null) {
             for (int index = 0; index < city.getNrOfStreets(); index++) {
                 sum += city.getStreetByIndex(index).getLength();
             }
