@@ -3,6 +3,9 @@ package CarGenerating;
 
 import org.junit.jupiter.api.Assertions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class CarTest {
 
     @org.junit.jupiter.api.Test
@@ -103,10 +106,24 @@ class CarTest {
     }
 
     @org.junit.jupiter.api.Test
+    void testEquals_nullFirst(){
+        Car first=null;
+        Car second=new Car();
+        Assertions.assertEquals(false,first==second);
+    }
+
+    @org.junit.jupiter.api.Test
     void testEquals_different(){
         Car first=new Car();
         Car second=new Car();
         Assertions.assertEquals(false,first==second);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testEquals_bothNull(){
+        Car first=null;
+        Car second=null;
+        Assertions.assertEquals(true,first==second);
     }
 
     @org.junit.jupiter.api.Test
@@ -149,6 +166,58 @@ class CarTest {
         car.setFinalPosition(6);
 
         Assertions.assertEquals(6, car.getFinalPosition());
+    }
+
+    @org.junit.jupiter.api.Test
+    void testSetShortestPathDistance(){
+        Car car=new Car();
+        car.setShortestPathDistance(5);
+
+        Assertions.assertEquals(5, car.getShortestPathDistance());
+    }
+
+    @org.junit.jupiter.api.Test
+    void testSetShortestPathTime(){
+        Car car=new Car();
+        car.setShortestPathTime(5);
+
+        Assertions.assertEquals(5, car.getShortestPathTime());
+    }
+
+    @org.junit.jupiter.api.Test
+    void testSetShortestPath(){
+        Car car=new Car();
+        List<Integer> help = new ArrayList<Integer>();
+        help.add(2);
+        help.add(3);
+        car.setShortestPath(help);
+
+        Assertions.assertEquals(help, car.getShortestPath());
+    }
+
+    @org.junit.jupiter.api.Test
+    void testHashCode(){
+        Car car=new Car();
+        int helpNeedABetterVariableName = car.hashCode();
+
+        Assertions.assertEquals(helpNeedABetterVariableName, car.hashCode());
+    }
+
+    @org.junit.jupiter.api.Test
+    void testCompareTo(){
+        Car first=new Car();
+        Car second=new Car();
+        int result=first.compareTo(second);
+
+        Assertions.assertEquals(result,first.compareTo(second));
+    }
+
+    @org.junit.jupiter.api.Test
+    void testToString_causeWhyNot(){
+        Car car= new Car();
+        String help = car.toString();
+
+        Assertions.assertEquals(help,car.toString());
     }
 
 
