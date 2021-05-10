@@ -82,8 +82,7 @@ public class CityGenerator {
         city = new City(streets, intersections, trafficLights, cars);
         CarGenerator carGenerator = new CarGenerator("Medium");
         carGenerator.generate();
-        System.out.println("Lungimea vectorului de masini generat este de: " + carGenerator.cars.size());
+        System.out.println("[CityGenerator] Lungimea vectorului de masini generat este de: " + carGenerator.cars.size());
         city.setCars(carGenerator.cars);
-
     }
 }

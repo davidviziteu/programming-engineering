@@ -8,11 +8,28 @@ import ShortestPath.Tuple;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class Alg2Test {
+
+    @org.junit.jupiter.api.Test
+    void testRun() {
+        CityGenerator.generateCity();
+        City city = CityGenerator.city;
+        Alg2 algorithm = new Alg2(city);
+
+        List<Street> solution = algorithm.run();
+        for (int index = 1; index < solution.size(); ++index) {
+            // check if sequence is properly connected
+            int leftStart = solution.get(index - 1).getIntersectionSource();
+            int leftFinish = solution.get(index - 1).getIntersectionDestination();
+            int rightStart = solution.get(index).getIntersectionSource();
+            int rightFinish = solution.get(index).getIntersectionDestination();
+            assert(leftStart == rightStart || leftStart == rightFinish ||
+                    leftFinish == rightStart || leftFinish == rightFinish);
+        }
+    }
 
     @org.junit.jupiter.api.Test
     void testPopulatePositive() {
@@ -25,16 +42,16 @@ class Alg2Test {
         assertEquals(Alg2.K_POP_SIZE, algorithm.getPopulation().size());
     }
 
-    @org.junit.jupiter.api.Test
-    void testPopulateNegative() {
-        CityGenerator.generateCity();
-        City city = null;
-        Alg2 algorithm = new Alg2(city);
-
-        algorithm.populate();
-
-        assertEquals(0, algorithm.getPopulation().size()); // TODO: check values @ populate
-    }
+//    @org.junit.jupiter.api.Test
+//    void testPopulateNegative() {
+//        CityGenerator.generateCity();
+//        City city = null;
+//        Alg2 algorithm = new Alg2(city);
+//
+//        algorithm.populate();
+//
+//        assertEquals(0, algorithm.getPopulation().size()); // TODO: check values @ populate
+//    }
 
     @org.junit.jupiter.api.Test
     void testFitness() {
@@ -118,10 +135,12 @@ class Alg2Test {
         List<Street> newChromosome = algorithm.mutate(chromosome);
         for (int index = 1; index < newChromosome.size(); ++index) {
             // check if sequence is properly connected
-            int destination = newChromosome.get(index - 1).getIntersectionDestination();
-            int endStart = newChromosome.get(index).getIntersectionSource();
-            int endFinish = newChromosome.get(index).getIntersectionDestination();
-            assert(destination == endStart || destination == endFinish);
+            int leftStart = newChromosome.get(index - 1).getIntersectionSource();
+            int leftFinish = newChromosome.get(index - 1).getIntersectionDestination();
+            int rightStart = newChromosome.get(index).getIntersectionSource();
+            int rightFinish = newChromosome.get(index).getIntersectionDestination();
+            assert(leftStart == rightStart || leftStart == rightFinish ||
+                    leftFinish == rightStart || leftFinish == rightFinish);
         }
     }
 
@@ -138,10 +157,12 @@ class Alg2Test {
         if (newChromosomeSection != null) {
             for (int index = 1; index < newChromosomeSection.size(); ++index) {
                 // check if sequence is properly connected
-                int destination = newChromosomeSection.get(index - 1).getIntersectionDestination();
-                int endStart = newChromosomeSection.get(index).getIntersectionSource();
-                int endFinish = newChromosomeSection.get(index).getIntersectionDestination();
-                assert(destination == endStart || destination == endFinish);
+                int leftStart = newChromosomeSection.get(index - 1).getIntersectionSource();
+                int leftFinish = newChromosomeSection.get(index - 1).getIntersectionDestination();
+                int rightStart = newChromosomeSection.get(index).getIntersectionSource();
+                int rightFinish = newChromosomeSection.get(index).getIntersectionDestination();
+                assert(leftStart == rightStart || leftStart == rightFinish ||
+                        leftFinish == rightStart || leftFinish == rightFinish);
             }
         }
     }
@@ -213,7 +234,7 @@ class Alg2Test {
 
         Tuple<List<Street>, List<Street>> chromosomes = algorithm.crossover(chromosome1, chromosome2);
 
-        assert(chromosomes == null);
+        assert(chromosomes.getFirst().equals(chromosome1) && chromosomes.getSecond().equals(chromosome2));
     }
 
     @org.junit.jupiter.api.Test
@@ -271,5 +292,14 @@ class Alg2Test {
         Tuple<Integer, Integer> pair = algorithm.findCommonGeneOfTwoChromosomes(chromosome1, chromosome2);
 
         assert(pair == null);
+    }
+
+    @org.junit.jupiter.api.Test
+    void testGetCommonStreetNegative() {
+        CityGenerator.generateCity();
+        City city = CityGenerator.city;
+        Alg2 algorithm = new Alg2(city);
+
+        assertEquals(null, algorithm.getCommonStreet(0, 1));
     }
 }
