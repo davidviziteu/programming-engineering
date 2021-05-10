@@ -8,10 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -20,8 +17,6 @@ import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.Thread.sleep;
 
 
 public class Graphics {
@@ -34,6 +29,12 @@ public class Graphics {
     Label trafficLabel;
     ObservableList<String> trafficTypes;
     Spinner<String> trafficSpinner = new Spinner<>();
+    TextField startPosition;
+    TextField finalPosition;
+    Button setStart;
+    Button setFinish;
+    Integer startStreet;
+    Integer finalStreet;
     static String trafficFrequencyInput;
     public static Integer[][] map = new Integer[10][10];
 
@@ -50,7 +51,7 @@ public class Graphics {
             for (int j = 0; j < 10; j++)
                 transpose[i][j] = map [j][i];
 
-            map = transpose;
+        map = transpose;
     }
     public void drawMap() {
         gridpane = new GridPane();
@@ -86,10 +87,34 @@ public class Graphics {
         trafficTypes = FXCollections.observableArrayList("Low", "Medium", "High");
         SpinnerValueFactory<String> values = new SpinnerValueFactory.ListSpinnerValueFactory<>(trafficTypes);
         trafficSpinner.setValueFactory(values);
-        user.getChildren().addAll(trafficLabel, trafficSpinner, submit);
+        startPosition = new TextField("Type Initial Street");
+        finalPosition = new TextField("Type Final Street");
+        setStart = new Button("Set");
+        setFinish = new Button("Set");
+        setStart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                startStreet = Integer.parseInt(startPosition.getText());
+            }
+        });
+        setFinish.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                finalStreet = Integer.parseInt(finalPosition.getText());
+            }
+        });
+        user.getChildren().addAll(trafficLabel, trafficSpinner, submit, startPosition, setStart, finalPosition, setFinish);
         user.setAlignment(Pos.CENTER);
         window.setCenter(gridpane);
         window.setTop(user);
+    }
+
+    public Integer getStartStreet(){
+        return startStreet;
+    }
+
+    public Integer getFinalStreet(){
+        return finalStreet;
     }
 
     public void drawTrafficLights() {
@@ -98,14 +123,14 @@ public class Graphics {
             intersection = CityGenerator.city.getIntersectionByIndex(i);
             Integer x = intersection.getPosX();
             Integer y = intersection.getPosY();
-            Image semafor = new Image("/GraphicsModule/resources/TrafficLightWithTimer.gif");
-            ImageView semaforView = new ImageView(semafor);
+            Image trafficLight = new Image("/GraphicsModule/resources/TrafficLightWithTimer.gif");
+            ImageView trafficLightView = new ImageView(trafficLight);
             if (map[y][x] == 5)
-                gridpane.add(semaforView, y, x);
+                gridpane.add(trafficLightView, y, x);
         }
     }
 
-    public String getTrafficFrequency() {
+    public void setTrafficFrequency() {
 
         submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -113,26 +138,19 @@ public class Graphics {
                 trafficFrequencyInput = trafficSpinner.getValue();
             }
         });
-        return trafficFrequencyInput;
     }
 
     public static String getTrafficFrequencyInput() {
 
         return trafficFrequencyInput;
-    }//am facut un getter
+    }
 
     public void drawCars(){
-        //TODO: ruleaza functia asta intr-un thread javafx
-
-        //TODO: luati in considerare car.getDistance cand o puneti pe strada
-
         //dam remove ca sa fie actualizata pozitia de fiecare data
         for (int i = 0; i < carsToDraw.size(); i++) {
             gridpane.getChildren().remove(carsToDraw.get(i));
         }
         for (Car car : CityGenerator.city.getCars()) {
-//            if(car.getDistance() == -1)
-//                continue; //probabil tre sa faci si asta
             //daca strada e orizontala
             if (CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getDirection() == 1)
                 //daca sensul e normal (de la stanga la dreapta)
@@ -145,7 +163,7 @@ public class Graphics {
                     firstCoord.add(Y);
                     secondCoord.add(X);
 
-            } else { //daca sensul e invers (de la dreapta la stanga)
+                } else { //daca sensul e invers (de la dreapta la stanga)
                     Image newCar = new Image("/GraphicsModule/resources/carGoingLeft.png");
                     ImageView carToLeft = new ImageView(newCar);
                     int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
@@ -154,7 +172,7 @@ public class Graphics {
                     firstCoord.add(Y);
                     secondCoord.add(X);
                 }
-            //daca strada e verticala
+                //daca strada e verticala
             else if (car.getDirection()== 1) {
                 //daca masina merge normal (in sus)
                 Image newCar = new Image("/GraphicsModule/resources/carGoingUp.png");
@@ -179,9 +197,17 @@ public class Graphics {
         for (int i = 0; i < carsToDraw.size(); i++)
             gridpane.add(carsToDraw.get(i), firstCoord.get(i), secondCoord.get(i));
 
+        //incercare masina in intersectie
+
+        Image carTurn = new Image("/GraphicsModule/resources/carTurnsRight.gif");
+        ImageView carTurnImageView = new ImageView(carTurn);
+        gridpane.add(carTurnImageView, 2, 1);
+
+
         //golim array-urile pentru a le pregati de urmatoarele pozitii
         carsToDraw.clear();
         firstCoord.clear();
         secondCoord.clear();
+
     }
 }
