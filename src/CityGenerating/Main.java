@@ -73,6 +73,9 @@ public class Main extends Application {
 
         for (Car temp3 : CityGenerator.city.getCars()) {
             System.out.println("Street: " + temp3.getCurrentPosition() + "          Position: " + temp3.getDistance());
+            Pair<Integer,Integer> perecheCoordonate=CityGenerator.city.getCarCoordinates(temp3);
+            System.out.println("Masina se afla la coordonatele x:" + perecheCoordonate.getKey() + "; y:" + perecheCoordonate.getValue());
+            System.out.println();
         }
 
         System.out.println("Strada de la coordonatele 4,7 " + CityGenerator.city.getStreetByIndex(CityGenerator.city.getStreetByCoordonates(4, 7)).getName());

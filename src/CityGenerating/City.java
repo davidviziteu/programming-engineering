@@ -112,6 +112,20 @@ public class City {
         return -1;
     }
 
+    public Pair<Integer, Integer> getCarCoordinates(Car temp){
+        Street stradaTemporara=getStreetByIndex(temp.getCurrentPosition());
+        Integer toAdd;
+        if(temp.getDirection()==1)
+            toAdd=stradaTemporara.getLength()-temp.getDistance();
+        else
+            toAdd=temp.getDistance()-1;
+        if(stradaTemporara.getDirection()==1){
+            return new Pair<Integer,Integer>(stradaTemporara.getPosX(),stradaTemporara.getPosY()+toAdd);
+        }else{
+            return new Pair<Integer,Integer>(stradaTemporara.getPosX()+toAdd,stradaTemporara.getPosY());
+        }
+    }
+
     public Intersection getIntersectionByIndex(int i) {
         return intersections.get(i);
     }
