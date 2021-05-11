@@ -24,13 +24,13 @@ public class CarGenerator {
         //in functie de frecventa pe fiecare strada vor fi generate un numar de masini(strict <= capacitatea strazii)
         this.frequency = GraphicsModule.Graphics.getTrafficFrequencyInput();
         this.frequency = "Low";
-        if (this.frequency == "Low") {
+        if (this.frequency.equals("Low")) {
             numberOfCars = (int) (frequencyLow * totalStreetsLength());
         }
-        if (this.frequency == "Medium") {
+        if (this.frequency.equals("Medium")) {
             numberOfCars = (int) (frequencyMedium * totalStreetsLength());
         }
-        if (this.frequency == "High") {
+        if (this.frequency.equals("High")) {
             numberOfCars = (int) (frequencyHigh * totalStreetsLength());
         }
 
