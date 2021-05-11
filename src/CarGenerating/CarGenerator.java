@@ -17,7 +17,8 @@ public class CarGenerator {
 
 
     public void generate() {
-        SpecialCar specialCar = new SpecialCar(GraphicsModule.Graphics.getStartStreet(), GraphicsModule.Graphics.getFinalStreet(), 0);
+        //SpecialCar specialCar = new SpecialCar(GraphicsModule.Graphics.getStartStreet(), GraphicsModule.Graphics.getFinalStreet(), 0);
+        SpecialCar specialCar = new SpecialCar(0,0,0);
         cars.add(specialCar);
         city.getStreetByIndex(cars.get(0).getCurrentPosition()).addCar(cars.get(0), cars.get(0).getDirection());
 
