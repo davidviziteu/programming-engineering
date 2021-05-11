@@ -25,7 +25,7 @@ public class Main2Test extends Application{
     @Override
     public void start(Stage stage) throws InterruptedException {
 
-        CityGenerator.generateCity();
+       // CityGenerator.generateCity();
         Graphics2 ourCity = new Graphics2();
         ourCity.addUserPane();
         //ourCity.addUserPane();

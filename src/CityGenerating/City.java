@@ -120,8 +120,10 @@ public class City {
         else
             toAdd=temp.getDistance()-1;
         if(stradaTemporara.getDirection()==1){
+            System.out.println("am intrat acolo");
             return new Pair<Integer,Integer>(stradaTemporara.getPosX(),stradaTemporara.getPosY()+toAdd);
         }else{
+            System.out.println("am intrat aici");
             return new Pair<Integer,Integer>(stradaTemporara.getPosX()+toAdd,stradaTemporara.getPosY());
         }
     }

@@ -78,7 +78,7 @@ public class CarAnimator extends Thread {
                         synchronized (th) {
                             th.notify();
                         }
-                sleep(1000 / carSpeed);
+                sleep(2000 / carSpeed);
 //                sleep(5000);
             }
             if (CarFollower.pool.size() > 0) {
@@ -87,7 +87,7 @@ public class CarAnimator extends Thread {
                         th.notify();
                     }
 
-                sleep(100); // for car follower
+                sleep(2); // for car follower
             }
             System.out.println("animator thread ended");
         } catch (InterruptedException e) {

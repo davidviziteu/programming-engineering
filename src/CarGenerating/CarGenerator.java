@@ -35,6 +35,7 @@ public class CarGenerator {
             numberOfCars = (int) (frequencyHigh * totalStreetsLength());
         }
 
+        numberOfCars=1;
         for (int index = 0; index < numberOfCars; index++) {
             cars.add(new Car());
             city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
