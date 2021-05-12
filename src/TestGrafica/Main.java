@@ -58,13 +58,20 @@ public class Main extends Application{
                     @Override
                     public void handle(ActionEvent t) {
                         //move the ball
-
-
-
                         System.out.println(ball.getLayoutX());
                         System.out.println(ball.getLayoutY());
                        // ball.setLayoutX(ball.getLayoutX() + dx);
                        // ball.setLayoutY(ball.getLayoutY());
+
+                       //todo: sa se schimbe
+                       //
+                        if(CityGenerator.city.getStreetByIndex(CityGenerator.city.getCars().get(0).getCurrentPosition()).getDirection()==-1){
+                            ball.setImage(new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-try3\\programming-engineering\\src\\GraphicsModule\\resources\\carGoingUp.png"));
+                        }
+                        else{
+                            ball.setImage(new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-vTest\\programming-engineering\\src\\TestGrafica\\carGoingRight.png"));
+
+                        }
                         int x=CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(0)).getKey();
                         int y=CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(0)).getValue();
                         System.out.println("AICI ESTE VALOAREA COORDONATELOR: " + x + " . " + y);
