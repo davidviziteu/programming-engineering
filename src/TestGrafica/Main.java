@@ -25,12 +25,24 @@ public class Main extends Application{
     @Override
     public void start(Stage stage) {
 
-        Pane canvas = new Pane();
-        Scene scene = new Scene(canvas, 900, 900, Color.ALICEBLUE);
+        Graphics2 ourCity = new Graphics2();
+        ourCity.addUserPane();
+        //ourCity.addUserPane();
+        ourCity.drawTrafficLights();
+        Scene scene = new Scene(ourCity.window, 1000, 1000);
+
+        //Pane canvas = new Pane();
+        //Scene scene = new Scene(canvas, 900, 900, Color.ALICEBLUE);
         Image car = new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-vTest\\programming-engineering\\src\\TestGrafica\\carGoingRight.png");
         ImageView ball = new ImageView(car);
         ball.relocate(5, 5);
-        canvas.getChildren().add(ball);
+
+        ball.setLayoutX(5);
+        ball.setLayoutY(5);
+        ourCity.window.getChildren().add(ball);
+
+
+        //canvas.getChildren().add(ball);
         stage.setTitle("Animated Ball");
         stage.setScene(scene);
         stage.show();
@@ -46,6 +58,8 @@ public class Main extends Application{
                     @Override
                     public void handle(ActionEvent t) {
                         //move the ball
+
+
 
                         System.out.println(ball.getLayoutX());
                         System.out.println(ball.getLayoutY());
