@@ -1,5 +1,7 @@
 package TestGrafica;
 
+import AnimationLogic.Miscellaneous.ConsoleColors;
+import AnimationLogic.Miscellaneous.Utilities;
 import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import javafx.animation.KeyFrame;
@@ -14,6 +16,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.File;
 
 public class Main extends Application{
 
@@ -66,10 +70,14 @@ public class Main extends Application{
                        //todo: sa se schimbe
                        //
                         if(CityGenerator.city.getStreetByIndex(CityGenerator.city.getCars().get(0).getCurrentPosition()).getDirection()==-1){
-                            ball.setImage(new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-try3\\programming-engineering\\src\\GraphicsModule\\resources\\carGoingUp.png"));
+                            var path = new File("src\\GraphicsModule\\resources\\carGoingUp.png").getAbsolutePath();
+                            ball.setImage(new Image("file:///" + path));
+//                            ball.setImage(new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-try3\\programming-engineering\\src\\GraphicsModule\\resources\\carGoingUp.png"));
                         }
                         else{
-                            ball.setImage(new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-vTest\\programming-engineering\\src\\TestGrafica\\carGoingRight.png"));
+                            var path = new File("src\\TestGrafica\\carGoingRight.png").getAbsolutePath();
+                            ball.setImage(new Image("file:///" + path));
+//                            ball.setImage(new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-vTest\\programming-engineering\\src\\TestGrafica\\carGoingRight.png"));
 
                         }
                         int x=CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(0)).getKey();
@@ -81,10 +89,11 @@ public class Main extends Application{
 
                         for(int i=0; i< CityGenerator.city.getCars().size(); i++)
                             System.out.println(
-                                    ANSI_YELLOW +
+                                    ConsoleColors.YELLOW +
                                             "Aceasta este masina" + CityGenerator.city.getCars().get(i).getID() +
                                             "\tAcesta distanta pe strada" + CityGenerator.city.getCars().get(i).getDistance() +
-                                            "\n Current Position:"+CityGenerator.city.getCars().get(i).getCurrentPosition());
+                                            "\n Current Position:"+CityGenerator.city.getCars().get(i).getCurrentPosition()
+                            + ConsoleColors.RESET);
                         System.out.println(ball.getLayoutX() + dx);
 
                     }

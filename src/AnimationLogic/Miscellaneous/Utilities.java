@@ -2,8 +2,10 @@ package AnimationLogic.Miscellaneous;
 
 import CarGenerating.Car;
 import CityGenerating.Pair;
+import CityGenerating.Street;
 import ShortestPath.ShortestPath2;
 
+import java.util.ArrayList;
 import java.util.Queue;
 
 import static CityGenerating.CityGenerator.city;
@@ -65,6 +67,27 @@ public class Utilities {
                     System.err.println("car " + pair.getValue().toString() + " not found in " + st.getName() + "'s queue");
                 else pair.getValue().setDistance(offset);
             });
+        }
+    }
+
+    public static void correctCurrentPositionOfAllCars() {
+        ArrayList<Street> streets = city.getStreets();
+        for (int stIndex = 0, streetsSize = streets.size(); stIndex < streetsSize; stIndex++) {
+            Street st = streets.get(stIndex);
+
+            for (Pair<Integer, Car> integerCarPair : st.getCars()) {
+                var offset = getIndexOfCarInQueue(st.getCars(), integerCarPair.getValue());
+                if (offset == -1) {
+                }
+                else integerCarPair.getValue().setCurrentPosition(stIndex);
+            }
+
+            for (Pair<Integer, Car> pair : st.getCarsReversed()) {
+                var offset = getIndexOfCarInQueue(st.getCarsReversed(), pair.getValue());
+                if (offset == -1) {
+                }
+                else pair.getValue().setCurrentPosition(stIndex);
+            }
         }
     }
 

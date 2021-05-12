@@ -40,7 +40,7 @@ public class MasterThread {
         CityGenerator.generateCity();
         computeShortestPathForAllCars();
         correctDistanceOfAllCars();
-        setAllCarsSpeed(2); //- patratele pe secunda. pls nu pune ceva negativ nush ce se intampla
+        setAllCarsSpeed(1); //- patratele pe secunda. pls nu pune ceva negativ nush ce se intampla
         var carsControllerInstance = CarController.getInstance();
         var carsControllerThread = new Thread(carsControllerInstance);
 

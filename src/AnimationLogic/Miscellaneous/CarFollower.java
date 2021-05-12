@@ -53,43 +53,43 @@ public class CarFollower extends Thread {
                     e.printStackTrace();
                 }
             }
-            if (CarAnimator.isRunning()) {
-                CarAnimator.rwLock.readLock().lock();
-                try {
-                    var newState = CityGenerator.city.getCars().get(carIdxToFollow);
-                    if (newState.getDistance() == -1) break;
-                    if (newState.getDistance() == 0 && SemaphoreController.isRunning()) {
-                        System.out.println(
-                                consoleColor + this.name + newState.toString() + ConsoleColors.RESET
-                        );
-                        Integer semaphoreId;
-                        var currentStreet = city.getStreetByIndex(newState.getCurrentPosition());
-                        if (newState.getDirection() == 1) {
-                            semaphoreId = currentStreet.getTrafficLights();
-                        } else {
-                            semaphoreId = currentStreet.getTrafficLightsReversed();
-                        }
-                        System.out.println(
-                                consoleColor + this.name + newState.toString() + "\n waiting at the semaphore id "
-                                        + semaphoreId + " of color " + city.getTLightsById(semaphoreId).getStare() + " " + ConsoleColors.RESET
-                        );
-                    }
+            CarAnimator.rwLock.readLock().lock();
+            try {
+                var newState = CityGenerator.city.getCars().get(carIdxToFollow);
+                if (newState.getDistance() == -1) {
+                    System.out.println(
+                            consoleColor + this.name + previousState.toString() + ConsoleColors.GREEN_UNDERLINED + " Has arrived at destination" + ConsoleColors.RESET
+                    );
+                    return;
+                }
+                if (newState.getDistance() == 0 && SemaphoreController.isRunning()) {
                     System.out.println(
                             consoleColor + this.name + newState.toString() + ConsoleColors.RESET
                     );
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println(consoleColor +
-                            "Car " + this.name + " has exited the map.\n"
-                            + ConsoleColors.RESET
-                            + "Last known: " + this.previousState.toString()
+                    Integer semaphoreId;
+                    var currentStreet = city.getStreetByIndex(newState.getCurrentPosition());
+                    if (newState.getDirection() == 1) {
+                        semaphoreId = currentStreet.getTrafficLights();
+                    } else {
+                        semaphoreId = currentStreet.getTrafficLightsReversed();
+                    }
+                    System.out.println(
+                            consoleColor + this.name + newState.toString() + "\n waiting at the semaphore id "
+                                    + semaphoreId + " of color " + city.getTLightsById(semaphoreId).getStare() + " " + ConsoleColors.RESET
                     );
-                    return;
-                } finally {
-                    CarAnimator.rwLock.readLock().unlock();
                 }
-            } else {
-                System.out.println("Non animated module not implemented yet");
+                System.out.println(
+                        consoleColor + this.name + newState.toString() + ConsoleColors.RESET
+                );
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println(consoleColor +
+                        "Car " + this.name + " has exited the map.\n"
+                        + ConsoleColors.RESET
+                        + "Last known: " + this.previousState.toString()
+                );
                 return;
+            } finally {
+                CarAnimator.rwLock.readLock().unlock();
             }
         }
         System.out.println(

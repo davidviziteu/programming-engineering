@@ -1,5 +1,6 @@
 package AnimationLogic;
 
+import AnimationLogic.Miscellaneous.Utilities;
 import CarGenerating.Car;
 import CityGenerating.Pair;
 import CityGenerating.Street;
@@ -95,7 +96,7 @@ public class CarController extends Thread {
             }
             var finishedCar = streetQueue.remove();
             finishedCar.getValue().setDistance(-1);
-            System.out.println("car[??] that has arrived at destination[" + currentIntersectionId + "]: " + finishedCar.getValue());
+            System.out.println("car[" + finishedCar.getValue().getID() + "] that has arrived at destination[" + currentIntersectionId + "]: " + finishedCar.getValue());
             return;
         }
         var car = streetQueue.peek().getValue();
@@ -127,6 +128,8 @@ public class CarController extends Thread {
                             car
                     ));
                     streetQueue.remove();
+                    System.out.println("[CarController.java, line 131] car["+car.getID()+"] now on street " + i + "; applying patch");
+                    Utilities.correctCurrentPositionOfAllCars(); //patch
                     CarAnimator.rwLock.writeLock().unlock();
                 }
                 return;
@@ -148,6 +151,9 @@ public class CarController extends Thread {
                             car
                     ));
                     streetQueue.remove();
+                    System.out.println("[CarController.java, line 154] car["+car.getID()+"] now on street " + i+ "; applying patch");
+                    //DECOMENTEAZA LINIA DE MAI JOS PT UN FEL DE PATCH
+                    Utilities.correctCurrentPositionOfAllCars(); //patch
                     CarAnimator.rwLock.writeLock().unlock();
                 }
                 return;
