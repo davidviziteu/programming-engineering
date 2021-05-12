@@ -22,7 +22,7 @@ public class Car implements Comparable<Car> {
 
 
     public void setDirection(int direction) {
-        if(direction==1||direction==-1)this.direction = direction;
+        if (direction == 1 || direction == -1) this.direction = direction;
     }
 
     public int getShortestPathDistance() {
@@ -63,8 +63,8 @@ public class Car implements Comparable<Car> {
     }
 
     public void setDistance(int distance) {
-        if(distance>=0&&distance<6)this.distance = distance;
-        else this.distance = -1;//daca e -1 atunci e eroare
+        if (distance >= 0 && distance < 6) this.distance = distance;
+        else this.distance = -1;//daca e -1 atunci e in afara hartii
     }
 
     public void setCurrentPosition(int currentPosition) {
@@ -80,7 +80,7 @@ public class Car implements Comparable<Car> {
     }
 
     public void setFinalPosition(int finalPosition) {
-        if(finalPosition>=1&&finalPosition<=8)this.finalPosition = finalPosition;
+        if (finalPosition >= 0 && finalPosition <= 7) this.finalPosition = finalPosition;
     }
 
     public void setSpeed(int speed) {
@@ -97,7 +97,7 @@ public class Car implements Comparable<Car> {
     }
 
     public Car() {
-        ID=LastID++;
+        ID = LastID++;
         this.speed = 0;
         int index;
         int maximumLengthOfStreet;
@@ -106,12 +106,13 @@ public class Car implements Comparable<Car> {
         rand.setSeed(date.getTime());
 
         if (CityGenerating.CityGenerator.city != null)
-            do{
+            do {
                 // There are only 12 streets.
-                this.currentPosition = rand.nextInt(11) + 1;
+                this.currentPosition = rand.nextInt(12);
 
                 Integer directionOption = 1;
-                if (CityGenerating.CityGenerator.city != null)directionOption= city.getStreetByIndex(this.currentPosition).getLane();
+                if (CityGenerating.CityGenerator.city != null)
+                    directionOption = city.getStreetByIndex(this.currentPosition).getLane();
                 switch (directionOption) {
                     case 1:
                         this.direction = 1;
@@ -128,7 +129,7 @@ public class Car implements Comparable<Car> {
                     this.distance = city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction);
                 }
 
-            }while(city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction)>city.getStreetByIndex(currentPosition).getLength());
+            } while (city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction) > city.getStreetByIndex(currentPosition).getLength());
 
 
         // We generate a final position until the final position is not equal to the initial one.
