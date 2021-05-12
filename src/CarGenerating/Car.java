@@ -68,7 +68,7 @@ public class Car implements Comparable<Car> {
     }
 
     public void setCurrentPosition(int currentPosition) {
-        if(currentPosition>=1&&currentPosition<=12)this.currentPosition = currentPosition;
+        this.currentPosition = currentPosition;
     }
 
     public int getSpeed() {

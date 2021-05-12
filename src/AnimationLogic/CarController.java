@@ -129,7 +129,7 @@ public class CarController extends Thread {
                     ));
                     streetQueue.remove();
                     System.out.println("[CarController.java, line 131] car["+car.getID()+"] now on street " + i + "; applying patch");
-                    Utilities.correctCurrentPositionOfAllCars(); //patch
+//                    Utilities.correctCurrentPositionOfAllCars(); //patch
                     CarAnimator.rwLock.writeLock().unlock();
                 }
                 return;
@@ -153,7 +153,7 @@ public class CarController extends Thread {
                     streetQueue.remove();
                     System.out.println("[CarController.java, line 154] car["+car.getID()+"] now on street " + i+ "; applying patch");
                     //DECOMENTEAZA LINIA DE MAI JOS PT UN FEL DE PATCH
-                    Utilities.correctCurrentPositionOfAllCars(); //patch
+//                    Utilities.correctCurrentPositionOfAllCars(); //patch
                     CarAnimator.rwLock.writeLock().unlock();
                 }
                 return;

@@ -1,5 +1,6 @@
 package TestGrafica;
 
+import AnimationLogic.CarAnimator;
 import AnimationLogic.Miscellaneous.ConsoleColors;
 import AnimationLogic.Miscellaneous.Utilities;
 import CityGenerating.City;
@@ -80,8 +81,15 @@ public class Main extends Application{
 //                            ball.setImage(new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-vTest\\programming-engineering\\src\\TestGrafica\\carGoingRight.png"));
 
                         }
-                        int x=CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(0)).getKey();
-                        int y=CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(0)).getValue();
+                        int x, y;
+                        try {
+                            CarAnimator.rwLock.readLock().lock();
+                            x = CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(0)).getKey();
+                            y = CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(0)).getValue();
+                        }
+                        finally {
+                            CarAnimator.rwLock.readLock().unlock();
+                        }
                         System.out.println("AICI ESTE VALOAREA COORDONATELOR: " + x + " . " + y);
                         ball.setLayoutX(y*100);
                         ball.setLayoutY(x*100);
