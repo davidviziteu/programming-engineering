@@ -20,7 +20,8 @@ import javafx.util.Duration;
 
 import java.io.File;
 
-public class Main extends Application{
+public class MainAndreeaCi extends Application{
+
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
@@ -108,6 +109,12 @@ public class Main extends Application{
                 }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+    }
+
+
+    public void showWindow() throws Exception {
+        Stage stage = new Stage();
+        start(stage);
     }
 
     public static void incepe(){

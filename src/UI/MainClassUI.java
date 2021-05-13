@@ -1,0 +1,47 @@
+package UI;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
+import java.io.File;
+import java.io.IOException;
+
+/*
+--module-path
+"D:\Cloud Clients\OneDrive\facultate\sem4\java\javafx-sdk-11.0.2\lib"
+--add-modules
+javafx.controls,javafx.fxml
+ */
+public class MainClassUI extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        var resource = getClass().getResource("ui.fxml");
+        if(resource == null){
+            System.err.println("failed to load ui.fxml     clean the build and rebuild");
+            System.exit(-1);
+        }
+        Parent root = null;
+        try{
+            root = FXMLLoader.load(resource);
+        } catch (IOException e){
+            System.err.println("loaded ui.fxml. cannot instatiate parent root.");
+            System.err.println("problems in controller.");
+            System.exit(-1);
+        }
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.setScene(new Scene(root,600,750));
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+
+}

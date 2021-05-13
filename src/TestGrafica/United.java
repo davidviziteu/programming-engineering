@@ -30,13 +30,16 @@ public class United {
         MasterThread.followAllCars();
 
         try {
-            Main.incepe();
-
+            if(args.length > 0 && args[0].equals("full app")) {
+                var main = new MainAndreeaCi();
+                main.showWindow();
+            }
+            MainAndreeaCi.incepe();
             carsControllerThread.join();
             carAnimatorThread.join();
             MasterThread.joinFollowCarThreads();
 
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
