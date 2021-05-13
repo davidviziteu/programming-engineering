@@ -24,22 +24,21 @@ public class United {
         var carAnimatorThread = new Thread(carAnimatorInstance);
 
 
-
         carsControllerThread.start();
         carAnimatorThread.start();
         MasterThread.followAllCars();
 
         try {
-            if(args.length > 0 && args[0].equals("full app")) {
-                var main = new MainAndreeaCi();
-                main.showWindow();
+            if (args.length > 0 && args[0].equals("full app")) {
+                var secondWindow = new MainAndreeaCi();
+                secondWindow.showWindow();
             }
-            MainAndreeaCi.incepe();
-            carsControllerThread.join();
-            carAnimatorThread.join();
-            MasterThread.joinFollowCarThreads();
-
+            else
+                MainAndreeaCi.incepe();
+            // NU DA JOIN LA THREADS, SE BLOCHEAZA cand vreau sa fac a2a fereastra
+            // LASA GARBAGE COLLECTOR UL SA SE OCUPE DE ELE
         } catch (Exception e) {
+            //daca nu
             e.printStackTrace();
         }
     }

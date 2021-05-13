@@ -26,17 +26,17 @@ public class MainClassUI extends Application {
             System.err.println("failed to load ui.fxml     clean the build and rebuild");
             System.exit(-1);
         }
-        Parent root = null;
         try{
-            root = FXMLLoader.load(resource);
+            var root = new FXMLLoader(resource);
+            primaryStage.initStyle(StageStyle.UNDECORATED);
+            primaryStage.setScene(new Scene(root.load()));
+            primaryStage.show();
         } catch (IOException e){
             System.err.println("loaded ui.fxml. cannot instatiate parent root.");
             System.err.println("problems in controller.");
             System.exit(-1);
         }
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setScene(new Scene(root,600,750));
-        primaryStage.show();
+
     }
 
     public static void main(String[] args) {

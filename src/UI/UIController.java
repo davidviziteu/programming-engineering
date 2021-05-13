@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import CityGenerating.CityGenerator;
 import CityGenerating.Street;
+import TestGrafica.MainAndreeaCi;
 import TestGrafica.United;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -75,6 +76,7 @@ public class UIController implements Initializable {
         var isReversed = carOnReversed.isSelected() ? 1 : -1;
         //TODO: add final car
 
+        startButton.setVisible(false);
         String[] args = new String[1];
         args[0] = "full app";
         United.main(args); //https://stackoverflow.com/questions/26674498/how-to-open-two-javafx-windows
