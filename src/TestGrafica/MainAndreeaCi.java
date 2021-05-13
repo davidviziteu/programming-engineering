@@ -35,25 +35,20 @@ public class MainAndreeaCi extends Application{
         ourCity.addUserPane();
         //ourCity.addUserPane();
         ourCity.drawTrafficLights();
-        Scene scene = new Scene(ourCity.window, 1000, 1000);
+        Scene scene = new Scene(ourCity.window, 900, 900);
 
         //Pane canvas = new Pane();
         //Scene scene = new Scene(canvas, 900, 900, Color.ALICEBLUE);
         Image car = new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-vTest\\programming-engineering\\src\\TestGrafica\\carGoingRight.png");
         ImageView ball = new ImageView(car);
-        ball.relocate(5, 5);
 
-        ball.setLayoutX(5);
-        ball.setLayoutY(5);
-        ourCity.window.getChildren().add(ball);
+        putFirstCar(ball, ourCity);
 
-
-        //canvas.getChildren().add(ball);
         stage.setTitle("Animated Ball");
         stage.setScene(scene);
         stage.show();
 
-
+        System.out.println("inainte de prima iteratie");
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2000),
                 new EventHandler<ActionEvent>() {
@@ -68,8 +63,6 @@ public class MainAndreeaCi extends Application{
                         System.out.println(ball.getLayoutY());
                        // ball.setLayoutX(ball.getLayoutX() + dx);
                        // ball.setLayoutY(ball.getLayoutY());
-
-                       //todo: sa se schimbe
                        //
                         if(CityGenerator.city.getStreetByIndex(CityGenerator.city.getCars().get(0).getCurrentPosition()).getDirection()==-1){
                             var path = new File("src\\GraphicsModule\\resources\\carGoingUp.png").getAbsolutePath();
@@ -120,6 +113,30 @@ public class MainAndreeaCi extends Application{
     public static void incepe(){
         System.out.println("am inceput");
         launch();
+    }
+    public static void putFirstCar(ImageView ball, Graphics2 ourCity){
+        int x1= CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(0)).getKey();
+
+        int y1 = CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(0)).getValue();
+        ball.setLayoutX(y1*100);
+        ball.setLayoutY(x1*100);
+        if(!isVertical()) {
+            var path = new File("src\\TestGrafica\\carGoingRight.png").getAbsolutePath();
+            ball.setImage(new Image("file:///" + path));
+        }
+        else {
+            var path = new File("src\\GraphicsModule\\resources\\carGoingUp.png").getAbsolutePath();
+            ball.setImage(new Image("file:///" + path));
+        }
+        System.out.println(x1 + "..." + y1);
+        ourCity.window.getChildren().add(ball);
+
+    }
+    public static boolean isVertical(){
+        int ok=1;
+        if(CityGenerator.city.getStreetByIndex(CityGenerator.city.getCars().get(0).getCurrentPosition()).getDirection()==-1)
+            return true;
+        return false;
     }
 
 }
