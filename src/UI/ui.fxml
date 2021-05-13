@@ -59,7 +59,7 @@
             <Spinner fx:id="choiceBoxSpeed" layoutX="307.0" layoutY="44.0" />
             <Spinner fx:id="streetDistanceSpinner" layoutX="8.0" layoutY="43.0" />
             <CheckBox fx:id="carOnReversed" layoutX="8.0" layoutY="79.0" mnemonicParsing="false" prefHeight="17.0" text="Amplaseaza masina pe sensul opus" textFill="WHITE" />
-            <ChoiceBox fx:id="trafficDensityChoiceBox" layoutX="307.0" layoutY="75.0" onAction="#updateDistanceBox" prefWidth="150.0" />
+            <ChoiceBox fx:id="trafficDensityChoiceBox" layoutX="307.0" layoutY="75.0" onAction="#updateTrafficIntesity" prefWidth="150.0" />
             <Label fx:id="trafficDensityLabel" layoutX="468.0" layoutY="79.0" text="Densitate trafic" textFill="WHITE" />
          </children>
       </AnchorPane>

@@ -48,6 +48,10 @@ public class UIController implements Initializable {
     public Spinner<Integer> choiceBoxSpeed;
     @FXML
     public CheckBox carOnReversed;
+    @FXML
+    public ChoiceBox<String> trafficDensityChoiceBox;
+    @FXML
+    public Label trafficDensityLabel;
     //NU SCHIMBA ASTEA CA NU O SA MAI PORNEASCA JAVAFX
 
 
@@ -65,7 +69,7 @@ public class UIController implements Initializable {
             intitialPositionLabel.setTextFill(Color.YELLOW);
             return;
         }
-
+        var trafficDensity = trafficDensityChoiceBox.getValue();
         var initialPosition = getIndexOfStreet(initialPositionChoiceBox.getValue());
         var initialDistance = streetDistanceSpinner.getValue();
         var finalPosition = finalPositionChoiceBox.getValue();
@@ -118,12 +122,18 @@ public class UIController implements Initializable {
 //        imageView.fitHeightProperty().bind(imageView.heightProperty());
     }
 
+    public void updateTrafficIntesity(ActionEvent actionEvent) {
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         streetDistanceSpinner.setVisible(false);
         distanceLabel.setVisible(false);
         displayMap();
-
+        trafficDensityChoiceBox.getItems().add("Moderat");
+        trafficDensityChoiceBox.getItems().add("Intens");
+        trafficDensityChoiceBox.getItems().add("Blocat");
+        trafficDensityChoiceBox.getSelectionModel().select(0);
         SpinnerValueFactory<Integer> sizeValueSpinner = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 1);
         choiceBoxSpeed.setValueFactory(sizeValueSpinner);
 
@@ -135,5 +145,7 @@ public class UIController implements Initializable {
         for (int i = 0; i <= 7; ++i)
             finalPositionChoiceBox.getItems().add(i);
     }
+
+
 }
 
