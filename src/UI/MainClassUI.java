@@ -28,8 +28,11 @@ public class MainClassUI extends Application {
         }
         try{
             var root = new FXMLLoader(resource);
-            primaryStage.initStyle(StageStyle.UNDECORATED);
-            primaryStage.setScene(new Scene(root.load()));
+//            primaryStage.initStyle(StageStyle.UNDECORATED);
+            var scene = new Scene(root.load());
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.setTitle("Traffic simulator E1");
             primaryStage.show();
         } catch (IOException e){
             System.err.println("loaded ui.fxml. cannot instatiate parent root.");

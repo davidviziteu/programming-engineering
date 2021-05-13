@@ -23,8 +23,6 @@ import javafx.scene.paint.Color;
 public class UIController implements Initializable {
 
     @FXML
-    public Canvas drawingCanvas;
-    @FXML
     public ImageView imageView;
     @FXML
     public Button startButton;
@@ -40,8 +38,6 @@ public class UIController implements Initializable {
     public Label finalIntersectionLabel;
     @FXML
     public Label carSpeedLabelDetails;
-    @FXML
-    public AnchorPane clickArea;
     @FXML
     public ChoiceBox<String> initialPositionChoiceBox;
     @FXML
@@ -111,6 +107,8 @@ public class UIController implements Initializable {
     }
 
     public void updateFinalPosition(ActionEvent actionEvent) {
+        finalIntersectionLabel.setTextFill(Color.WHITE);
+
     }
 
     private void displayMap() {

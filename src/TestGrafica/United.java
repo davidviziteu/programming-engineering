@@ -38,7 +38,6 @@ public class United {
             // NU DA JOIN LA THREADS, SE BLOCHEAZA cand vreau sa fac a2a fereastra
             // LASA GARBAGE COLLECTOR UL SA SE OCUPE DE ELE
         } catch (Exception e) {
-            //daca nu
             e.printStackTrace();
         }
     }
