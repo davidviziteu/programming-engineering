@@ -130,9 +130,9 @@ public class UIController implements Initializable {
         streetDistanceSpinner.setVisible(false);
         distanceLabel.setVisible(false);
         displayMap();
+        trafficDensityChoiceBox.getItems().add("Scăzut");
         trafficDensityChoiceBox.getItems().add("Moderat");
         trafficDensityChoiceBox.getItems().add("Intens");
-        trafficDensityChoiceBox.getItems().add("Blocat");
         trafficDensityChoiceBox.getSelectionModel().select(0);
         SpinnerValueFactory<Integer> sizeValueSpinner = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 1);
         choiceBoxSpeed.setValueFactory(sizeValueSpinner);
