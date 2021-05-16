@@ -67,7 +67,7 @@ public class MainAndreeaCi extends Application{
                         if(CityGenerator.city.getStreetByIndex(CityGenerator.city.getCars().get(0).getCurrentPosition()).getDirection()==-1){
                             var path = new File("src\\GraphicsModule\\resources\\carGoingUp.png").getAbsolutePath();
                             ball.setImage(new Image("file:///" + path));
-//                            ball.setImage(new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-try3\\programming-engineering\\src\\GraphicsModule\\resources\\carGoingUp.png"));
+//                            ball.setImage(new Image("file:///Users\\andre\\OneDrive\\Desktop\\ip-try3\\programming-engineering\\src\\GraphicsModule\\resources\\carGoingUp.png"));
                         }
                         else{
                             var path = new File("src\\TestGrafica\\carGoingRight.png").getAbsolutePath();

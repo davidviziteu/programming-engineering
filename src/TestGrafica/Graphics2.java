@@ -43,17 +43,18 @@ public class Graphics2 {
         Integer[][] transpose = new Integer[10][10];
         for (int i = 0; i < 10; i++)
             for (int j = 0; j < 10; j++)
-                transpose[i][j] = map [j][i];
+                transpose[i][j] = map[j][i];
 
         map = transpose;
     }
+
     public void drawMap() {
         gridpane = new GridPane();
         transposeMatrix();
-        Image streetBlock = new Image("/GraphicsModule/resources/StreetBlock.jpg");
-        Image streetBlockUp = new Image("/GraphicsModule/resources/StreetBlockUp.jpg");
-        Image grass = new Image("/GraphicsModule/resources/grass.png");
-        Image intersection = new Image("/GraphicsModule/resources/junction.png");
+        Image streetBlock = new Image( "\\GraphicsModule\\resources\\StreetBlock.jpg");
+        Image streetBlockUp = new Image( "\\GraphicsModule\\resources\\StreetBlockUp.jpg");
+        Image grass = new Image( "\\GraphicsModule\\resources\\grass.png");
+        Image intersection = new Image( "\\GraphicsModule\\resources\\junction.png");
 
         for (int i = 0; i < 10; i++)
             for (int j = 0; j < 10; j++) {
@@ -93,7 +94,7 @@ public class Graphics2 {
             intersection = CityGenerator.city.getIntersectionByIndex(i);
             Integer x = intersection.getPosX();
             Integer y = intersection.getPosY();
-            Image semafor = new Image("/GraphicsModule/resources/TrafficLightWithTimer.gif");
+            Image semafor = new Image(  "\\GraphicsModule\\resources\\TrafficLightWithTimer.gif");
             ImageView semaforView = new ImageView(semafor);
             if (map[y][x] == 5)
                 gridpane.add(semaforView, y, x);
@@ -139,10 +140,10 @@ public class Graphics2 {
                 //daca sensul e normal (de la stanga la dreapta)
                 if (car.getDirection() == 1) {
                     System.out.println("si aici2");
-                    Image newCar = new Image("/GraphicsModule/resources/carGoingRight.png");
+                    Image newCar = new Image("file:///"+System.getProperty("user.dir") + "\\GraphicsModule\\resources\\carGoingRight.png");
                     ImageView carToRight = new ImageView(newCar);
                     int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
-                    int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY()+car.getDistance();
+                    int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY() + car.getDistance();
                     System.out.println(X);
                     System.out.println(Y);
                     carsToDraw.add(carToRight);
@@ -152,10 +153,10 @@ public class Graphics2 {
                 } else { //daca sensul e invers (de la dreapta la stanga)
                     System.out.println("si aici3");
 
-                    Image newCar = new Image("/GraphicsModule/resources/carGoingLeft.png");
+                    Image newCar = new Image("file:///"+System.getProperty("user.dir") + "\\GraphicsModule\\resources\\carGoingLeft.png");
                     ImageView carToLeft = new ImageView(newCar);
                     int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
-                    int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY()+car.getDistance();
+                    int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY() + car.getDistance();
                     carsToDraw.add(carToLeft);
                     firstCoord.add(Y);
                     secondCoord.add(X);
@@ -164,26 +165,25 @@ public class Graphics2 {
                     System.out.println("am iesit");
                 }
                 //daca strada e verticala
-            else if (car.getDirection()== 1) {
+            else if (car.getDirection() == 1) {
                 System.out.println("si aici4");
 
                 //daca masina merge normal (in sus)
-                Image newCar = new Image("/GraphicsModule/resources/carGoingUp.png");
+                Image newCar = new Image("file:///"+System.getProperty("user.dir") + "\\GraphicsModule\\resources\\carGoingUp.png");
                 ImageView carToUp = new ImageView(newCar);
-                int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX()+CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getLength()-car.getDistance();
+                int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX() + CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getLength() - car.getDistance();
                 int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
                 carsToDraw.add(carToUp);
                 firstCoord.add(Y);
                 System.out.println(X);
                 System.out.println(Y);
                 secondCoord.add(X);
-            }
-            else { //daca masina merge in sens invers (in jos)
+            } else { //daca masina merge in sens invers (in jos)
                 System.out.println("si aici5");
 
-                Image newCar = new Image("/GraphicsModule/resources/carGoingDown.png");
+                Image newCar = new Image("file:///"+System.getProperty("user.dir") + "\\GraphicsModule\\resources\\carGoingDown.png");
                 ImageView carToDown = new ImageView(newCar);
-                int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX()-CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getLength()+car.getDistance();
+                int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX() - CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getLength() + car.getDistance();
                 int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
                 carsToDraw.add(carToDown);
                 firstCoord.add(Y);
@@ -196,11 +196,11 @@ public class Graphics2 {
         return carsToDraw;
     }
 
-    public List<Integer> getFirstCoord(){
+    public List<Integer> getFirstCoord() {
         return firstCoord;
     }
 
-    public List<Integer> getSecondCoord(){
+    public List<Integer> getSecondCoord() {
         return secondCoord;
     }
 }
