@@ -116,8 +116,7 @@ public class UIController implements Initializable {
     }
 
     private void displayMap() {
-        var path = new File(System.getProperty("user.dir") + "\\src\\UI\\mapPreview.png").getAbsolutePath();
-        imageView.setImage(new Image("file:///" + path));
+        imageView.setImage(new Image("file:src/UI/mapPreview.png"));
 //        imageView.fitWidthProperty().bind(imageView.widthProperty());
 //        imageView.fitHeightProperty().bind(imageView.heightProperty());
     }

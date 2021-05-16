@@ -51,10 +51,10 @@ public class Graphics2 {
     public void drawMap() {
         gridpane = new GridPane();
         transposeMatrix();
-        Image streetBlock = new Image( "\\GraphicsModule\\resources\\StreetBlock.jpg");
-        Image streetBlockUp = new Image( "\\GraphicsModule\\resources\\StreetBlockUp.jpg");
-        Image grass = new Image( "\\GraphicsModule\\resources\\grass.png");
-        Image intersection = new Image( "\\GraphicsModule\\resources\\junction.png");
+        Image streetBlock = new Image("file:src/GraphicsModule/resources/StreetBlock.jpg");
+        Image streetBlockUp = new Image("file:src/GraphicsModule/resources/StreetBlockUp.jpg");
+        Image grass = new Image("file:src/GraphicsModule/resources/grass.png");
+        Image intersection = new Image("file:src/GraphicsModule/resources/junction.png");
 
         for (int i = 0; i < 10; i++)
             for (int j = 0; j < 10; j++) {
@@ -94,7 +94,7 @@ public class Graphics2 {
             intersection = CityGenerator.city.getIntersectionByIndex(i);
             Integer x = intersection.getPosX();
             Integer y = intersection.getPosY();
-            Image semafor = new Image(  "\\GraphicsModule\\resources\\TrafficLightWithTimer.gif");
+            Image semafor = new Image("file:src/GraphicsModule/resources/TrafficLightWithTimer.gif");
             ImageView semaforView = new ImageView(semafor);
             if (map[y][x] == 5)
                 gridpane.add(semaforView, y, x);
@@ -140,7 +140,7 @@ public class Graphics2 {
                 //daca sensul e normal (de la stanga la dreapta)
                 if (car.getDirection() == 1) {
                     System.out.println("si aici2");
-                    Image newCar = new Image("file:///"+System.getProperty("user.dir") + "\\GraphicsModule\\resources\\carGoingRight.png");
+                    Image newCar = new Image("file:src/GraphicsModule/resources/carGoingRight.png");
                     ImageView carToRight = new ImageView(newCar);
                     int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
                     int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY() + car.getDistance();
@@ -153,7 +153,7 @@ public class Graphics2 {
                 } else { //daca sensul e invers (de la dreapta la stanga)
                     System.out.println("si aici3");
 
-                    Image newCar = new Image("file:///"+System.getProperty("user.dir") + "\\GraphicsModule\\resources\\carGoingLeft.png");
+                    Image newCar = new Image("file:src/GraphicsModule/resources/carGoingLeft.png");
                     ImageView carToLeft = new ImageView(newCar);
                     int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
                     int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY() + car.getDistance();
@@ -169,7 +169,7 @@ public class Graphics2 {
                 System.out.println("si aici4");
 
                 //daca masina merge normal (in sus)
-                Image newCar = new Image("file:///"+System.getProperty("user.dir") + "\\GraphicsModule\\resources\\carGoingUp.png");
+                Image newCar = new Image("file:src/GraphicsModule/resources/carGoingUp.png");
                 ImageView carToUp = new ImageView(newCar);
                 int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX() + CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getLength() - car.getDistance();
                 int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
@@ -181,7 +181,7 @@ public class Graphics2 {
             } else { //daca masina merge in sens invers (in jos)
                 System.out.println("si aici5");
 
-                Image newCar = new Image("file:///"+System.getProperty("user.dir") + "\\GraphicsModule\\resources\\carGoingDown.png");
+                Image newCar = new Image("file:src/GraphicsModule/resources/carGoingDown.png");
                 ImageView carToDown = new ImageView(newCar);
                 int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX() - CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getLength() + car.getDistance();
                 int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
