@@ -95,7 +95,7 @@ class Alg2Test {
 
         final double epsilon = 1e-4;
 
-        double realFit = 0.310689310;
+        double realFit = (1.0 / 0.310689310) + (22.0 / 26.0);
         double testFit = algorithm.fitness(chromosome);
         assertTrue(testFit - epsilon < realFit && testFit + epsilon > realFit);
     }

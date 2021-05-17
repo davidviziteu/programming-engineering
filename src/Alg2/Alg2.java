@@ -138,7 +138,7 @@ public class Alg2 {
         double time = (chromosome.size() - 1) * 5;
         int distance = 0;
 
-        for (int i = 0; i < chromosome.size() - 1; i++) {
+        for (int i = 0; i < chromosome.size(); i++) {
             distance += chromosome.get(i).getLength();
         }
         // coefficients:
@@ -200,7 +200,7 @@ public class Alg2 {
         double time = computeTime(chromosome);
 //        System.out.println("[Alg2] " + loadDensity + " " + time);
         // TODO: adjust coefficients
-        return 1 / loadDensity + 22 / time;
+        return 1.0 / loadDensity + 22.0 / time;
     }
 
     public List<List<Street>> selection() {
@@ -291,23 +291,6 @@ public class Alg2 {
         }
 
         newChromosome.addAll(chromosome.subList(secondIndex, chromosome.size()));
-
-        //if (testSequenceInvalid(newChromosome)) {
-        if (chromosome.size() >= 5) {
-            System.out.println("[mutate] Aouleu");
-            System.out.println(chromosome);
-            System.out.println("Indexes: " + firstIndex + " , " + secondIndex);
-            System.out.println("Intersections: " + intersectionStart + " , " + intersectionEnd);
-            System.out.println("First bit: " + chromosome.subList(0, firstIndex + 1));
-            if (newPath != null) {
-                System.out.println("New middle: " + newPath);
-            }
-            System.out.println("Second bit: " + chromosome.subList(secondIndex, chromosome.size()));
-
-            System.out.println("Final: " + newChromosome);
-
-            System.exit(-1);
-        }
 
         return newChromosome;
     }
@@ -406,16 +389,16 @@ public class Alg2 {
         return new Tuple<>(chromosome1, chromosome2);
     }
 
-    private boolean testSequenceInvalid(List<Street> sequence) {
-        for (int index = 0; index < sequence.size() - 1; ++index) {
-            // check if sequence is properly connected
-            Integer intersection = getCommonIntersection(sequence.get(index), sequence.get(index + 1));
-            if (intersection == null) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    private boolean testSequenceInvalid(List<Street> sequence) {
+//        for (int index = 0; index < sequence.size() - 1; ++index) {
+//            // check if sequence is properly connected
+//            Integer intersection = getCommonIntersection(sequence.get(index), sequence.get(index + 1));
+//            if (intersection == null) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     public Tuple<Integer, Integer> findCommonGeneOfTwoChromosomes(List<Street> chromosome1, List<Street> chromosome2) {
         // random common vertex of 2 chromosomes
