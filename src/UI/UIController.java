@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.Street;
 import TestGrafica.MainAndreeaCi;
@@ -73,12 +74,16 @@ public class UIController implements Initializable {
         var initialPosition = getIndexOfStreet(initialPositionChoiceBox.getValue());
         var initialDistance = streetDistanceSpinner.getValue();
         var finalPosition = finalPositionChoiceBox.getValue();
-        var isReversed = carOnReversed.isSelected() ? 1 : -1;
+        Integer isReversed = carOnReversed.isSelected() ? 1 : -1;
         //TODO: add final car
 
         startButton.setVisible(false);
-        String[] args = new String[1];
+        String[] args = new String[5];
         args[0] = "full app";
+        args[1] = trafficDensityChoiceBox.getValue();
+        args[2] = initialPositionChoiceBox.getValue();
+        args[3] = finalPositionChoiceBox.getValue().toString();
+        args[4] = isReversed.toString();
         United.main(args); //https://stackoverflow.com/questions/26674498/how-to-open-two-javafx-windows
     }
 
@@ -135,7 +140,6 @@ public class UIController implements Initializable {
         trafficDensityChoiceBox.getSelectionModel().select(0);
         SpinnerValueFactory<Integer> sizeValueSpinner = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 1);
         choiceBoxSpeed.setValueFactory(sizeValueSpinner);
-
         CityGenerator.generateCity();
         CityGenerator.city.getStreets().forEach(street -> {
             initialPositionChoiceBox.getItems().add(street.getName());

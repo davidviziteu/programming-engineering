@@ -12,7 +12,11 @@ import java.util.Arrays;
 public class CityGenerator {
     public static City city;
 
-    public static void generateCity() {
+    public static void generateCity(){
+        generateCity("low",0,0, 1);
+    }
+
+    public static void generateCity(String frequency, Integer specialCarStartPosition, Integer specialCarFinishPosition, Integer direction) {
         ArrayList<Street> streets = new ArrayList<Street>();
         ArrayList<Intersection> intersections = new ArrayList<Intersection>();
         ArrayList<TrafficLights> trafficLights = new ArrayList<TrafficLights>();
@@ -81,7 +85,7 @@ public class CityGenerator {
 
         city = new City(streets, intersections, trafficLights, cars);
         CarGenerator carGenerator = new CarGenerator("Medium");
-        carGenerator.generate();
+        carGenerator.generate(frequency,specialCarStartPosition,specialCarFinishPosition,direction);
         System.out.println("[CityGenerator] Lungimea vectorului de masini generat este de: " + carGenerator.cars.size());
         city.setCars(carGenerator.cars);
     }

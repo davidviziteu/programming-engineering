@@ -9,8 +9,8 @@ import java.util.Random;
 import static CityGenerating.CityGenerator.city;
 
 public class Car implements Comparable<Car> {
-    static private int LastID = 0;
-    private int ID;
+    static private int LastID = 1;
+    protected int ID;
     protected int currentPosition; //INDEX-ul unei strazi (pe poza strazile incep de la 1, in cod incep de la 0)
     protected int finalPosition; //ID-ul unei intersectii
     protected int speed;
