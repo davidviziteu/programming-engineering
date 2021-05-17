@@ -5,6 +5,7 @@ import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.Street;
 import ShortestPath.Tuple;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.*;
 
@@ -13,11 +14,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class Alg2Test {
 
+    private City city;
+    private Alg2 algorithm;
+
+    @BeforeEach
+    public void setUp() {
+        CityGenerator.generateCity();
+        city = CityGenerator.city;
+        algorithm = new Alg2(city);
+    }
+
     @org.junit.jupiter.api.Test
     void testRun() {
-        CityGenerator.generateCity();
-        City city = CityGenerator.city;
-        Alg2 algorithm = new Alg2(city);
 
         List<Street> solution = algorithm.run();
         for (int index = 1; index < solution.size(); ++index) {
@@ -33,9 +41,6 @@ class Alg2Test {
 
     @org.junit.jupiter.api.Test
     void testPopulatePositive() {
-        CityGenerator.generateCity();
-        City city = CityGenerator.city;
-        Alg2 algorithm = new Alg2(city);
 
         algorithm.populate();
 
@@ -55,9 +60,6 @@ class Alg2Test {
 
     @org.junit.jupiter.api.Test
     void testFitness() {
-        CityGenerator.generateCity();
-        City city = CityGenerator.city;
-        Alg2 algorithm = new Alg2(city);
 
         // City generates cars randomly automatically; so we need to remove them for testing with a chosen set of cars
         for (Street street : city.getStreets()) {
@@ -100,9 +102,6 @@ class Alg2Test {
 
     @org.junit.jupiter.api.Test
     void testSelection() {
-        CityGenerator.generateCity();
-        City city = CityGenerator.city;
-        Alg2 algorithm = new Alg2(city);
 
         algorithm.populate();
         List<List<Street>> firstPopulation = algorithm.getPopulation();
@@ -121,9 +120,6 @@ class Alg2Test {
 
     @org.junit.jupiter.api.Test
     void testMutate() {
-        CityGenerator.generateCity();
-        City city = CityGenerator.city;
-        Alg2 algorithm = new Alg2(city);
 
         // Pick a path
         List<Street> chromosome = new ArrayList<>();
@@ -146,9 +142,6 @@ class Alg2Test {
 
     @org.junit.jupiter.api.Test
     void testCreateRandomPath() {
-        CityGenerator.generateCity();
-        City city = CityGenerator.city;
-        Alg2 algorithm = new Alg2(city);
 
         List<Street> newChromosomeSection = algorithm.createRandomPath(
                 city.getIntersectionByIndex(city.getStreetByName("Strada1").getIntersectionDestination()),
@@ -169,9 +162,6 @@ class Alg2Test {
 
     @org.junit.jupiter.api.Test
     void testCrossover() {
-        CityGenerator.generateCity();
-        City city = CityGenerator.city;
-        Alg2 algorithm = new Alg2(city);
 
         // our two chromosomes
         List<Street> chromosome1 = new ArrayList<>();
@@ -215,9 +205,6 @@ class Alg2Test {
 
     @org.junit.jupiter.api.Test
     void testCrossoverNegative() {
-        CityGenerator.generateCity();
-        City city = CityGenerator.city;
-        Alg2 algorithm = new Alg2(city);
 
         // our two chromosomes
         List<Street> chromosome1 = new ArrayList<>();
@@ -239,9 +226,6 @@ class Alg2Test {
 
     @org.junit.jupiter.api.Test
     void testFindCommonGeneOfTwoChromosomes() {
-        CityGenerator.generateCity();
-        City city = CityGenerator.city;
-        Alg2 algorithm = new Alg2(city);
 
         // our two chromosomes
         List<Street> chromosome1 = new ArrayList<>();
@@ -272,9 +256,6 @@ class Alg2Test {
 
     @org.junit.jupiter.api.Test
     void testFindCommonGeneOfTwoChromosomesNegative() {
-        CityGenerator.generateCity();
-        City city = CityGenerator.city;
-        Alg2 algorithm = new Alg2(city);
 
         // our two chromosomes
         List<Street> chromosome1 = new ArrayList<>();
@@ -296,10 +277,6 @@ class Alg2Test {
 
     @org.junit.jupiter.api.Test
     void testGetCommonStreetNegative() {
-        CityGenerator.generateCity();
-        City city = CityGenerator.city;
-        Alg2 algorithm = new Alg2(city);
-
-        assertEquals(null, algorithm.getCommonStreet(0, 1));
+        assertNull(algorithm.getCommonStreet(0, 1));
     }
 }

@@ -181,19 +181,20 @@ public class Street {
 
     @Override
     public String toString() {
-        return "Street{" +
-                "cars=" + cars +
-                "carsReversed=" + carsReversed +
-                ", name='" + name + '\'' +
-                ", intersectionSource=" + intersectionSource +
-                ", intersectionDestination=" + intersectionDestination +
-                ", length=" + length +
-                ", posX=" + posX +
-                ", posY=" + posY +
-                ", direction=" + (direction.equals(1) ? "horizontal" : "vertical") +
-                ", trafficLights=" + trafficLights +
-                ", trafficLightsReversed=" + trafficLightsReversed +
-                '}';
+        return "{" + name + "}";
+//        return "Street{ " +
+//                "name='" + name + '\'' +
+//                ", cars=" + cars +
+//                ", carsReversed=" + carsReversed +
+//                ", intersectionSource=" + intersectionSource +
+//                ", intersectionDestination=" + intersectionDestination +
+//                ", length=" + length +
+//                ", posX=" + posX +
+//                ", posY=" + posY +
+//                ", direction=" + (direction.equals(1) ? "horizontal" : "vertical") +
+//                ", trafficLights=" + trafficLights +
+//                ", trafficLightsReversed=" + trafficLightsReversed +
+//                '}';
     }
 
     @Override
