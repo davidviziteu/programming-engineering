@@ -1,8 +1,10 @@
 package CarGenerating;
 
 import GraphicsModule.Graphics;
-
+import UI.UIController;
+import UI.UIController.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import static CityGenerating.CityGenerator.city;
 
@@ -16,26 +18,47 @@ public class CarGenerator {
     private final double frequencyHigh = 0.6;
 
 
-    public void generate() {
-        //SpecialCar specialCar = new SpecialCar(GraphicsModule.Graphics.getStartStreet(), GraphicsModule.Graphics.getFinalStreet(), 0);
-//        SpecialCar specialCar = new SpecialCar(0,0,0);
-  //      cars.add(specialCar);
-   //     city.getStreetByIndex(cars.get(0).getCurrentPosition()).addCar(cars.get(0), cars.get(0).getDirection());
+    public Integer getStreetByIntersection(Integer intersectionIndex){
+        switch (intersectionIndex){
+            case 0:
+                return 1;
+            case 1:
+                return 3;
+            case 2:
+                return 4;
+            case 3:
+                return 9;
+            case 4:
+                return 10;
+            case 5:
+                return 11;
+            case 6:
+                return 0;
+            case 7:
+                return 7;
+        }
+        return -1;
+    }
+
+    public void generate(String frequency, Integer specialCarStartPosition, Integer specialCarFinishPosition, Integer direction) {
+//        SpecialCar specialCar = new SpecialCar(specialCarStartPosition,getStreetByIntersection(specialCarFinishPosition),1);
+//        specialCar.setDirection(direction);
+//        cars.add(specialCar);
+//        city.getStreetByIndex(cars.get(0).getCurrentPosition()).addCar(cars.get(0), cars.get(0).getDirection());
 
         //in functie de frecventa pe fiecare strada vor fi generate un numar de masini(strict <= capacitatea strazii)
-        this.frequency = GraphicsModule.Graphics.getTrafficFrequencyInput();
-        this.frequency = "Low";
-        if (this.frequency.equals("Low")) {
+        this.frequency = frequency.toLowerCase();
+
+        if (this.frequency.equals("scăzut")) {
             numberOfCars = (int) (frequencyLow * totalStreetsLength());
-        }
-        if (this.frequency.equals("Medium")) {
+        }else if (this.frequency.equals("moderat")) {
             numberOfCars = (int) (frequencyMedium * totalStreetsLength());
-        }
-        if (this.frequency.equals("High")) {
+        } else if (this.frequency.equals("intens")) {
             numberOfCars = (int) (frequencyHigh * totalStreetsLength());
+        } else{
+            numberOfCars = 1;
         }
 
-        numberOfCars=1;
         for (int index = 0; index < numberOfCars; index++) {
             cars.add(new Car());
             city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());

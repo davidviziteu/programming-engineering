@@ -7,5 +7,7 @@ public class SpecialCar extends Car{
         this.finalPosition = finalPosition;
         this.speed = 0;
         this.distance = distance;
+        this.ID = 1;
+        this.direction = 1;
     }
 }
