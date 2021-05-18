@@ -74,9 +74,10 @@ public class UIController implements Initializable {
         var initialPosition = getIndexOfStreet(initialPositionChoiceBox.getValue());
         var initialDistance = streetDistanceSpinner.getValue();
         var finalPosition = finalPositionChoiceBox.getValue();
-        Integer isReversed = carOnReversed.isSelected() ? 1 : -1;
+        Integer isReversed = carOnReversed.isSelected() ? -1 : 1;
         //TODO: add final car
-
+//        var specialCar = CityGenerator.city.getCars().get(0);
+//        specialCar.setDirection();
         startButton.setVisible(false);
         String[] args = new String[5];
         args[0] = "full app";

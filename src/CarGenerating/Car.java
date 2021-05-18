@@ -97,16 +97,18 @@ public class Car implements Comparable<Car> {
     }
 
     public Car() {
-        ID = LastID++;
+        ID = ++LastID;
+        System.out.println("last id: "+LastID);
         this.speed = 0;
         int index;
-        int maximumLengthOfStreet;
         Random rand = new Random();
+        int maximumLengthOfStreet;
         Date date = new Date();
         rand.setSeed(date.getTime());
 
         if (CityGenerating.CityGenerator.city != null)
             do {
+                rand = new Random();
                 // There are only 12 streets.
                 this.currentPosition = rand.nextInt(12);
 
@@ -133,10 +135,11 @@ public class Car implements Comparable<Car> {
 
 
         // We generate a final position until the final position is not equal to the initial one.
-        do {
+//        do {
+            rand = new Random();
             index = rand.nextInt(8);
             this.finalPosition = finalDestinationID[index];
-        } while (this.currentPosition == this.finalPosition);
+//        } while (this.currentPosition == this.finalPosition);
 
     }
 

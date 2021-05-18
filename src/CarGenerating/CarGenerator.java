@@ -59,7 +59,7 @@ public class CarGenerator {
             numberOfCars = 1;
         }
 
-        for (int index = 0; index < numberOfCars; index++) {
+        for (int index = 1; index <= numberOfCars; index++) {
             cars.add(new Car());
             city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
         }

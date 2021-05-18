@@ -42,7 +42,7 @@ public class CarController extends Thread {
      * @return true, false daca toate condiile sunt indeplinite
      */
     static public boolean carCanBeMoved(Car car, Queue<Pair<Integer, Car>> to, int capacity, int intersection) {
-        if (to.size() + 1 >= capacity) //poate trebuie >= ??
+        if (to.size() + 1 > capacity) //poate trebuie >= ??
             return false; //masina nu mai are loc pe sensul unde vrea sa se duca
 
         if (CarAnimator.isRunning()) {
@@ -105,9 +105,11 @@ public class CarController extends Thread {
         try {
             destinationIntersectionId = car.getShortestPath().get(0);
         } catch (IndexOutOfBoundsException | NullPointerException e) {
-            //System.err.println("ceva nu e bine, ignoram masina " + car);
+            System.err.println("ceva nu e bine, stergem masina " + car);
             //e.printStackTrace();
+            streetQueue.remove();
 //            city.getCars().remove(car);
+//            car.setDistance(-1);
             return;
         }
         ArrayList<Street> streets = city.getStreets();
@@ -129,7 +131,7 @@ public class CarController extends Thread {
                             car
                     ));
                     streetQueue.remove();
-                    System.out.println("[CarController.java, line 131] car["+car.getID()+"] now on street " + i + "; applying patch");
+                    System.out.println("[CarController.java, line 131] car["+car.getID()+"] now on street " + i);
 //                    Utilities.correctCurrentPositionOfAllCars(); //patch
                     CarAnimator.rwLock.writeLock().unlock();
                 }
@@ -152,7 +154,7 @@ public class CarController extends Thread {
                             car
                     ));
                     streetQueue.remove();
-                    System.out.println("[CarController.java, line 154] car["+car.getID()+"] now on street " + i+ "; applying patch");
+                    System.out.println("[CarController.java, line 154] car["+car.getID()+"] now on street " + i);
                     //DECOMENTEAZA LINIA DE MAI JOS PT UN FEL DE PATCH
 //                    Utilities.correctCurrentPositionOfAllCars(); //patch
                     CarAnimator.rwLock.writeLock().unlock();

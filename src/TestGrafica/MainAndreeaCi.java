@@ -67,8 +67,6 @@ public class MainAndreeaCi extends Application{
 
 
                         //move the ball
-                        System.out.println(carView.get(i).getLayoutX());
-                        System.out.println(carView.get(i).getLayoutY());
                        // ball.setLayoutX(ball.getLayoutX() + dx);
                        // ball.setLayoutY(ball.getLayoutY());
                        //
@@ -167,8 +165,6 @@ public class MainAndreeaCi extends Application{
                     var path = new File("src\\GraphicsModule\\resources\\carGoingUp.png").getAbsolutePath();
                 imageViewArrayList.get(i).setImage(new Image("file:///" + path));
                 }
-
-            System.out.println(x1 + "..." + y1);
             ourCity.window.getChildren().add(imageViewArrayList.get(i));
         }
     }

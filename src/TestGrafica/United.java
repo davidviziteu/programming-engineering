@@ -14,8 +14,10 @@ public class United {
 
 
     public static void main(String[] args) {
-
-        CityGenerator.generateCity(args[1], Integer.parseInt(args[2].replace("Strada", ""))-1, Integer.parseInt(args[3]), Integer.parseInt(args[4]));
+        if(args.length == 0)
+            CityGenerator.generateCity("scăzut", 5, 4, 1);
+        else
+            CityGenerator.generateCity(args[1], Integer.parseInt(args[2].replace("Strada", ""))-1, Integer.parseInt(args[3]), Integer.parseInt(args[4]));
         Utilities.correctDistanceOfAllCars();
         Utilities.computeShortestPathForAllCars();
         Utilities.setAllCarsSpeed(1);
