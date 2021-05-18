@@ -31,13 +31,15 @@ public class SemaphoreController extends Thread  {
         if (trafficLights.getTimer() > 0) {
             trafficLights.setTimer(trafficLights.getTimer() - 1);
         } else {
-
-            if(trafficLights.getStare().equals(TrafficLights.StareSemafor.Green) || trafficLights.getStare().equals(TrafficLights.StareSemafor.Red))
+            if(trafficLights.getStare().equals(TrafficLights.StareSemafor.Green)){
+                trafficLights.setTimer(4);
+            }
+            if(trafficLights.getStare().equals(TrafficLights.StareSemafor.Red))
             {
-                trafficLights.setTimer(trafficLights.getTimeMax2());
+                trafficLights.setTimer(10);
             }
             else
-                trafficLights.setTimer(trafficLights.getMaxTime());
+                trafficLights.setTimer(2);
 
             trafficLights.setColor(trafficLights.getStare().next());
         }
