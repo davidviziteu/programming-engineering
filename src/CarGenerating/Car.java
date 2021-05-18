@@ -131,7 +131,7 @@ public class Car implements Comparable<Car> {
                     this.distance = city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction);
                 }
 
-            } while (city.getStreetByIndex(this.currentPosition).getQueuePosition(this.direction) > city.getStreetByIndex(currentPosition).getLength());
+            } while (Objects.requireNonNull(city).getStreetByIndex(this.currentPosition).getQueuePosition(this.direction) > city.getStreetByIndex(currentPosition).getLength());
 
 
         // We generate a final position until the final position is not equal to the initial one.

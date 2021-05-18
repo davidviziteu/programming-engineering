@@ -29,8 +29,8 @@ public class UIController implements Initializable {
     public Button startButton;
     @FXML
     public Button exitButton;
-    @FXML
-    public Label distanceLabel;
+//    @FXML
+//    public Label distanceLabel;
     @FXML
     public Label intitialPositionLabel;
     @FXML
@@ -41,8 +41,8 @@ public class UIController implements Initializable {
     public Label carSpeedLabelDetails;
     @FXML
     public ChoiceBox<String> initialPositionChoiceBox;
-    @FXML
-    public Spinner<Integer> streetDistanceSpinner;
+//    @FXML
+//    public Spinner<Integer> streetDistanceSpinner;
     @FXML
     public ChoiceBox<Integer> finalPositionChoiceBox;
     @FXML
@@ -72,7 +72,7 @@ public class UIController implements Initializable {
         }
         var trafficDensity = trafficDensityChoiceBox.getValue();
         var initialPosition = getIndexOfStreet(initialPositionChoiceBox.getValue());
-        var initialDistance = streetDistanceSpinner.getValue();
+        var initialDistance = 0;//streetDistanceSpinner.getValue();
         var finalPosition = finalPositionChoiceBox.getValue();
         Integer isReversed = carOnReversed.isSelected() ? -1 : 1;
         //TODO: add final car
@@ -104,12 +104,12 @@ public class UIController implements Initializable {
 
     public void updateDistanceBox(ActionEvent actionEvent) {
         intitialPositionLabel.setTextFill(Color.WHITE);
-        streetDistanceSpinner.setVisible(true);
-        distanceLabel.setVisible(true);
-        var chosenStreet = CityGenerator.city.getStreetByName(initialPositionChoiceBox.getValue());
+//        streetDistanceSpinner.setVisible(true);
+//        distanceLabel.setVisible(true);
+//        var chosenStreet = CityGenerator.city.getStreetByName(initialPositionChoiceBox.getValue());
         //poate fi + 1 aici si sa
-        var spinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, chosenStreet.getLength(), 1);
-        streetDistanceSpinner.setValueFactory(spinnerFactory);
+//        var spinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0, chosenStreet.getLength(), 1);
+//        streetDistanceSpinner.setValueFactory(spinnerFactory);
     }
 
 
@@ -132,8 +132,8 @@ public class UIController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        streetDistanceSpinner.setVisible(false);
-        distanceLabel.setVisible(false);
+//        streetDistanceSpinner.setVisible(false);
+//        distanceLabel.setVisible(false);
         displayMap();
         trafficDensityChoiceBox.getItems().add("Scăzut");
         trafficDensityChoiceBox.getItems().add("Moderat");
