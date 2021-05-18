@@ -29,9 +29,9 @@ public class United {
         var carAnimatorThread = new Thread(carAnimatorInstance);
 
         var semaphoreController = SemaphoreController.getInstance();
-        //var semaphoreControllerThread = new Thread(semaphoreController);
+        var semaphoreControllerThread = new Thread(semaphoreController);
 
-        //semaphoreControllerThread.start();
+        semaphoreControllerThread.start();
         carsControllerThread.start();
         carAnimatorThread.start();
         MasterThread.followAllCars();
