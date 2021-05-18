@@ -114,16 +114,16 @@ public class City {
 
     public Pair<Integer, Integer> getCarCoordinates(Car temp){
         Street stradaTemporara=getStreetByIndex(temp.getCurrentPosition());
-        Integer toAdd;
+        Integer toAdd = 0;
+        if(temp.getDistance() == -1)
+            return new Pair<Integer,Integer>(-10, -10);
         if(temp.getDirection()==1)
-            toAdd=stradaTemporara.getLength()-temp.getDistance();
+            toAdd=stradaTemporara.getLength()-temp.getDistance() - 1;
         else
-            toAdd=temp.getDistance()-1;
+            toAdd=temp.getDistance()-1 + 1;
         if(stradaTemporara.getDirection()==1){
-            System.out.println("am intrat acolo");
             return new Pair<Integer,Integer>(stradaTemporara.getPosX(),stradaTemporara.getPosY()+toAdd);
         }else{
-            System.out.println("am intrat aici");
             return new Pair<Integer,Integer>(stradaTemporara.getPosX()+toAdd,stradaTemporara.getPosY());
         }
     }

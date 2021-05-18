@@ -105,10 +105,10 @@ public class MainAndreeaCi extends Application{
                         finally {
                             CarAnimator.rwLock.readLock().unlock();
                         }
-                        System.out.println("AICI ESTE VALOAREA COORDONATELOR: " + x + " . " + y);
+//                        System.out.println("AICI ESTE VALOAREA COORDONATELOR: " + x + " . " + y);
                             carView.get(i).setLayoutX(y*100);
                             carView.get(i).setLayoutY(x*100);
-                        System.out.println("Aici este valoare trimisa de GetData actualizata: \t" );
+//                        System.out.println("Aici este valoare trimisa de GetData actualizata: \t" );
 
 //                        for(int i=0; i< CityGenerator.city.getCars().size(); i++)
 //                            System.out.println(

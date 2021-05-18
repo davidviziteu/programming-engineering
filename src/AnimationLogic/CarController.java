@@ -42,7 +42,7 @@ public class CarController extends Thread {
      * @return true, false daca toate condiile sunt indeplinite
      */
     static public boolean carCanBeMoved(Car car, Queue<Pair<Integer, Car>> to, int capacity, int intersection) {
-        if (to.size() + 1 > capacity) //poate trebuie >= ??
+        if (to.size() + 1 >= capacity) //poate trebuie >= ??
             return false; //masina nu mai are loc pe sensul unde vrea sa se duca
 
         if (CarAnimator.isRunning()) {
@@ -59,12 +59,14 @@ public class CarController extends Thread {
             if (car.getDirection() == 1) {
                 var currentStreet = city.getStreetByIndex(car.getCurrentPosition());
                 var semaphoreId = currentStreet.getTrafficLights();
-                return city.getTLightsById(semaphoreId).getStare() != TrafficLights.StareSemafor.Red;
+                return !(city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.Red ||
+                        city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.YellowRed);
             }
             else {
                 var currentStreet = city.getStreetByIndex(car.getCurrentPosition());
                 var semaphoreId = currentStreet.getTrafficLightsReversed();
-                return city.getTLightsById(semaphoreId).getStare() != TrafficLights.StareSemafor.Red;
+                return !(city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.Red ||
+                        city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.YellowRed);
             }
         }
 
