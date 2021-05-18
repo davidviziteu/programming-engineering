@@ -4,8 +4,11 @@ import AnimationLogic.CarAnimator;
 import AnimationLogic.CarController;
 import AnimationLogic.MasterThread;
 import AnimationLogic.Miscellaneous.Utilities;
+import AnimationLogic.SemaphoreController;
 import CityGenerating.CityGenerator;
 import UI.UIController;
+
+import java.util.concurrent.Semaphore;
 
 public class United {
 
@@ -23,7 +26,10 @@ public class United {
         var carAnimatorInstance = CarAnimator.getInstance();
         var carAnimatorThread = new Thread(carAnimatorInstance);
 
+        var semaphoreController = SemaphoreController.getInstance();
+        var semaphoreControllerThread = new Thread(semaphoreController);
 
+        semaphoreControllerThread.start();
         carsControllerThread.start();
         carAnimatorThread.start();
         MasterThread.followAllCars();

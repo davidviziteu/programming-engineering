@@ -75,7 +75,7 @@ public class CarFollower extends Thread {
                     }
                     System.out.println(
                             consoleColor + this.name + newState.toString() + "\n waiting at the semaphore id "
-                                    + semaphoreId + " of color " + city.getTLightsById(semaphoreId).getStare() + " " + ConsoleColors.RESET
+                                    + semaphoreId + " of color " + city.getTLightsById(semaphoreId).getStare() + " time:" +city.getTLightsById(semaphoreId).getTimer()+ ConsoleColors.RESET
                     );
                 }
                 System.out.println(
