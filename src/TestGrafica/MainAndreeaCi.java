@@ -72,11 +72,11 @@ public class MainAndreeaCi extends Application{
                        // ball.setLayoutX(ball.getLayoutX() + dx);
                        // ball.setLayoutY(ball.getLayoutY());
                        //
-//                        if(i == 0){
-//                            var path = new File("src\\GraphicsModule\\resources\\specialCarGoingRight.png").getAbsolutePath();
-//                            carView.get(i).setImage(new Image("file:///" + path));
-//                        }
-//                        else
+                        if(CityGenerator.city.getCars().get(i).getID() == 1){
+                            var path = new File("src\\GraphicsModule\\resources\\specialCarGoingRight.png").getAbsolutePath();
+                            carView.get(i).setImage(new Image("file:///" + path));
+                        }
+                        else
                             if(CityGenerator.city.getStreetByIndex(CityGenerator.city.getCars().get(i).getCurrentPosition()).getDirection()==1){
                             if (CityGenerator.city.getCars().get(i).getDirection() == 1) {
                                 var path = new File("src\\GraphicsModule\\resources\\carGoingRight.png").getAbsolutePath();
@@ -146,11 +146,10 @@ public class MainAndreeaCi extends Application{
             imageViewArrayList.get(i).setLayoutX(y1*100);
             imageViewArrayList.get(i).setLayoutY(x1*100);
 
-//            if(i == 0){
-//                var path = new File("src\\GraphicsModule\\resources\\specialCarGoingRight.png").getAbsolutePath();
-//                imageViewArrayList.get(0).setImage(new Image("file:///" + path));
-//            }else
-
+            if(CityGenerator.city.getCars().get(i).getID() == 1){
+                var path = new File("src\\GraphicsModule\\resources\\specialCarGoingRight.png").getAbsolutePath();
+                imageViewArrayList.get(0).setImage(new Image("file:///" + path));
+            }else
             if(!isVertical(i)) {
 
                 if (CityGenerator.city.getCars().get(i).getDirection() == 1) {

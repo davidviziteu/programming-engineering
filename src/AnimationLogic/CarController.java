@@ -106,7 +106,7 @@ public class CarController extends Thread {
             destinationIntersectionId = car.getShortestPath().get(0);
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             //System.err.println("ceva nu e bine, ignoram masina " + car);
-            e.printStackTrace();
+            //e.printStackTrace();
 //            city.getCars().remove(car);
             return;
         }

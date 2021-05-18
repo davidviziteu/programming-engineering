@@ -41,10 +41,10 @@ public class CarGenerator {
     }
 
     public void generate(String frequency, Integer specialCarStartPosition, Integer specialCarFinishPosition, Integer direction) {
-//        SpecialCar specialCar = new SpecialCar(specialCarStartPosition,getStreetByIntersection(specialCarFinishPosition),1);
-//        specialCar.setDirection(direction);
-//        cars.add(specialCar);
-//        city.getStreetByIndex(cars.get(0).getCurrentPosition()).addCar(cars.get(0), cars.get(0).getDirection());
+        Car specialCar = new Car(specialCarStartPosition,specialCarFinishPosition,1);
+        specialCar.setDirection(direction);
+        cars.add(specialCar);
+        city.getStreetByIndex(cars.get(0).getCurrentPosition()).addCar(cars.get(0), cars.get(0).getDirection());
 
         //in functie de frecventa pe fiecare strada vor fi generate un numar de masini(strict <= capacitatea strazii)
         this.frequency = frequency.toLowerCase();

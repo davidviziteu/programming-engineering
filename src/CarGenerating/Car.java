@@ -140,6 +140,15 @@ public class Car implements Comparable<Car> {
 
     }
 
+    public Car(int initialPosition, int finalPosition, int distance) {
+        this.currentPosition = initialPosition;
+        this.finalPosition = finalPosition;
+        this.speed = 0;
+        this.distance = distance;
+        this.ID = 1;
+        this.direction = 1;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
