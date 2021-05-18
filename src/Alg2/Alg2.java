@@ -16,6 +16,9 @@ public class Alg2 {
     public static final double K_MUTATION_CHANCE = 0.01;
     public static final int K_ITERATIONS = 100;
 
+    public static final int K_START_INTERSECTION = 11; // not final
+    public static final int K_FINAL_INTERSECTION = 8; // not final
+
     private final City city;
     private List<List<Street>> population;
 
@@ -27,14 +30,14 @@ public class Alg2 {
         CityGenerator.generateCity();
         City city = CityGenerator.city;
         Alg2 algorithm = new Alg2(city);
-        algorithm.run();
+        algorithm.run(K_START_INTERSECTION ,K_FINAL_INTERSECTION);
     }
 
-    public List<Street> run() {
+    public List<Street> run(int Source, int Destination) {
         int countIteration = 0;
         List<Street> bestChromosome = new ArrayList<>();
         while (countIteration < K_ITERATIONS) {
-            populate();
+            populate(Source, Destination);
             // selection
             bestChromosome = population.get(0);
             double bestFitness = fitness(bestChromosome);
@@ -79,6 +82,7 @@ public class Alg2 {
                         bestFitness = currentFitness;
                     }
                 }
+
                 countGeneration++;
 
                 //break;
@@ -86,7 +90,7 @@ public class Alg2 {
             countIteration++;
         }
 
-        System.out.println("[Alg2] The solution is: ");
+        System.out.println("[Alg2] The solution is for intersection " + K_START_INTERSECTION + " to intersection " + K_FINAL_INTERSECTION);
         for (Street street : bestChromosome) {
             System.out.println(street);
         }
@@ -94,9 +98,7 @@ public class Alg2 {
         return bestChromosome;
     }
 
-    public void populate() {
-        int idStart = 0;
-        int idFinish = 3;
+    public void populate(int idStart, int idFinish) {
 
         population = new ArrayList<>();
         for (int i = 0; i < K_POP_SIZE; i++) {
@@ -116,12 +118,17 @@ public class Alg2 {
                 }
             } else {
                 if (city != null) {
-                    chromosome = createRandomPath(city.getIntersectionByIndex(idStart), city.getIntersectionByIndex(idFinish), null);
+                    chromosome = createRandomPath(idStart, idFinish, null);
                 }
             }
 
             if (chromosome != null) {
                 population.add(chromosome);
+
+//                if (testSequenceInvalid(chromosome)) {
+//                    System.out.println("[populate]: " + chromosome);
+//                    System.exit(-1);
+//                }
             } else {
                 --i;
             }
@@ -138,8 +145,8 @@ public class Alg2 {
         double time = (chromosome.size() - 1) * 5;
         int distance = 0;
 
-        for (int i = 0; i < chromosome.size(); i++) {
-            distance += chromosome.get(i).getLength();
+        for (Street street : chromosome) {
+            distance += street.getLength();
         }
         // coefficients:
         // distance / maxDistance %
@@ -229,7 +236,10 @@ public class Alg2 {
     }
 
     public List<Street> mutate(List<Street> chromosome) {
-        if (chromosome.size() <= 1) {
+        // TODO: change to 1, select 1st street source and 2nd street destination
+        // this means the same street can be chosen (it's source and destination)
+        // and it can be replaced by a whole path
+        if (chromosome.size() <= 2) {
             return chromosome;
         }
 
@@ -247,7 +257,7 @@ public class Alg2 {
 
         List<Street> newChromosome = new ArrayList<>(chromosome.subList(0, firstIndex + 1));
 
-        Integer intersectionStart = null;
+        Integer intersectionStart;
         if (city.getIntersectionByIndex(chromosome.get(firstIndex).getIntersectionDestination()).isCanPark() ||
                 city.getIntersectionByIndex(chromosome.get(firstIndex).getIntersectionSource()).isCanPark()) {
             if (city.getIntersectionByIndex(chromosome.get(firstIndex).getIntersectionDestination()).isCanPark()) {
@@ -260,7 +270,7 @@ public class Alg2 {
             intersectionStart = getCommonIntersection(chromosome.get(firstIndex), chromosome.get(firstIndex + 1));
         }
 
-        Integer intersectionEnd = null;
+        Integer intersectionEnd;
         if (city.getIntersectionByIndex(chromosome.get(secondIndex).getIntersectionDestination()).isCanPark() ||
                 city.getIntersectionByIndex(chromosome.get(secondIndex).getIntersectionSource()).isCanPark()) {
             if (city.getIntersectionByIndex(chromosome.get(secondIndex).getIntersectionDestination()).isCanPark()) {
@@ -278,8 +288,8 @@ public class Alg2 {
             // NOTE: check "connection point" of genes (10 - 10, 01 - 10, 01 - 01, 10 - 01;
             // where 1 is connection point and 0 is another intersection)
             newPath = createRandomPath(
-                    city.getIntersectionByIndex(intersectionStart),
-                    city.getIntersectionByIndex(intersectionEnd),
+                    intersectionStart,
+                    intersectionEnd,
                     visitedStreets
             );
         }
@@ -292,32 +302,55 @@ public class Alg2 {
 
         newChromosome.addAll(chromosome.subList(secondIndex, chromosome.size()));
 
+
+//        if (testSequenceInvalid(newChromosome)) {
+//            System.out.println("[mutate]: (before) " + chromosome);
+//
+//            System.out.println("(first)  " + chromosome.subList(0, firstIndex + 1));
+//            System.out.println("(middle) " + newPath);
+//            System.out.println("(last)   " + chromosome.subList(secondIndex, chromosome.size()));
+//
+//            System.out.println("[mutate]: (after) " + newChromosome);
+//            System.exit(-1);
+//        }
+
         return newChromosome;
     }
 
-    public List<Street> createRandomPath(Intersection start, Intersection finish, List<Street> visitedStreets) {
+    public List<Street> createRandomPath(int idIntersectionStart, int idIntersectionFinish, List<Street> visitedStreets) {
         if (visitedStreets == null) {
             visitedStreets = new ArrayList<>();
         }
 
         Stack<Street> stackStreets = new Stack<>();
-        Stack<Intersection> stackIntersections = new Stack<>();
+        Stack<Integer> stackIntersections = new Stack<>();
         Stack<Integer> stackIndex = new Stack<>();
+        Stack<List<Integer>> stackShuffle = new Stack<>();
 
-        stackIntersections.push(start);
+        stackIntersections.push(idIntersectionStart);
         stackIndex.push(0);
 
+        Random random = new Random(System.currentTimeMillis());
         while (stackIntersections.size() > 0) {
-            Intersection intersection = stackIntersections.peek();
+            Intersection intersection = city.getIntersectionByIndex(stackIntersections.peek());
             int index = stackIndex.peek();
 
-            List<Integer> idStreets = intersection.getStreets();
+            List<Integer> idStreets;
+            if (index == 0) {
+                idStreets = intersection.getStreets();
+                java.util.Collections.shuffle(idStreets, random);
+                stackShuffle.push(idStreets);
+            } else {
+                idStreets = stackShuffle.peek();
+            }
 
             for (; index < idStreets.size(); ++index) {
                 Street street = city.getStreetByIndex(idStreets.get(index));
 
-                int nextIntersection = street.getIntersectionDestination();
-                if (city.getIntersectionByIndex(nextIntersection).equals(intersection)) {
+                int nextIntersection;
+                if (!street.getIntersectionDestination().equals(stackIntersections.peek())) {
+                    nextIntersection = street.getIntersectionDestination();
+                } else {
                     nextIntersection = street.getIntersectionSource();
                 }
 
@@ -328,10 +361,10 @@ public class Alg2 {
                     visitedStreets.add(street);
 
                     stackIndex.push(0);
-                    stackIntersections.push(city.getIntersectionByIndex(nextIntersection));
+                    stackIntersections.push(nextIntersection);
                     stackStreets.push(street);
 
-                    if (city.getIntersectionByIndex(street.getIntersectionDestination()) == finish) {
+                    if (nextIntersection == idIntersectionFinish) {
                         return new ArrayList<>(stackStreets);
                     }
                     break;
@@ -346,6 +379,9 @@ public class Alg2 {
                 stackIndex.pop();
                 if (stackStreets.size() > 0) {
                     stackStreets.pop();
+                }
+                if (stackShuffle.size() > 0) {
+                    stackShuffle.pop();
                 }
             }
         }
@@ -386,19 +422,20 @@ public class Alg2 {
             chromosome2.add(parent1.get(k));
         }
 
+
+//        if (testSequenceInvalid(chromosome1)) {
+//            System.out.println("[populate]: (1) " + chromosome1);
+//            System.exit(-1);
+//        }
+
+
+//        if (testSequenceInvalid(chromosome2)) {
+//            System.out.println("[crossover]: (2) " + chromosome2);
+//            System.exit(-1);
+//        }
+
         return new Tuple<>(chromosome1, chromosome2);
     }
-
-//    private boolean testSequenceInvalid(List<Street> sequence) {
-//        for (int index = 0; index < sequence.size() - 1; ++index) {
-//            // check if sequence is properly connected
-//            Integer intersection = getCommonIntersection(sequence.get(index), sequence.get(index + 1));
-//            if (intersection == null) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 
     public Tuple<Integer, Integer> findCommonGeneOfTwoChromosomes(List<Street> chromosome1, List<Street> chromosome2) {
         // random common vertex of 2 chromosomes
@@ -467,6 +504,17 @@ public class Alg2 {
 
         return null;
     }
+
+//    private boolean testSequenceInvalid(List<Street> sequence) {
+//        for (int index = 0; index < sequence.size() - 1; ++index) {
+//            // check if sequence is properly connected
+//            Integer intersection = getCommonIntersection(sequence.get(index), sequence.get(index + 1));
+//            if (intersection == null) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     // 5 common node
     // 2 position of chromosome i

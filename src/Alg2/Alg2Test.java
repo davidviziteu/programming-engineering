@@ -27,7 +27,7 @@ class Alg2Test {
     @org.junit.jupiter.api.Test
     void testRun() {
 
-        List<Street> solution = algorithm.run();
+        List<Street> solution = algorithm.run(0 ,3);
         for (int index = 1; index < solution.size(); ++index) {
             // check if sequence is properly connected
             int leftStart = solution.get(index - 1).getIntersectionSource();
@@ -42,7 +42,7 @@ class Alg2Test {
     @org.junit.jupiter.api.Test
     void testPopulatePositive() {
 
-        algorithm.populate();
+        algorithm.populate(0 ,3);
 
         assertEquals(Alg2.K_POP_SIZE, algorithm.getPopulation().size());
     }
@@ -103,7 +103,7 @@ class Alg2Test {
     @org.junit.jupiter.api.Test
     void testSelection() {
 
-        algorithm.populate();
+        algorithm.populate(0 ,3);
         List<List<Street>> firstPopulation = algorithm.getPopulation();
 
         List<List<Street>> secondPopulation = algorithm.selection();
@@ -144,8 +144,8 @@ class Alg2Test {
     void testCreateRandomPath() {
 
         List<Street> newChromosomeSection = algorithm.createRandomPath(
-                city.getIntersectionByIndex(city.getStreetByName("Strada1").getIntersectionDestination()),
-                city.getIntersectionByIndex(city.getStreetByName("Strada12").getIntersectionSource()),
+                city.getStreetByName("Strada1").getIntersectionDestination(),
+                city.getStreetByName("Strada12").getIntersectionSource(),
                 null);
         if (newChromosomeSection != null) {
             for (int index = 1; index < newChromosomeSection.size(); ++index) {
