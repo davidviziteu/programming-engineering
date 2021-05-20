@@ -285,14 +285,6 @@ public class MainAndreeaCi extends Application {
         ((GridPane) (ourCity.window.getCenter())).add(semaphoreIntersection11ImgView, 5, 4);
         // Utilities.correctDistanceOfAllCars();
         Utilities.computeShortestPathForAllCars();
-        Alg2 geneticAlgorithm = new Alg2(city);
-        List<Street> path = geneticAlgorithm.run(city.getCars().get(0).getCurrentPosition(),
-                city.getCars().get(0).getFinalPosition());
-        List<Integer> intersections = new ArrayList<>();
-        for (int i = 1; i < path.size() - 1; i++) {
-            intersections.add(geneticAlgorithm.getCommonIntersection(path.get(i), path.get(i + 1)));
-        }
-        city.getCars().get(0).setShortestPath(intersections);
 
         Utilities.setAllCarsSpeed(1);
         for (long i = 0; i < 1000000000L; ++i)
