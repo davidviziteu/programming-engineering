@@ -1,8 +1,11 @@
 package TestGrafica;
 
 import AnimationLogic.CarAnimator;
+import AnimationLogic.CarController;
+import AnimationLogic.MasterThread;
 import AnimationLogic.Miscellaneous.ConsoleColors;
 import AnimationLogic.Miscellaneous.Utilities;
+import AnimationLogic.SemaphoreController;
 import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import javafx.animation.KeyFrame;
@@ -13,6 +16,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -55,7 +59,7 @@ public class MainAndreeaCi extends Application {
 
         System.out.println("inainte de prima iteratie");
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(2000),
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100),
                 new EventHandler<ActionEvent>() {
 
                     double dx = 10; //Step on x or velocity
@@ -104,7 +108,6 @@ public class MainAndreeaCi extends Application {
                             } else {
                                 var path = new File("src\\GraphicsModule\\resources\\carGoingUp.png").getAbsolutePath();
                                 carView.get(i).setImage(new Image("file:///" + path));
-
 //                            ball.setImage(new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-vTest\\programming-engineering\\src\\TestGrafica\\carGoingRight.png"));
                             }
                             int x, y;
@@ -133,6 +136,9 @@ public class MainAndreeaCi extends Application {
                 }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
+
+
+
     }
 
 
@@ -193,7 +199,28 @@ public class MainAndreeaCi extends Application {
                 imageViewArrayList.get(i).setImage(new Image("file:///" + path));
             }
             ourCity.window.getChildren().add(imageViewArrayList.get(i));
+//            ((GridPane) (ourCity.window.getCenter())).add(imageViewArrayList.get(i),5, 4);
         }
+
+
+        //        Utilities.correctDistanceOfAllCars();
+        Utilities.computeShortestPathForAllCars();
+        Utilities.setAllCarsSpeed(1);
+        for(long i = 0; i < 1000000000L; ++i);
+
+        var carsControllerInstance = CarController.getInstance();
+        var carsControllerThread = new Thread(carsControllerInstance);
+
+        var carAnimatorInstance = CarAnimator.getInstance();
+        var carAnimatorThread = new Thread(carAnimatorInstance);
+
+        var semaphoreController = SemaphoreController.getInstance();
+        var semaphoreControllerThread = new Thread(semaphoreController);
+
+        semaphoreControllerThread.start();
+        carsControllerThread.start();
+        carAnimatorThread.start();
+        MasterThread.followAllCars();
     }
 
     public static boolean isVertical(int i) {

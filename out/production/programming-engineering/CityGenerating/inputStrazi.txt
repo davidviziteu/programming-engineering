@@ -9,4 +9,4 @@ Strada8 7 10 2 5 0 4 0 1
 Strada9 10 11 2 7 5 4 3 1
 Strada10 11 3 4 0 7 4 6 1
 Strada11 10 4 5 0 6 5 2 -1
-Strada12 11 5 5 0 9 5 5 -1
+Strada12 11 5 5 0 8 5 5 -1

@@ -73,7 +73,7 @@ public class CityGenerator {
             while (line != null) {
                 String[] parts = line.split(" ");
                 TrafficLights myLights = new TrafficLights(Integer.parseInt(parts[0]), Integer.parseInt(parts[1]),
-                        Integer.parseInt(parts[2]), 3);
+                        Integer.parseInt(parts[2]), 1);
                 trafficLights.add(myLights);
                 line = reader.readLine();
             }

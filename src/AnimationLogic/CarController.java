@@ -1,5 +1,6 @@
 package AnimationLogic;
 
+import AnimationLogic.Miscellaneous.ConsoleColors;
 import AnimationLogic.Miscellaneous.Utilities;
 import CarGenerating.Car;
 import CityGenerating.Pair;
@@ -17,6 +18,7 @@ public class CarController extends Thread {
 
     static private boolean running = false;
     static private CarController instance;
+
     /**
      * @return true daca thread ul merge. false otherwise
      */
@@ -55,22 +57,18 @@ public class CarController extends Thread {
             }
         }
 
-        if(SemaphoreController.isRunning()) {
-            if (car.getDirection() == 1) {
-                var currentStreet = city.getStreetByIndex(car.getCurrentPosition());
-                var semaphoreId = currentStreet.getTrafficLights();
-                return !(city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.Red ||
-                        city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.YellowRed);
-            }
-            else {
-                var currentStreet = city.getStreetByIndex(car.getCurrentPosition());
-                var semaphoreId = currentStreet.getTrafficLightsReversed();
-                return !(city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.Red ||
-                        city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.YellowRed);
-            }
+        if (SemaphoreController.isRunning()) {
+            Street currentStreet = city.getStreetByIndex(car.getCurrentPosition());
+            Integer semaphoreId;
+            if (car.getDirection() == 1)
+                semaphoreId = currentStreet.getTrafficLights();
+            else
+                semaphoreId = currentStreet.getTrafficLightsReversed();
+//            if (city.getTLightsById(semaphoreId - 1).getStare() == TrafficLights.StareSemafor.Red)
+                if (city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.Red)
+                return false;
         }
-
-        return true;
+         return true;
     }
 
     /**
@@ -131,7 +129,7 @@ public class CarController extends Thread {
                             car
                     ));
                     streetQueue.remove();
-                    System.out.println("[CarController.java, line 131] car["+car.getID()+"] now on street " + i);
+                    System.out.println("[CarController.java, line 131] car[" + car.getID() + "] now on street " + i);
 //                    Utilities.correctCurrentPositionOfAllCars(); //patch
                     CarAnimator.rwLock.writeLock().unlock();
                 }
@@ -154,7 +152,7 @@ public class CarController extends Thread {
                             car
                     ));
                     streetQueue.remove();
-                    System.out.println("[CarController.java, line 154] car["+car.getID()+"] now on street " + i);
+                    System.out.println("[CarController.java, line 154] car[" + car.getID() + "] now on street " + i);
                     //DECOMENTEAZA LINIA DE MAI JOS PT UN FEL DE PATCH
 //                    Utilities.correctCurrentPositionOfAllCars(); //patch
                     CarAnimator.rwLock.writeLock().unlock();
@@ -166,8 +164,8 @@ public class CarController extends Thread {
     }
 
     static synchronized
-    public CarController getInstance(){
-        if(instance == null)
+    public CarController getInstance() {
+        if (instance == null)
             instance = new CarController();
         return instance;
     }
@@ -191,7 +189,7 @@ public class CarController extends Thread {
                     tryMoveFirstCar(st.getCars(), st.getIntersectionDestination());
                     tryMoveFirstCar(st.getCarsReversed(), st.getIntersectionSource());
                 }
-                sleep(0);
+                sleep(1000);
 //                System.out.println("iter"); //pune sleep 1000 daca vrei sa afisezi iter
             }
             System.out.println("all streets are empty now");

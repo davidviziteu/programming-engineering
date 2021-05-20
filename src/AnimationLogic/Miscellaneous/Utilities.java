@@ -15,6 +15,7 @@ public class Utilities {
         for (var st : city.getStreets()) {
             for (var qElement : st.getCars()) {
                 var car = qElement.getValue();
+
                 var shPathResult = ShortestPath2.compute(
                         city.getStreets(),
                         st.getIntersectionDestination(),
@@ -23,6 +24,8 @@ public class Utilities {
                 );
                 car.setShortestPath(shPathResult.getSecond());
                 car.setShortestPathDistance(shPathResult.getFirst() + car.getDistance());
+                if(car.getID() == 1)
+                    System.out.println(car);
             }
             for (var qElement : st.getCarsReversed()) {
                 var car = qElement.getValue();
@@ -34,8 +37,11 @@ public class Utilities {
                 );
                 car.setShortestPath(shPathResult.getSecond());
                 car.setShortestPathDistance(shPathResult.getFirst() + car.getDistance());
+                if(car.getID() == 1)
+                    System.out.println(car);
             }
         }
+        return;
     }
 
     public static int getIndexOfCarInQueue(Queue<Pair<Integer, Car>> q, Car car) {

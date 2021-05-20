@@ -122,7 +122,7 @@ public class UIController implements Initializable {
     }
 
     private void displayMap() {
-        imageView.setImage(new Image("file:src/UI/mapPreview.png"));
+        imageView.setImage(new Image("file:src/UI/mapPreviewNumbers.png"));
 //        imageView.fitWidthProperty().bind(imageView.widthProperty());
 //        imageView.fitHeightProperty().bind(imageView.heightProperty());
     }

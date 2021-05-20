@@ -96,9 +96,12 @@ public class Graphics2 {
             Integer y = intersection.getPosY();
             Image semafor = new Image("file:src/GraphicsModule/resources/TrafficLightWithTimer.gif");
             ImageView semaforView = new ImageView(semafor);
-            if (map[y][x] == 5)
+            if (map[y][x] == 5) {
                 gridpane.add(semaforView, y, x);
+                System.out.println("coordonate intersectii: xy" + x + " " + y);
+            }
         }
+        return;
     }
 
     public String getTrafficFrequency() {

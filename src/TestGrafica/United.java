@@ -18,23 +18,6 @@ public class United {
             CityGenerator.generateCity("scăzut", 5, 4, 1);
         else
             CityGenerator.generateCity(args[1], Integer.parseInt(args[2].replace("Strada", ""))-1, Integer.parseInt(args[3]), Integer.parseInt(args[4]));
-        Utilities.correctDistanceOfAllCars();
-        Utilities.computeShortestPathForAllCars();
-        Utilities.setAllCarsSpeed(1);
-
-        var carsControllerInstance = CarController.getInstance();
-        var carsControllerThread = new Thread(carsControllerInstance);
-
-        var carAnimatorInstance = CarAnimator.getInstance();
-        var carAnimatorThread = new Thread(carAnimatorInstance);
-
-        var semaphoreController = SemaphoreController.getInstance();
-        var semaphoreControllerThread = new Thread(semaphoreController);
-
-        semaphoreControllerThread.start();
-        carsControllerThread.start();
-        carAnimatorThread.start();
-        MasterThread.followAllCars();
 
         try {
             if (args.length > 0 && args[0].equals("full app")) {
