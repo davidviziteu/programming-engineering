@@ -8,6 +8,7 @@ import AnimationLogic.Miscellaneous.Utilities;
 import AnimationLogic.SemaphoreController;
 import CityGenerating.City;
 import CityGenerating.CityGenerator;
+import CityGenerating.TrafficLights;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -32,7 +33,27 @@ public class MainAndreeaCi extends Application {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
     public static final String ANSI_YELLOW = "\u001B[33m";
+    static Image semaphoreGreenHorizontalImg = new Image("file:src/GraphicsModule/resources/SemaphoreGreenHorizontal.png");
+    static Image semaphoreGreenVerticalImg = new Image("file:src/GraphicsModule/resources/SemaphoreGreenVertical.png");
+    static Image semaphoreYellowImg = new Image("file:src/GraphicsModule/resources/SemaphoreYellow.png");
 
+    static ImageView semaphoreIntersection8ImgView = new ImageView(semaphoreGreenHorizontalImg);
+    static ImageView semaphoreIntersection9ImgView = new ImageView(semaphoreGreenVerticalImg);
+    static ImageView semaphoreIntersection10ImgView = new ImageView(semaphoreGreenVerticalImg);
+    static ImageView semaphoreIntersection11ImgView = new ImageView(semaphoreGreenVerticalImg);
+
+
+    static Integer horizontalSemaphoreIntersection8Id = CityGenerator.city.getStreetByIndex(0).getTrafficLights();
+    static Integer verticalSemaphoreIntersection8Id = CityGenerator.city.getStreetByIndex(1).getTrafficLights();
+
+    static Integer horizontalSemaphoreIntersection9Id = CityGenerator.city.getStreetByIndex(2).getTrafficLights();
+    static Integer verticalSemaphoreIntersection9Id = CityGenerator.city.getStreetByIndex(3).getTrafficLights();
+
+    static Integer horizontalSemaphoreIntersection10Id = CityGenerator.city.getStreetByIndex(7).getTrafficLights();
+    static Integer verticalSemaphoreIntersection10Id = CityGenerator.city.getStreetByIndex(5).getTrafficLights();
+
+    static Integer horizontalSemaphoreIntersection11Id = CityGenerator.city.getStreetByIndex(8).getTrafficLights();
+    static Integer verticalSemaphoreIntersection11Id = CityGenerator.city.getStreetByIndex(6).getTrafficLights();
 
     @Override
     public void start(Stage stage) {
@@ -42,6 +63,7 @@ public class MainAndreeaCi extends Application {
         //ourCity.addUserPane();
         ourCity.drawTrafficLights();
         Scene scene = new Scene(ourCity.window, 900, 900);
+
 
         //Pane canvas = new Pane();
         //Scene scene = new Scene(canvas, 900, 900, Color.ALICEBLUE);
@@ -67,9 +89,45 @@ public class MainAndreeaCi extends Application {
 
                     @Override
                     public void handle(ActionEvent t) {
+                        var stateHorizontalSemaphore8 = CityGenerator.city.getTLightsById(horizontalSemaphoreIntersection8Id).getColor();
+                        if (stateHorizontalSemaphore8 == TrafficLights.StareSemafor.YellowRed || stateHorizontalSemaphore8 == TrafficLights.StareSemafor.YellowGreen)
+                            semaphoreIntersection8ImgView.setImage(semaphoreYellowImg);
+                        else if (stateHorizontalSemaphore8 == TrafficLights.StareSemafor.Green)
+                            semaphoreIntersection8ImgView.setImage(semaphoreGreenHorizontalImg);
+                        else if (stateHorizontalSemaphore8 == TrafficLights.StareSemafor.Red)
+                            semaphoreIntersection8ImgView.setImage(semaphoreGreenVerticalImg);
+
+
+                        var stateHorizontalSemaphore9 = CityGenerator.city.getTLightsById(horizontalSemaphoreIntersection9Id).getColor();
+                        if (stateHorizontalSemaphore9 == TrafficLights.StareSemafor.YellowRed || stateHorizontalSemaphore9 == TrafficLights.StareSemafor.YellowGreen)
+                            semaphoreIntersection9ImgView.setImage(semaphoreYellowImg);
+                        else if (stateHorizontalSemaphore9 == TrafficLights.StareSemafor.Green)
+                            semaphoreIntersection9ImgView.setImage(semaphoreGreenHorizontalImg);
+                        else if (stateHorizontalSemaphore9 == TrafficLights.StareSemafor.Red)
+                            semaphoreIntersection9ImgView.setImage(semaphoreGreenVerticalImg);
+
+                        var stateHorizontalSemaphore10 = CityGenerator.city.getTLightsById(horizontalSemaphoreIntersection10Id).getColor();
+                        if (stateHorizontalSemaphore10 == TrafficLights.StareSemafor.YellowRed || stateHorizontalSemaphore10 == TrafficLights.StareSemafor.YellowGreen)
+                            semaphoreIntersection10ImgView.setImage(semaphoreYellowImg);
+                        else if (stateHorizontalSemaphore10 == TrafficLights.StareSemafor.Green)
+                            semaphoreIntersection10ImgView.setImage(semaphoreGreenHorizontalImg);
+                        else if (stateHorizontalSemaphore10 == TrafficLights.StareSemafor.Red)
+                            semaphoreIntersection10ImgView.setImage(semaphoreGreenVerticalImg);
+
+                        var stateHorizontalSemaphore11 = CityGenerator.city.getTLightsById(horizontalSemaphoreIntersection11Id).getColor();
+                        if (stateHorizontalSemaphore11 == TrafficLights.StareSemafor.YellowRed || stateHorizontalSemaphore11 == TrafficLights.StareSemafor.YellowGreen)
+                            semaphoreIntersection11ImgView.setImage(semaphoreYellowImg);
+                        else if (stateHorizontalSemaphore11 == TrafficLights.StareSemafor.Green)
+                            semaphoreIntersection11ImgView.setImage(semaphoreGreenHorizontalImg);
+                        else if (stateHorizontalSemaphore11 == TrafficLights.StareSemafor.Red)
+                            semaphoreIntersection11ImgView.setImage(semaphoreGreenVerticalImg);
+
+//                        semaphoreIntersection9ImgView.setImage(semaphoreYellowImg);
+//                        semaphoreIntersection10ImgView.setImage(semaphoreYellowImg);
+//                        semaphoreIntersection11ImgView.setImage(semaphoreYellowImg);
+
+
                         for (int i = 0; i < carView.size(); i++) {
-
-
                             //move the ball
                             // ball.setLayoutX(ball.getLayoutX() + dx);
                             // ball.setLayoutY(ball.getLayoutY());
@@ -108,6 +166,7 @@ public class MainAndreeaCi extends Application {
                             } else {
                                 var path = new File("src\\GraphicsModule\\resources\\carGoingUp.png").getAbsolutePath();
                                 carView.get(i).setImage(new Image("file:///" + path));
+
 //                            ball.setImage(new Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-vTest\\programming-engineering\\src\\TestGrafica\\carGoingRight.png"));
                             }
                             int x, y;
@@ -133,10 +192,10 @@ public class MainAndreeaCi extends Application {
 //                        System.out.println(carView.get(i).getLayoutX() + dx);
                         }
                     }
+
                 }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
 
 
     }
@@ -199,14 +258,16 @@ public class MainAndreeaCi extends Application {
                 imageViewArrayList.get(i).setImage(new Image("file:///" + path));
             }
             ourCity.window.getChildren().add(imageViewArrayList.get(i));
-//            ((GridPane) (ourCity.window.getCenter())).add(imageViewArrayList.get(i),5, 4);
+
         }
-
-
+        ((GridPane) (ourCity.window.getCenter())).add(semaphoreIntersection8ImgView, 2, 1);
+        ((GridPane) (ourCity.window.getCenter())).add(semaphoreIntersection9ImgView, 5, 1);
+        ((GridPane) (ourCity.window.getCenter())).add(semaphoreIntersection10ImgView, 2, 4);
+        ((GridPane) (ourCity.window.getCenter())).add(semaphoreIntersection11ImgView, 5, 4);
         //        Utilities.correctDistanceOfAllCars();
         Utilities.computeShortestPathForAllCars();
         Utilities.setAllCarsSpeed(1);
-        for(long i = 0; i < 1000000000L; ++i);
+        for (long i = 0; i < 1000000000L; ++i) ;
 
         var carsControllerInstance = CarController.getInstance();
         var carsControllerThread = new Thread(carsControllerInstance);
