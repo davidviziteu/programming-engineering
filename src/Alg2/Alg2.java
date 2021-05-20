@@ -107,8 +107,11 @@ public class Alg2 {
             if (i % 2 == 0) {
                 if (city != null) {
                     chromosome = new ArrayList<>();
-                    List<Integer> ids = ShortestPath2.compute(city.getStreets(),
-                            idStart, idFinish, city.getStreets().size()).getSecond();
+                    List<Integer> ids = ShortestPath2.compute(
+                            city.getStreets(),
+                            idStart,
+                            idFinish,
+                            city.getNrOfIntersections()).getSecond();
 
                     chromosome.add(getCommonStreet(idStart, ids.get(0)));
 

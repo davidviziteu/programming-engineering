@@ -78,7 +78,7 @@ public class CarAnimator extends Thread {
                         synchronized (th) {
                             th.notify();
                         }
-                sleep(3000 / carSpeed);
+                sleep(1000 / carSpeed);
 //                sleep(5000);
             }
             sleep(2); // for car follower

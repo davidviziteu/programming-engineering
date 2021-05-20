@@ -23,8 +23,12 @@ public class United {
         else
             CityGenerator.generateCity(args[1], Integer.parseInt(args[2].replace("Strada", ""))-1, Integer.parseInt(args[3]), Integer.parseInt(args[4]));
 
+        var currentCarPosition = CityGenerator.city.getCars().get(0).getCurrentPosition();
+        var cityStreeet = CityGenerator.city.getStreetByIndex(currentCarPosition);
+        var destinationIntersection = CityGenerator.city.getCars().get(0).getDirection() == 1 ? cityStreeet.getIntersectionDestination() : cityStreeet.getIntersectionSource();
         Alg2 geneticAlgorithm = new Alg2(CityGenerator.city);
-        List<Street> path = geneticAlgorithm.run(CityGenerator.city.getCars().get(0).getCurrentPosition(),
+        List<Street> path = geneticAlgorithm.run(
+                destinationIntersection ,
                 CityGenerator.city.getCars().get(0).getFinalPosition());
         List<Integer> intersections = new ArrayList<>();
         for (int i = 1; i < path.size() - 1; i++) {
