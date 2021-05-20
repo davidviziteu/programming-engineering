@@ -1,5 +1,6 @@
 package TestGrafica;
 
+import Alg2.Alg2;
 import AnimationLogic.CarAnimator;
 import AnimationLogic.CarController;
 import AnimationLogic.MasterThread;
@@ -8,6 +9,7 @@ import AnimationLogic.Miscellaneous.Utilities;
 import AnimationLogic.SemaphoreController;
 import CityGenerating.City;
 import CityGenerating.CityGenerator;
+import CityGenerating.Street;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -32,7 +34,7 @@ public class MainAndreeaCi extends Application {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
     public static final String ANSI_YELLOW = "\u001B[33m";
-
+    public static City city;
 
     @Override
     public void start(Stage stage) {
@@ -205,6 +207,14 @@ public class MainAndreeaCi extends Application {
 
         //        Utilities.correctDistanceOfAllCars();
         Utilities.computeShortestPathForAllCars();
+        Alg2 geneticAlgorithm = new Alg2(city);
+        List<Street> path = geneticAlgorithm.run(city.getCars().get(0).getCurrentPosition(), city.getCars().get(0).getFinalPosition());
+        List<Integer> intersections = new ArrayList<>();
+        for (int i = 1; i < path.size() - 1; i++) {
+            intersections.add(geneticAlgorithm.getCommonIntersection(path.get(i), path.get(i + 1)));
+        }
+        city.getCars().get(0).setShortestPath(intersections);
+
         Utilities.setAllCarsSpeed(1);
         for(long i = 0; i < 1000000000L; ++i);
 
