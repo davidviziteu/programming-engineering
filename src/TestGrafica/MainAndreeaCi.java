@@ -84,7 +84,7 @@ public class MainAndreeaCi extends Application {
 
         System.out.println("inainte de prima iteratie");
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(90), new EventHandler<ActionEvent>() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), new EventHandler<ActionEvent>() {
 
             double dx = 10; // Step on x or velocity
             double dy = 3; // Step on y
@@ -271,8 +271,8 @@ public class MainAndreeaCi extends Application {
         Utilities.computeShortestPathForAllCars();
 
         Utilities.setAllCarsSpeed(1);
-//        for (long i = 0; i < 1000000000L; ++i)
-//            ;
+        for (long i = 0; i < 1000000000L; ++i)
+            ;
 
         var carsControllerInstance = CarController.getInstance();
         var carsControllerThread = new Thread(carsControllerInstance);
