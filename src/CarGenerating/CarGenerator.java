@@ -50,11 +50,14 @@ public class CarGenerator {
         this.frequency = frequency.toLowerCase();
 
         if (this.frequency.equals("scăzut")) {
-            numberOfCars = (int) (frequencyLow * totalStreetsLength());
+//            numberOfCars = (int) (frequencyLow * totalStreetsLength());
+            numberOfCars = 5;
         }else if (this.frequency.equals("moderat")) {
-            numberOfCars = (int) (frequencyMedium * totalStreetsLength());
+//            numberOfCars = (int) (frequencyMedium * totalStreetsLength());
+            numberOfCars = 9;
         } else if (this.frequency.equals("intens")) {
-            numberOfCars = (int) (frequencyHigh * totalStreetsLength());
+//            numberOfCars = (int) (frequencyHigh * totalStreetsLength());
+            numberOfCars = 15;
         } else{
             numberOfCars = 1;
         }

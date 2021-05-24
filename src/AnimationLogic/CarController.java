@@ -129,7 +129,6 @@ public class CarController extends Thread {
                             car
                     ));
                     streetQueue.remove();
-                    System.out.println("[CarController.java, line 131] car[" + car.getID() + "] now on street " + i);
 //                    Utilities.correctCurrentPositionOfAllCars(); //patch
                     CarAnimator.rwLock.writeLock().unlock();
                 }
@@ -152,7 +151,6 @@ public class CarController extends Thread {
                             car
                     ));
                     streetQueue.remove();
-                    System.out.println("[CarController.java, line 154] car[" + car.getID() + "] now on street " + i);
                     //DECOMENTEAZA LINIA DE MAI JOS PT UN FEL DE PATCH
 //                    Utilities.correctCurrentPositionOfAllCars(); //patch
                     CarAnimator.rwLock.writeLock().unlock();
@@ -189,7 +187,7 @@ public class CarController extends Thread {
                     tryMoveFirstCar(st.getCars(), st.getIntersectionDestination());
                     tryMoveFirstCar(st.getCarsReversed(), st.getIntersectionSource());
                 }
-                sleep(1000);
+                sleep(0);
 //                System.out.println("iter"); //pune sleep 1000 daca vrei sa afisezi iter
             }
             System.out.println("all streets are empty now");

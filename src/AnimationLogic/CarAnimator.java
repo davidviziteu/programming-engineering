@@ -79,7 +79,6 @@ public class CarAnimator extends Thread {
                             th.notify();
                         }
                 sleep(1000 / carSpeed);
-//                sleep(5000);
             }
             sleep(2); // for car follower
             if (CarFollower.pool.size() > 0) {

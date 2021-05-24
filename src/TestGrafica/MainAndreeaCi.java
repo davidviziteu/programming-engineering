@@ -83,7 +83,7 @@ public class MainAndreeaCi extends Application {
 
         System.out.println("inainte de prima iteratie");
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), new EventHandler<ActionEvent>() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(9), new EventHandler<ActionEvent>() {
 
             double dx = 10; // Step on x or velocity
             double dy = 3; // Step on y
@@ -178,8 +178,7 @@ public class MainAndreeaCi extends Application {
                         var path = new File("src\\GraphicsModule\\resources\\carGoingDown.png").getAbsolutePath();
                         carView.get(i).setImage(new Image("file:///" + path));
                     } else {
-                        var path = new File("src\\GraphicsModule\\resources\\carGoingUp.png").getAbsolutePath();
-                        carView.get(i).setImage(new Image("file:///" + path));
+                        carView.get(i).setImage(new Image("file:src/GraphicsModule/resources/carGoingUp.png"));
 
                         // ball.setImage(new
                         // Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-vTest\\programming-engineering\\src\\TestGrafica\\carGoingRight.png"));
@@ -287,8 +286,8 @@ public class MainAndreeaCi extends Application {
         Utilities.computeShortestPathForAllCars();
 
         Utilities.setAllCarsSpeed(1);
-        for (long i = 0; i < 1000000000L; ++i)
-            ;
+//        for (long i = 0; i < 1000000000L; ++i)
+//            ;
 
         var carsControllerInstance = CarController.getInstance();
         var carsControllerThread = new Thread(carsControllerInstance);
@@ -302,7 +301,7 @@ public class MainAndreeaCi extends Application {
         semaphoreControllerThread.start();
         carsControllerThread.start();
         carAnimatorThread.start();
-        MasterThread.followAllCars();
+        MasterThread.followCar(0, ConsoleColors.YELLOW);
     }
 
     public static boolean isVertical(int i) {

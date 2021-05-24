@@ -58,7 +58,7 @@ public class Main2Test extends Application{
 
 
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1000),
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(9),
                 new EventHandler<ActionEvent>() {
 
                     double dx = 8; //Step on x or velocity
