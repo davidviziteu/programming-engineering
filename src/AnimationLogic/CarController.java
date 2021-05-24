@@ -107,7 +107,7 @@ public class CarController extends Thread {
             //e.printStackTrace();
             streetQueue.remove();
 //            city.getCars().remove(car);
-//            car.setDistance(-1);
+            car.setDistance(-10);
             return;
         }
         ArrayList<Street> streets = city.getStreets();
