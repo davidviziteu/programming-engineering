@@ -115,7 +115,7 @@ public class City {
     public Pair<Integer, Integer> getCarCoordinates(Car temp){
         Street stradaTemporara=getStreetByIndex(temp.getCurrentPosition());
         Integer toAdd = 0;
-        if(temp.getDistance() == -1)
+        if(temp.getDistance() == -10)
             return new Pair<Integer,Integer>(-10, -10);
         if(temp.getDirection()==1)
             toAdd=stradaTemporara.getLength()-temp.getDistance() - 1;

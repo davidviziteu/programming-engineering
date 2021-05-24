@@ -51,7 +51,7 @@ public class Utilities {
                 return i;
             ++i;
         }
-        return -1; //not found
+        return -10; //not found
     }
 
     /**

@@ -46,7 +46,7 @@ public class SemaphoreController extends Thread  {
         }
     }
     static void changeAll(){
-        for(int i=0; i< CityGenerator.city.getTrafficLights().size(); i++) {
+        for(int i=1; i< CityGenerator.city.getTrafficLights().size(); i++) {
             TrafficLights trafficLights=CityGenerator.city.getTLightsById(i);
             change(trafficLights);
         }

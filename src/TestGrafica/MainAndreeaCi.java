@@ -7,6 +7,7 @@ import AnimationLogic.MasterThread;
 import AnimationLogic.Miscellaneous.ConsoleColors;
 import AnimationLogic.Miscellaneous.Utilities;
 import AnimationLogic.SemaphoreController;
+import CarGenerating.CarGenerator;
 import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.TrafficLights;
@@ -69,7 +70,7 @@ public class MainAndreeaCi extends Application {
         // Pane canvas = new Pane();
         // Scene scene = new Scene(canvas, 900, 900, Color.ALICEBLUE);
         Image car = new Image(
-                "file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-vTest\\programming-engineering\\src\\TestGrafica\\carGoingRight.png");
+                "file:C:/Users/andre/OneDrive/Desktop/ip-vTest/programming-engineering/src/TestGrafica/carGoingRight.png");
         ArrayList<ImageView> carView = new ArrayList<>();
 
         for (int i = 0; i < CityGenerator.city.getCars().size(); i++) {
@@ -144,50 +145,44 @@ public class MainAndreeaCi extends Application {
                         if (!isVertical(i)) {
 
                             if (CityGenerator.city.getCars().get(0).getDirection() == 1) {
-                                var path_special = new File("src\\GraphicsModule\\resources\\specialCarGoingRight.png")
-                                        .getAbsolutePath();
-                                carView.get(0).setImage(new Image("file:///" + path_special));
+                                carView.get(0).setImage(new Image("file:src/GraphicsModule/resources/specialCarGoingRight.png" ));
                             } else {
-                                var path_special = new File("src\\GraphicsModule\\resources\\specialCarGoingLeft.png")
-                                        .getAbsolutePath();
-                                carView.get(0).setImage(new Image("file:///" + path_special));
+                                carView.get(0).setImage(new Image("file:src/GraphicsModule/resources/specialCarGoingLeft.png" ));
                             }
                         } else if (CityGenerator.city.getCars().get(i).getDirection() == 1) {
-                            var path_special = new File("src\\GraphicsModule\\resources\\specialCarGoingDown.png")
-                                    .getAbsolutePath();
-                            carView.get(0).setImage(new Image("file:///" + path_special));
+                            carView.get(0).setImage(new Image("file:src/GraphicsModule/resources/specialCarGoingDown.png" ));
                         } else {
-                            var path_special = new File("src\\GraphicsModule\\resources\\specialCarGoingUp.png")
-                                    .getAbsolutePath();
-                            carView.get(0).setImage(new Image("file:///" + path_special));
+                            carView.get(0).setImage(new Image("file:src/GraphicsModule/resources/specialCarGoingUp.png" ));
                         }
 
                     } else if (CityGenerator.city
                             .getStreetByIndex(CityGenerator.city.getCars().get(i).getCurrentPosition())
                             .getDirection() == 1) {
                         if (CityGenerator.city.getCars().get(i).getDirection() == 1) {
-                            var path = new File("src\\GraphicsModule\\resources\\carGoingRight.png").getAbsolutePath();
-                            carView.get(i).setImage(new Image("file:///" + path));
+                            carView.get(i).setImage(new Image("file:src/GraphicsModule/resources/carGoingRight.png" ));
                         } else {
-                            var path = new File("src\\GraphicsModule\\resources\\carGoingLeft.png").getAbsolutePath();
-                            carView.get(i).setImage(new Image("file:///" + path));
+                            carView.get(i).setImage(new Image("file:src/GraphicsModule/resources/carGoingLeft.png" ));
                         }
                         // ball.setImage(new
-                        // Image("file:///Users\\andre\\OneDrive\\Desktop\\ip-try3\\programming-engineering\\src\\GraphicsModule\\resources\\carGoingUp.png"));
+                        // Image("file:Users/andre/OneDrive/Desktop/ip-try3/programming-engineering/src/GraphicsModule/resources/carGoingUp.png"));
                     } else if (CityGenerator.city.getCars().get(i).getDirection() == 1) {
-                        var path = new File("src\\GraphicsModule\\resources\\carGoingDown.png").getAbsolutePath();
-                        carView.get(i).setImage(new Image("file:///" + path));
+                        carView.get(i).setImage(new Image("file:src/GraphicsModule/resources/carGoingDown.png" ));
                     } else {
                         carView.get(i).setImage(new Image("file:src/GraphicsModule/resources/carGoingUp.png"));
 
                         // ball.setImage(new
-                        // Image("file:///C:\\Users\\andre\\OneDrive\\Desktop\\ip-vTest\\programming-engineering\\src\\TestGrafica\\carGoingRight.png"));
+                        // Image("file:C:/Users/andre/OneDrive/Desktop/ip-vTest/programming-engineering/src/TestGrafica/carGoingRight.png"));
                     }
                     int x, y;
                     try {
                         CarAnimator.rwLock.readLock().lock();
                         x = CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(i)).getKey();
                         y = CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(i)).getValue();
+                        if(x == -10) {
+                            CityGenerator.city.getCars().remove(i);
+//                            ((GridPane) ourCity).getChildren().remove(carView.get(i));
+                            carView.remove(i);
+                        }
                     } finally {
                         CarAnimator.rwLock.readLock().unlock();
                     }
@@ -236,44 +231,31 @@ public class MainAndreeaCi extends Application {
 
             if (CityGenerator.city.getCars().get(i).getID() == 1) {
                 // var path = new
-                // File("src\\GraphicsModule\\resources\\specialCarGoingRight.png").getAbsolutePath();
-                // imageViewArrayList.get(0).setImage(new Image("file:///" + path));
+                // File("src/GraphicsModule/resources/specialCarGoingRight.png").getAbsolutePath();
+                // imageViewArrayList.get(0).setImage(new Image("file:" ));
 
                 if (!isVertical(i)) {
-
                     if (CityGenerator.city.getCars().get(0).getDirection() == 1) {
-                        var path_special = new File("src\\GraphicsModule\\resources\\specialCarGoingRight.png")
-                                .getAbsolutePath();
-                        imageViewArrayList.get(0).setImage(new Image("file:///" + path_special));
+                        imageViewArrayList.get(0).setImage(new Image("file:src/GraphicsModule/resources/specialCarGoingRight.png" ));
                     } else {
-                        var path_special = new File("src\\GraphicsModule\\resources\\specialCarGoingLeft.png")
-                                .getAbsolutePath();
-                        imageViewArrayList.get(0).setImage(new Image("file:///" + path_special));
+                        imageViewArrayList.get(0).setImage(new Image("file:src/GraphicsModule/resources/specialCarGoingLeft.png" ));
                     }
                 } else if (CityGenerator.city.getCars().get(i).getDirection() == 1) {
-                    var path_special = new File("src\\GraphicsModule\\resources\\specialCarGoingDown.png")
-                            .getAbsolutePath();
-                    imageViewArrayList.get(0).setImage(new Image("file:///" + path_special));
+                    imageViewArrayList.get(0).setImage(new Image("file:src/GraphicsModule/resources/specialCarGoingDown.png" ));
                 } else {
-                    var path_special = new File("src\\GraphicsModule\\resources\\specialCarGoingUp.png")
-                            .getAbsolutePath();
-                    imageViewArrayList.get(0).setImage(new Image("file:///" + path_special));
+                    imageViewArrayList.get(0).setImage(new Image("file:src/GraphicsModule/resources/specialCarGoingUp.png" ));
                 }
             } else if (!isVertical(i)) {
 
                 if (CityGenerator.city.getCars().get(i).getDirection() == 1) {
-                    var path = new File("src\\GraphicsModule\\resources\\carGoingRight.png").getAbsolutePath();
-                    imageViewArrayList.get(i).setImage(new Image("file:///" + path));
+                    imageViewArrayList.get(i).setImage(new Image("file:src/GraphicsModule/resources/carGoingRight.png" ));
                 } else {
-                    var path = new File("src\\GraphicsModule\\resources\\carGoingLeft.png").getAbsolutePath();
-                    imageViewArrayList.get(i).setImage(new Image("file:///" + path));
+                    imageViewArrayList.get(i).setImage(new Image("file:src/GraphicsModule/resources/carGoingLeft.png" ));
                 }
             } else if (CityGenerator.city.getCars().get(i).getDirection() == 1) {
-                var path = new File("src\\GraphicsModule\\resources\\carGoingDown.png").getAbsolutePath();
-                imageViewArrayList.get(i).setImage(new Image("file:///" + path));
+                imageViewArrayList.get(i).setImage(new Image("file:src/GraphicsModule/resources/carGoingDown.png" ));
             } else {
-                var path = new File("src\\GraphicsModule\\resources\\carGoingUp.png").getAbsolutePath();
-                imageViewArrayList.get(i).setImage(new Image("file:///" + path));
+                imageViewArrayList.get(i).setImage(new Image("file:src/GraphicsModule/resources/carGoingUp.png" ));
             }
             ourCity.window.getChildren().add(imageViewArrayList.get(i));
 

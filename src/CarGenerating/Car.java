@@ -63,8 +63,7 @@ public class Car implements Comparable<Car> {
     }
 
     public void setDistance(int distance) {
-        if (distance >= 0 && distance < 6) this.distance = distance;
-        else this.distance = -1;//daca e -1 atunci e in afara hartii
+        this.distance = distance;
     }
 
     public void setCurrentPosition(int currentPosition) {

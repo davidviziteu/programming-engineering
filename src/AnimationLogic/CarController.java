@@ -50,7 +50,7 @@ public class CarController extends Thread {
         if (CarAnimator.isRunning()) {
             CarAnimator.rwLock.readLock().lock();
             try {
-                if (car.getDistance() != 0)
+                if (car.getDistance() != -1)
                     return false; //masina inca nu a ajuns la "capatul" strazii (poate de abia a intrat pe strada)
             } finally {
                 CarAnimator.rwLock.readLock().unlock();
@@ -86,14 +86,14 @@ public class CarController extends Thread {
             if (CarAnimator.isRunning()) {
                 CarAnimator.rwLock.readLock().lock();
                 try {
-                    if (car.getDistance() != 0)
+                    if (car.getDistance() != -1)
                         return; //masina nu a ajuns la capatul strazii deci n am ce i face acum
                 } finally {
                     CarAnimator.rwLock.readLock().unlock();
                 }
             }
             var finishedCar = streetQueue.remove();
-            finishedCar.getValue().setDistance(-1);
+            finishedCar.getValue().setDistance(-10);
             System.out.println("car[" + finishedCar.getValue().getID() + "] that has arrived at destination[" + currentIntersectionId + "]: " + finishedCar.getValue());
             return;
         }

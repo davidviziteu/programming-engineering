@@ -4,7 +4,9 @@ import AnimationLogic.Miscellaneous.CarFollower;
 import AnimationLogic.Miscellaneous.ConsoleColors;
 import AnimationLogic.Miscellaneous.Utilities;
 import CarGenerating.Car;
+import CityGenerating.CityGenerator;
 import CityGenerating.Pair;
+import CityGenerating.TrafficLights;
 
 import java.util.Queue;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -32,14 +34,17 @@ public class CarAnimator extends Thread {
      *
      * @param q
      */
-    static public void updateStreetQueue(Queue<Pair<Integer, Car>> q) {
+    static public void updateStreetQueue(Queue<Pair<Integer, Car>> q, TrafficLights semaphore) {
         rwLock.writeLock().lock();
         try {
             q.stream().forEachOrdered(pair -> {
                 var currentOffset = pair.getValue().getDistance();
-                if (currentOffset > 0) //daca e 0 sau -1 inseamna ca tre mutata sau ca e scoasa
+                if (currentOffset > -1) //daca e 0 sau -1 inseamna ca tre mutata sau ca e scoasa
                     if (currentOffset != Utilities.getIndexOfCarInQueue(q, pair.getValue()))
                         pair.getValue().setDistance(--currentOffset);
+                    else if (currentOffset == 0 && (semaphore.getStare() == TrafficLights.StareSemafor.Green || semaphore.getStare()== TrafficLights.StareSemafor.YellowGreen))
+                        pair.getValue().setDistance(--currentOffset);
+
             });
         } finally {
             rwLock.writeLock().unlock();
@@ -70,8 +75,8 @@ public class CarAnimator extends Thread {
             System.out.println("started animator thread");
             while (existsACarOnStreets()) {
                 for (var st : city.getStreets()) {
-                    updateStreetQueue(st.getCars());
-                    updateStreetQueue(st.getCarsReversed());
+                    updateStreetQueue(st.getCars(), CityGenerator.city.getTLightsById(st.getTrafficLights()));
+                    updateStreetQueue(st.getCarsReversed(), CityGenerator.city.getTLightsById(st.getTrafficLightsReversed()));
                 }
                 if (CarFollower.pool.size() > 0)
                     for(var th : CarFollower.pool)
