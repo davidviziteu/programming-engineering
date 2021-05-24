@@ -7,6 +7,7 @@ import AnimationLogic.MasterThread;
 import AnimationLogic.Miscellaneous.ConsoleColors;
 import AnimationLogic.Miscellaneous.Utilities;
 import AnimationLogic.SemaphoreController;
+import CarGenerating.Car;
 import CarGenerating.CarGenerator;
 import CityGenerating.City;
 import CityGenerating.CityGenerator;
@@ -270,7 +271,7 @@ public class MainAndreeaCi extends Application {
         // Utilities.correctDistanceOfAllCars();
         Utilities.computeShortestPathForAllCars();
 
-        Utilities.setAllCarsSpeed(1);
+        Utilities.setAllCarsSpeed(Car.generalSpeed);
         for (long i = 0; i < 1000000000L; ++i)
             ;
 

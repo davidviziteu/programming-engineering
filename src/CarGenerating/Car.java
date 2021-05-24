@@ -19,7 +19,7 @@ public class Car implements Comparable<Car> {
     protected List<Integer> shortestPath;
     protected int shortestPathTime;
     protected int shortestPathDistance;
-
+    public static int generalSpeed = 1; //patratele pe secunda
     protected boolean reachedIntersection = false;
 
     public void setDirection(int direction) {
