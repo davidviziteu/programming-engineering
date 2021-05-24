@@ -2,6 +2,7 @@ package CarGenerating;
 
 import UI.UIController;
 
+import java.io.*;
 import java.util.ArrayList;
 
 import static CityGenerating.CityGenerator.city;
@@ -60,25 +61,45 @@ public class CarGenerator {
         int index = 1;
 
         if (UIController.specialTestCase == 1) {
-            numberOfCars = 6;
+            numberOfCars = 5;
             Car.LastID = 2;
 
-            cars.add(new Car(9, 7, 1, -1));
-            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+            File file = new File("inputMasiniLow.txt");
 
-            index++;
-            cars.add(new Car(9, 7, 2, -1));
-            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader("src/CityGenerating/inputMasiniLow.txt"));
+                String line;
+                while((line = reader.readLine()) != null) {
 
-            index++;
+                    String[] attributes = line.split(" ");
+                    cars.add(new Car(Integer.parseInt(attributes[0]),
+                            Integer.parseInt(attributes[1]), 1, Integer.parseInt(attributes[2])));
+                    city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+                    index++;
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-            cars.add(new Car(6, 4, 1, 1));
-            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
-
-            index++;
-
-            cars.add(new Car(6, 5, 2, 1));
-            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+//            cars.add(new Car(9, 7, 1, -1));
+//            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+//
+//            index++;
+//            cars.add(new Car(9, 7, 2, -1));
+//            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+//
+//            index++;
+//
+//            cars.add(new Car(6, 4, 1, 1));
+//            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+//
+//            index++;
+//
+//            cars.add(new Car(6, 5, 2, 1));
+//            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+//
             int index1 = index;
             for (index = index1 + 1; index <= numberOfCars; index++) {
                 cars.add(new Car());
@@ -106,13 +127,39 @@ public class CarGenerator {
             //int index=1;
 
             int index1 = index;
+            for (index = index1 + 1; index < numberOfCars; index++) {
+                cars.add(new Car());
+                city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+            }
+            numberOfCars++;
+        } else if (UIController.specialTestCase == 3) {
+            numberOfCars = 4;
+            Car.LastID = 2;
+            cars.add(new Car(8, 7, 1, -1));
+            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+
+            index++;
+            cars.add(new Car(8, 7, 2, -1));
+            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+
+            index++;
+
+            cars.add(new Car(6, 7, 1, 1));
+            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+
+            index++;
+
+            cars.add(new Car(6, 7, 2, 1));
+            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+            //int index=1;
+
+            int index1 = index;
             for (index = index1 + 1; index <= numberOfCars; index++) {
                 cars.add(new Car());
                 city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
             }
             numberOfCars++;
         }
-        //        else if (UIController.specialTestCase == 3) {}
         //        else if (UIController.specialTestCase == 4) {}
 
         else {

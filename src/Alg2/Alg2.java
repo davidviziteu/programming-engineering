@@ -22,9 +22,11 @@ public class Alg2 {
 
     private final City city;
     private List<List<Street>> population;
+    private List<double[]> densityThroughTime;
 
     public Alg2(City city) {
         this.city = city;
+        computeDensities();
     }
 
     public static void main(String[] args) {
@@ -164,58 +166,58 @@ public class Alg2 {
         return time + distance;
     }
 
-    public double computeLoadDensity(List<Street> chromosome) {
-        // TODO: optimise; don't compute these arrays every time
+    public void computeDensities() {
+        List<List<Integer>> carPaths = new ArrayList<>();
+        for (Car car : city.getCars()) {
+            List<Integer> shortestPath = car.getShortestPath();
+
+            if (shortestPath == null) {
+                System.out.println("wubba lubba dub dub");
+            } else {
+                carPaths.add(new ArrayList<>(shortestPath));
+            }
+        }
+
+        densityThroughTime = new ArrayList<>();
+        boolean pathsLeft = true;
+
         List<Street> streets = city.getStreets();
         int countTrafficLights = streets.size();
         int[] capacity = new int[countTrafficLights];
-        int[] load = new int[countTrafficLights];
-
-//        pentru fiecare intersectie:
-//        calculeaza gradul de incarcare
-//        (grad incarcare: suma numarului de masini care intra/asteapta la intrarea in intersectie
-//                => procentaj din capacitatea maxima al strazilor)
-//        for (Street street : streets) {
-//            capacity[street.getIntersectionDestination()] += street.getLength();
-//            capacity[street.getIntersectionSource()] += street.getLength();
-//
-//            load[street.getIntersectionDestination()] += street.getCars().size();
-//            load[street.getIntersectionSource()] += street.getCarsReversed().size();
-//        }
-
         for (Street street : streets) {
             capacity[street.getIntersectionDestination()] += street.getLength();
             capacity[street.getIntersectionSource()] += street.getLength();
         }
-        for (Car car : city.getCars()) {
-            List<Integer> path = car.getShortestPath();
-            for (int idIntersection : path) {
-                load[idIntersection]++;
+
+        while (pathsLeft) {
+            pathsLeft = false;
+
+            int[] load = new int[countTrafficLights];
+            for (int index = 0; index < carPaths.size(); index++) {
+                if (carPaths.get(index).size() > 0) {
+                    load[carPaths.get(index).get(0)]++;
+                    carPaths.get(index).remove(0);
+                    pathsLeft = true;
+                }
             }
-        }
 
-        double[] loadDensity = new double[countTrafficLights];
-        for (int i = 0; i < countTrafficLights; ++i) {
-            loadDensity[i] = ((double) load[i]) / ((double) capacity[i]);
+            double[] loadDensity = new double[countTrafficLights];
+            for (int i = 0; i < countTrafficLights; ++i) {
+                loadDensity[i] = ((double) load[i]) / ((double) capacity[i]);
+            }
+            densityThroughTime.add(loadDensity);
         }
+    }
 
-//        fitness:
-//        pentru o secventa de strazi, vedem cu cat ar creste masina user "incarcarea" intersectiilor
-//        adica cat creste prin procentaj
-//
-//        cu cat aceasta crestere de incarcare este mai MARE, cu atat mai bine!
-//                (daca creste mult, inseamna ca erau putin incarcate inainte)
-//
-//        mergem pe presupunerea ca intersectiile incarcate se mentin incarcate (si deci, incete)
-//        iar strazile putin incarcate, raman putin incarcate (si deci, mai rapide)
+    public double computeLoadDensity(List<Street> chromosome) {
         double density = 0.0;
-//      ignore last street (we check intersection at the end of the street, so map exit intersection should be ignored)
-        for (int index = 0; index < chromosome.size() - 1; ++index) {
+        for (int index = 0; index < chromosome.size() - 1 && index < densityThroughTime.size(); ++index) {
             Integer id = getCommonIntersection(chromosome.get(index), chromosome.get(index + 1));
             if (id == null) {
-                System.out.println("God is dead");
+                System.out.println("no bueno");
+                System.exit(-1);
             } else {
-                density += (((double) (load[id] + 1)) / ((double) (capacity[id]))) - loadDensity[id];
+                density += 1.0 / densityThroughTime.get(index)[id];
             }
         }
         return density;
@@ -226,7 +228,8 @@ public class Alg2 {
         double time = computeTime(chromosome);
 //        System.out.println("[Alg2] " + loadDensity + " " + time);
         // TODO: adjust coefficients
-        return 100.0 / loadDensity + 22.0 / time;
+//        return 100.0 / loadDensity + 22.0 / time;
+        return loadDensity;
     }
 
     public List<List<Street>> selection() {

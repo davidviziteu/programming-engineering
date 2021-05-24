@@ -13,6 +13,7 @@ import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.TrafficLights;
 import CityGenerating.Street;
+import ShortestPath.Tuple;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -274,6 +275,7 @@ public class MainGraphics extends Application {
         var cityStreeet = CityGenerator.city.getStreetByIndex(currentCarPosition);
         var sourceIntersection = CityGenerator.city.getCars().get(0).getDirection() != 1 ? cityStreeet.getIntersectionDestination() : cityStreeet.getIntersectionSource();
         Alg2 geneticAlgorithm = new Alg2(CityGenerator.city);
+
         List<Street> path = geneticAlgorithm.run(
                 sourceIntersection,
                 CityGenerator.city.getCars().get(0).getFinalPosition());
@@ -286,24 +288,33 @@ public class MainGraphics extends Application {
         CityGenerator.city.getCars().get(0).setShortestPath(intersections);
 
         Utilities.setAllCarsSpeed(Car.generalSpeed);
-        for (long i = 0; i < 1000000000L; ++i)
-            ;
+//        for (long i = 0; i < 1000000000L; ++i)
+//            ;
 
-        var carsControllerInstance = CarController.getInstance();
-        var carsControllerThread = new Thread(carsControllerInstance);
+        java.util.TimerTask task = new java.util.TimerTask() {
+            public void run() {
+            var carsControllerInstance = CarController.getInstance();
+            var carsControllerThread = new Thread(carsControllerInstance);
 
-        var carAnimatorInstance = CarAnimator.getInstance();
-        var carAnimatorThread = new Thread(carAnimatorInstance);
+            var carAnimatorInstance = CarAnimator.getInstance();
+            var carAnimatorThread = new Thread(carAnimatorInstance);
 
-        var semaphoreController = SemaphoreController.getInstance();
-        var semaphoreControllerThread = new Thread(semaphoreController);
+            var semaphoreController = SemaphoreController.getInstance();
+            var semaphoreControllerThread = new Thread(semaphoreController);
 
-        semaphoreControllerThread.start();
-        carsControllerThread.start();
-        carAnimatorThread.start();
-        MasterThread.followCar(0, ConsoleColors.YELLOW);
-//        MasterThread.followCar(3, ConsoleColors.BLUE);
-//        MasterThread.followAllCars();
+            semaphoreControllerThread.start();
+            carsControllerThread.start();
+            carAnimatorThread.start();
+            MasterThread.followCar(0, ConsoleColors.YELLOW);
+    //        MasterThread.followCar(3, ConsoleColors.BLUE);
+    //        MasterThread.followAllCars();
+            }
+        };
+
+        java.util.Timer timer = new java.util.Timer();
+
+        long delay = 3000L;
+        timer.schedule(task, delay);
     }
 
     public static boolean isVertical(int i) {
