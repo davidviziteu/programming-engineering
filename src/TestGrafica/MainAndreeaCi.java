@@ -66,12 +66,11 @@ public class MainAndreeaCi extends Application {
         ourCity.addUserPane();
         // ourCity.addUserPane();
         ourCity.drawTrafficLights();
-        Scene scene = new Scene(ourCity.window, 900, 900);
+        Scene scene = new Scene(ourCity.window, 1000, 1000);
 
         // Pane canvas = new Pane();
         // Scene scene = new Scene(canvas, 900, 900, Color.ALICEBLUE);
-        Image car = new Image(
-                "file:C:/Users/andre/OneDrive/Desktop/ip-vTest/programming-engineering/src/TestGrafica/carGoingRight.png");
+        Image car = new Image("file:src/TestGrafica/carGoingRight.png");
         ArrayList<ImageView> carView = new ArrayList<>();
 
         for (int i = 0; i < CityGenerator.city.getCars().size(); i++) {
