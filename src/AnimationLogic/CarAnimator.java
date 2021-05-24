@@ -34,7 +34,7 @@ public class CarAnimator extends Thread {
      *
      * @param q
      */
-    static public void updateStreetQueue(Queue<Pair<Integer, Car>> q, TrafficLights semaphore) {
+    static public void updateStreetQueue(Queue<Pair<Integer, Car>> q) {
         rwLock.writeLock().lock();
         try {
             q.stream().forEachOrdered(pair -> {
@@ -42,7 +42,7 @@ public class CarAnimator extends Thread {
                 if (currentOffset > -1) //daca e 0 sau -1 inseamna ca tre mutata sau ca e scoasa
                     if (currentOffset != Utilities.getIndexOfCarInQueue(q, pair.getValue()))
                         pair.getValue().setDistance(--currentOffset);
-                    else if (currentOffset == 0 && (semaphore.getStare() == TrafficLights.StareSemafor.Green || semaphore.getStare()== TrafficLights.StareSemafor.YellowGreen))
+                    else if (currentOffset == 0)
 //                        pair.getValue().setDistance(--currentOffset);
                         pair.getValue().setReachedIntersection(true);
 
@@ -77,8 +77,8 @@ public class CarAnimator extends Thread {
             System.out.println("started animator thread");
             while (existsACarOnStreets()) {
                 for (var st : city.getStreets()) {
-                    updateStreetQueue(st.getCars(), CityGenerator.city.getTLightsById(st.getTrafficLights()));
-                    updateStreetQueue(st.getCarsReversed(), CityGenerator.city.getTLightsById(st.getTrafficLightsReversed()));
+                    updateStreetQueue(st.getCars());
+                    updateStreetQueue(st.getCarsReversed());
                 }
                 if (CarFollower.pool.size() > 0)
                     for(var th : CarFollower.pool)

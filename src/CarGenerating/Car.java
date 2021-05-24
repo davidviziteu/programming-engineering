@@ -176,6 +176,7 @@ public class Car implements Comparable<Car> {
                 ", shortestPath=" + shortestPath +
                 ", shortestPathTime=" + shortestPathTime +
                 ", shortestPathDistance=" + shortestPathDistance +
+                ", hasReachedIntersection=" + reachedIntersection +
                 '}';
     }
 
