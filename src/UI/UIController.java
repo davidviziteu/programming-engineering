@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import CarGenerating.Car;
 import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.Street;
@@ -79,6 +80,7 @@ public class UIController implements Initializable {
 //        var specialCar = CityGenerator.city.getCars().get(0);
 //        specialCar.setDirection();
         startButton.setVisible(false);
+        Car.generalSpeed = choiceBoxSpeed.getValue();
         String[] args = new String[5];
         args[0] = "full app";
         args[1] = trafficDensityChoiceBox.getValue();

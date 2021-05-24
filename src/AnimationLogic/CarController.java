@@ -81,7 +81,7 @@ public class CarController extends Thread {
         boolean queueNotFull = true; //temporar, pt ca inca nu stiu cum sa verific daca o coada este plina
 
         if (streetQueue.peek() == null) return;
-        if (isFinalIntersection(currentIntersectionId)) {
+        if (currentIntersectionId == streetQueue.peek().getValue().getFinalPosition()) {
             var car = streetQueue.peek().getValue();
             if (CarAnimator.isRunning()) {
                 CarAnimator.rwLock.readLock().lock();
