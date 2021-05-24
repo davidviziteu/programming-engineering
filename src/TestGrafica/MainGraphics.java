@@ -301,7 +301,7 @@ public class MainGraphics extends Application {
         semaphoreControllerThread.start();
         carsControllerThread.start();
         carAnimatorThread.start();
-        MasterThread.followCar(0, ConsoleColors.YELLOW);
+        MasterThread.followAllCars();
     }
 
     public static boolean isVertical(int i) {

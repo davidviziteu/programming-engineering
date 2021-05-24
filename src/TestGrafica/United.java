@@ -19,15 +19,15 @@ public class United {
         var currentCarPosition = CityGenerator.city.getCars().get(0).getCurrentPosition();
         var cityStreeet = CityGenerator.city.getStreetByIndex(currentCarPosition);
         var destinationIntersection = CityGenerator.city.getCars().get(0).getDirection() == 1 ? cityStreeet.getIntersectionDestination() : cityStreeet.getIntersectionSource();
-        Alg2 geneticAlgorithm = new Alg2(CityGenerator.city);
-        List<Street> path = geneticAlgorithm.run(
-                destinationIntersection ,
-                CityGenerator.city.getCars().get(0).getFinalPosition());
-        List<Integer> intersections = new ArrayList<>();
-        for (int i = 1; i < path.size() - 1; i++) {
-            intersections.add(geneticAlgorithm.getCommonIntersection(path.get(i), path.get(i + 1)));
-        }
-        CityGenerator.city.getCars().get(0).setShortestPath(intersections);
+//        Alg2 geneticAlgorithm = new Alg2(CityGenerator.city);
+//        List<Street> path = geneticAlgorithm.run(
+//                destinationIntersection ,
+//                CityGenerator.city.getCars().get(0).getFinalPosition());
+//        List<Integer> intersections = new ArrayList<>();
+//        for (int i = 1; i < path.size() - 1; i++) {
+//            intersections.add(geneticAlgorithm.getCommonIntersection(path.get(i), path.get(i + 1)));
+//        }
+//        CityGenerator.city.getCars().get(0).setShortestPath(intersections);
 
         try {
             if (args.length > 0 && args[0].equals("full app")) {
