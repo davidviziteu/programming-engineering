@@ -87,8 +87,6 @@ public class CarGenerator {
             numberOfCars++;
 
         } else if (UIController.specialTestCase == 2) {
-
-
             cars.add(new Car(2, 7, 1, -1));
             city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
 
@@ -113,7 +111,11 @@ public class CarGenerator {
                 city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
             }
             numberOfCars++;
-        } else {
+        }
+        //        else if (UIController.specialTestCase == 3) {}
+        //        else if (UIController.specialTestCase == 4) {}
+
+        else {
             for (index = 1; index <= numberOfCars; index++) {
                 cars.add(new Car());
                 city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());

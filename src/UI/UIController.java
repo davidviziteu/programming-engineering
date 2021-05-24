@@ -141,6 +141,7 @@ public class UIController implements Initializable {
     private final String test1 = "Test1";
     private final String test2 = "Test2";
     private final String test3 = "Test3";
+    private final String test4 = "Test4";
     private void initializeTestChoiceBox(){
         testCaseChoiceBox.getItems().add(None);
         testCaseChoiceBox.getItems().add(test1);
@@ -162,6 +163,12 @@ public class UIController implements Initializable {
         }
         else if(testCaseChoiceBox.getValue().equals(test3)){
             specialTestCase = 3;
+            choiceBoxSpeed.getValueFactory().setValue(2);
+            initialPositionChoiceBox.getSelectionModel().select("Strada4");
+            finalPositionChoiceBox.getSelectionModel().select(4);
+        }
+        if(testCaseChoiceBox.getValue().equals(test4)){
+            specialTestCase = 4;
             choiceBoxSpeed.getValueFactory().setValue(2);
             initialPositionChoiceBox.getSelectionModel().select("Strada4");
             finalPositionChoiceBox.getSelectionModel().select(4);
