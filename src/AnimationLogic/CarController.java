@@ -1,7 +1,5 @@
 package AnimationLogic;
 
-import AnimationLogic.Miscellaneous.ConsoleColors;
-import AnimationLogic.Miscellaneous.Utilities;
 import CarGenerating.Car;
 import CityGenerating.Pair;
 import CityGenerating.Street;
@@ -9,7 +7,6 @@ import CityGenerating.TrafficLights;
 
 import java.util.ArrayList;
 import java.util.Queue;
-import java.util.concurrent.Semaphore;
 
 import static AnimationLogic.Miscellaneous.Utilities.existsACarOnStreets;
 import static CityGenerating.CityGenerator.city;
@@ -50,7 +47,7 @@ public class CarController extends Thread {
         if (CarAnimator.isRunning()) {
             CarAnimator.rwLock.readLock().lock();
             try {
-                if (car.getDistance() != -1)
+                if (car.getDistance() != 0 || car.hasReachedIntersection())
                     return false; //masina inca nu a ajuns la "capatul" strazii (poate de abia a intrat pe strada)
             } finally {
                 CarAnimator.rwLock.readLock().unlock();
@@ -86,7 +83,7 @@ public class CarController extends Thread {
             if (CarAnimator.isRunning()) {
                 CarAnimator.rwLock.readLock().lock();
                 try {
-                    if (car.getDistance() != -1)
+                    if (car.getDistance() != 0 || car.hasReachedIntersection())
                         return; //masina nu a ajuns la capatul strazii deci n am ce i face acum
                 } finally {
                     CarAnimator.rwLock.readLock().unlock();
@@ -123,6 +120,7 @@ public class CarController extends Thread {
                     car.getShortestPath().remove(0);
                     car.setCurrentPosition(i);
                     car.setDirection(1);
+                    car.setReachedIntersection(false);
                     car.setDistance(nextStreet.getLength());
                     nextStreet.getCars().add(new Pair<>(
                             carId,
@@ -145,6 +143,7 @@ public class CarController extends Thread {
                     car.getShortestPath().remove(0);
                     car.setCurrentPosition(i);
                     car.setDirection(-1);
+                    car.setReachedIntersection(false);
                     car.setDistance(nextStreet.getLength());
                     nextStreet.getCarsReversed().add(new Pair<>(
                             carId,

@@ -43,7 +43,9 @@ public class CarAnimator extends Thread {
                     if (currentOffset != Utilities.getIndexOfCarInQueue(q, pair.getValue()))
                         pair.getValue().setDistance(--currentOffset);
                     else if (currentOffset == 0 && (semaphore.getStare() == TrafficLights.StareSemafor.Green || semaphore.getStare()== TrafficLights.StareSemafor.YellowGreen))
-                        pair.getValue().setDistance(--currentOffset);
+//                        pair.getValue().setDistance(--currentOffset);
+                        pair.getValue().setReachedIntersection(true);
+
 
             });
         } finally {

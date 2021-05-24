@@ -20,6 +20,7 @@ public class Car implements Comparable<Car> {
     protected int shortestPathTime;
     protected int shortestPathDistance;
 
+    protected boolean reachedIntersection = false;
 
     public void setDirection(int direction) {
         if (direction == 1 || direction == -1) this.direction = direction;
@@ -95,6 +96,13 @@ public class Car implements Comparable<Car> {
         return ID;
     }
 
+    public boolean hasReachedIntersection() {
+        return !reachedIntersection;
+    }
+
+    public void setReachedIntersection(boolean reachedIntersection) {
+        this.reachedIntersection = reachedIntersection;
+    }
     public Car() {
         ID = ++LastID;
         System.out.println("last id: "+LastID);
