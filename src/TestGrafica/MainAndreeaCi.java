@@ -84,7 +84,7 @@ public class MainAndreeaCi extends Application {
 
         System.out.println("inainte de prima iteratie");
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(9), new EventHandler<ActionEvent>() {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(90), new EventHandler<ActionEvent>() {
 
             double dx = 10; // Step on x or velocity
             double dy = 3; // Step on y
@@ -180,8 +180,11 @@ public class MainAndreeaCi extends Application {
                         y = CityGenerator.city.getCarCoordinates(CityGenerator.city.getCars().get(i)).getValue();
                         if(x == -10) {
                             CityGenerator.city.getCars().remove(i);
-//                            ((GridPane) ourCity).getChildren().remove(carView.get(i));
+                            ((GridPane) (ourCity.window.getCenter())).getChildren().remove(carView.get(i));
+                            carView.get(i).setLayoutX(y * 100);
+                            carView.get(i).setLayoutY(x * 100);
                             carView.remove(i);
+                            continue;
                         }
                     } finally {
                         CarAnimator.rwLock.readLock().unlock();
