@@ -9,7 +9,7 @@ import java.util.Random;
 import static CityGenerating.CityGenerator.city;
 
 public class Car implements Comparable<Car> {
-    static private int LastID = 1;
+    static public int LastID = 1;
     protected int ID;
     protected int currentPosition; //INDEX-ul unei strazi (pe poza strazile incep de la 1, in cod incep de la 0)
     protected int finalPosition; //ID-ul unei intersectii
@@ -21,6 +21,10 @@ public class Car implements Comparable<Car> {
     protected int shortestPathDistance;
 
     protected boolean reachedIntersection = false;
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
     public void setDirection(int direction) {
         if (direction == 1 || direction == -1) this.direction = direction;
@@ -150,13 +154,14 @@ public class Car implements Comparable<Car> {
 
     }
 
-    public Car(int initialPosition, int finalPosition, int distance) {
+    public Car(int initialPosition, int finalPosition, int distance, int direction) {
         this.currentPosition = initialPosition;
         this.finalPosition = finalPosition;
         this.speed = 0;
         this.distance = distance;
-        this.ID = 1;
-        this.direction = 1;
+        this.ID = this.LastID;
+        this.direction = direction;
+        this.LastID++;
     }
 
     @Override
