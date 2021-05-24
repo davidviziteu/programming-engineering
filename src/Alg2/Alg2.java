@@ -1,5 +1,6 @@
 package Alg2;
 
+import CarGenerating.Car;
 import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.Intersection;
@@ -30,7 +31,7 @@ public class Alg2 {
         CityGenerator.generateCity();
         City city = CityGenerator.city;
         Alg2 algorithm = new Alg2(city);
-        algorithm.run(K_START_INTERSECTION ,K_FINAL_INTERSECTION);
+        algorithm.run(K_START_INTERSECTION, K_FINAL_INTERSECTION);
     }
 
     public List<Street> run(int Source, int Destination) {
@@ -99,7 +100,7 @@ public class Alg2 {
     }
 
     public void populate(int idStart, int idFinish) {
-        System.out.println("arg2: " +ShortestPath2.compute(
+        System.out.println("arg2: " + ShortestPath2.compute(
                 city.getStreets(),
                 idStart,
                 idFinish,
@@ -174,12 +175,23 @@ public class Alg2 {
 //        calculeaza gradul de incarcare
 //        (grad incarcare: suma numarului de masini care intra/asteapta la intrarea in intersectie
 //                => procentaj din capacitatea maxima al strazilor)
+//        for (Street street : streets) {
+//            capacity[street.getIntersectionDestination()] += street.getLength();
+//            capacity[street.getIntersectionSource()] += street.getLength();
+//
+//            load[street.getIntersectionDestination()] += street.getCars().size();
+//            load[street.getIntersectionSource()] += street.getCarsReversed().size();
+//        }
+
         for (Street street : streets) {
             capacity[street.getIntersectionDestination()] += street.getLength();
             capacity[street.getIntersectionSource()] += street.getLength();
-
-            load[street.getIntersectionDestination()] += street.getCars().size();
-            load[street.getIntersectionSource()] += street.getCarsReversed().size();
+        }
+        for (Car car : city.getCars()) {
+            List<Integer> path = car.getShortestPath();
+            for (int idIntersection : path) {
+                load[idIntersection]++;
+            }
         }
 
         double[] loadDensity = new double[countTrafficLights];

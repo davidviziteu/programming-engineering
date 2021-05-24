@@ -270,6 +270,21 @@ public class MainGraphics extends Application {
         // Utilities.correctDistanceOfAllCars();
         Utilities.computeShortestPathForAllCars();
 
+        var currentCarPosition = CityGenerator.city.getCars().get(0).getCurrentPosition();
+        var cityStreeet = CityGenerator.city.getStreetByIndex(currentCarPosition);
+        var sourceIntersection = CityGenerator.city.getCars().get(0).getDirection() != 1 ? cityStreeet.getIntersectionDestination() : cityStreeet.getIntersectionSource();
+        Alg2 geneticAlgorithm = new Alg2(CityGenerator.city);
+        List<Street> path = geneticAlgorithm.run(
+                sourceIntersection,
+                CityGenerator.city.getCars().get(0).getFinalPosition());
+        List<Integer> intersections = new ArrayList<>();
+        for (int i = 1; i < path.size() - 1; i++) {
+            intersections.add(geneticAlgorithm.getCommonIntersection(path.get(i), path.get(i + 1)));
+        }
+        intersections.add(CityGenerator.city.getCars().get(0).getFinalPosition());
+        System.out.println("[united alg2]: " + CityGenerator.city.getCars().get(0).getShortestPath() + " uhm " + intersections);
+        CityGenerator.city.getCars().get(0).setShortestPath(intersections);
+
         Utilities.setAllCarsSpeed(Car.generalSpeed);
         for (long i = 0; i < 1000000000L; ++i)
             ;
