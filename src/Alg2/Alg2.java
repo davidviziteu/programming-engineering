@@ -99,7 +99,11 @@ public class Alg2 {
     }
 
     public void populate(int idStart, int idFinish) {
-
+        System.out.println("arg2: " +ShortestPath2.compute(
+                city.getStreets(),
+                idStart,
+                idFinish,
+                city.getNrOfIntersections()).getSecond());
         population = new ArrayList<>();
         for (int i = 0; i < K_POP_SIZE; i++) {
             List<Street> chromosome = null;
@@ -210,7 +214,7 @@ public class Alg2 {
         double time = computeTime(chromosome);
 //        System.out.println("[Alg2] " + loadDensity + " " + time);
         // TODO: adjust coefficients
-        return 1.0 / loadDensity + 22.0 / time;
+        return 100.0 / loadDensity + 22.0 / time;
     }
 
     public List<List<Street>> selection() {

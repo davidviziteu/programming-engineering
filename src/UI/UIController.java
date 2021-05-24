@@ -24,6 +24,8 @@ import javafx.scene.paint.Color;
 
 public class UIController implements Initializable {
 
+
+    static public int specialTestCase = 0;
     @FXML
     public ImageView imageView;
     @FXML
@@ -54,6 +56,10 @@ public class UIController implements Initializable {
     public ChoiceBox<String> trafficDensityChoiceBox;
     @FXML
     public Label trafficDensityLabel;
+    @FXML
+    public Label testCaseLabel;
+    @FXML
+    public ChoiceBox<String> testCaseChoiceBox;
     //NU SCHIMBA ASTEA CA NU O SA MAI PORNEASCA JAVAFX
 
 
@@ -131,16 +137,55 @@ public class UIController implements Initializable {
 
     public void updateTrafficIntesity(ActionEvent actionEvent) {
     }
+    private final String None = "Niciunul";
+    private final String test1 = "Test1";
+    private final String test2 = "Test2";
+    private final String test3 = "Test3";
+    private void initializeTestChoiceBox(){
+        testCaseChoiceBox.getItems().add(None);
+        testCaseChoiceBox.getItems().add(test1);
+        testCaseChoiceBox.getItems().add(test2);
+        testCaseChoiceBox.getItems().add(test3);
+    }
+
+    public void updateDataForTestCase(){
+        if(testCaseChoiceBox.getValue().equals(test1)){
+            specialTestCase = 1;
+            choiceBoxSpeed.getValueFactory().setValue(2);
+            initialPositionChoiceBox.getSelectionModel().select("Strada4");
+            finalPositionChoiceBox.getSelectionModel().select(4);
+        } else if(testCaseChoiceBox.getValue().equals(test2)){
+            specialTestCase = 2;
+            choiceBoxSpeed.getValueFactory().setValue(2);
+            initialPositionChoiceBox.getSelectionModel().select("Strada4");
+            finalPositionChoiceBox.getSelectionModel().select(4);
+        }
+        else if(testCaseChoiceBox.getValue().equals(test3)){
+            specialTestCase = 3;
+            choiceBoxSpeed.getValueFactory().setValue(2);
+            initialPositionChoiceBox.getSelectionModel().select("Strada4");
+            finalPositionChoiceBox.getSelectionModel().select(4);
+        }
+        else{
+            specialTestCase = 0;
+            choiceBoxSpeed.getValueFactory().setValue(1);
+            initialPositionChoiceBox.getSelectionModel().select("Strada1");
+            finalPositionChoiceBox.getSelectionModel().select(5);
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        streetDistanceSpinner.setVisible(false);
 //        distanceLabel.setVisible(false);
+        initializeTestChoiceBox();
         displayMap();
         trafficDensityChoiceBox.getItems().add("Scăzut");
         trafficDensityChoiceBox.getItems().add("Moderat");
         trafficDensityChoiceBox.getItems().add("Intens");
         trafficDensityChoiceBox.getSelectionModel().select(0);
+
+
         SpinnerValueFactory<Integer> sizeValueSpinner = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 1);
         choiceBoxSpeed.setValueFactory(sizeValueSpinner);
         CityGenerator.generateCity();

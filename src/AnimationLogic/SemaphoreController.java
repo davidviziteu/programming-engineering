@@ -32,7 +32,6 @@ public class SemaphoreController extends Thread  {
             trafficLights.setTimer(trafficLights.getTimer() - 1);
         } else {
             trafficLights.setColor(trafficLights.getStare().next());
-
             if(trafficLights.getStare().equals(TrafficLights.StareSemafor.Green)){
                 trafficLights.setTimer(5);
             }

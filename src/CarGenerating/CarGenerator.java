@@ -1,5 +1,7 @@
 package CarGenerating;
 
+import UI.UIController;
+
 import java.util.ArrayList;
 
 import static CityGenerating.CityGenerator.city;
@@ -14,8 +16,8 @@ public class CarGenerator {
     private final double frequencyHigh = 0.6;
 
 
-    public Integer getStreetByIntersection(Integer intersectionIndex){
-        switch (intersectionIndex){
+    public Integer getStreetByIntersection(Integer intersectionIndex) {
+        switch (intersectionIndex) {
             case 0:
                 return 1;
             case 1:
@@ -38,7 +40,7 @@ public class CarGenerator {
 
     public void generate(String frequency, Integer specialCarStartPosition, Integer specialCarFinishPosition, Integer direction) {
 
-        Car specialCar = new Car(specialCarStartPosition,specialCarFinishPosition,1,direction);
+        Car specialCar = new Car(specialCarStartPosition, specialCarFinishPosition, 1, direction);
         specialCar.setID(1);
         cars.add(specialCar);
         city.getStreetByIndex(cars.get(0).getCurrentPosition()).addCar(cars.get(0), cars.get(0).getDirection());
@@ -47,70 +49,77 @@ public class CarGenerator {
         this.frequency = frequency.toLowerCase();
 
         if (this.frequency.equals("scăzut")) {
-//            numberOfCars = (int) (frequencyLow * totalStreetsLength());
-            numberOfCars = 5;
-        }else if (this.frequency.equals("moderat")) {
-//            numberOfCars = (int) (frequencyMedium * totalStreetsLength());
-            numberOfCars = 9;
+            numberOfCars = (int) (frequencyLow * totalStreetsLength());
+        } else if (this.frequency.equals("moderat")) {
+            numberOfCars = (int) (frequencyMedium * totalStreetsLength());
         } else if (this.frequency.equals("intens")) {
-//            numberOfCars = (int) (frequencyHigh * totalStreetsLength());
-            numberOfCars = 15;
-        } else{
+            numberOfCars = (int) (frequencyHigh * totalStreetsLength());
+        } else {
             numberOfCars = 1;
         }
+        int index = 1;
 
-        numberOfCars=6;
-        Car.LastID=2;
+        if (UIController.specialTestCase == 1) {
+            numberOfCars = 6;
+            Car.LastID = 2;
 
-        int index=1;
-        cars.add(new Car(9, 7, 1,-1));
-        city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
-
-        index++;
-        cars.add(new Car(9, 7, 2,-1));
-        city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
-
-        index++;
-
-        cars.add(new Car(6, 4, 1,1));
-        city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
-
-        index++;
-
-        cars.add(new Car(6, 5, 2,1));
-        city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
-
-         /*
-
-        int index=1;
-        cars.add(new Car(2, 7, 1,-1));
-        city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
-
-        index++;
-        cars.add(new Car(2, 7, 2,-1));
-        city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
-
-        index++;
-
-        cars.add(new Car(5, 4, 1,1));
-        city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
-
-        index++;
-
-        cars.add(new Car(5, 5, 2,1));
-        city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
-
-
-
-          */
-        //int index=1;
-
-        int index1=index;
-        for (index = index1+1; index <= numberOfCars; index++) {
-            cars.add(new Car());
+            cars.add(new Car(9, 7, 1, -1));
             city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+
+            index++;
+            cars.add(new Car(9, 7, 2, -1));
+            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+
+            index++;
+
+            cars.add(new Car(6, 4, 1, 1));
+            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+
+            index++;
+
+            cars.add(new Car(6, 5, 2, 1));
+            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+            int index1 = index;
+            for (index = index1 + 1; index <= numberOfCars; index++) {
+                cars.add(new Car());
+                city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+            }
+            numberOfCars++;
+
+        } else if (UIController.specialTestCase == 2) {
+
+
+            cars.add(new Car(2, 7, 1, -1));
+            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+
+            index++;
+            cars.add(new Car(2, 7, 2, -1));
+            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+
+            index++;
+
+            cars.add(new Car(5, 4, 1, 1));
+            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+
+            index++;
+
+            cars.add(new Car(5, 5, 2, 1));
+            city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+            //int index=1;
+
+            int index1 = index;
+            for (index = index1 + 1; index <= numberOfCars; index++) {
+                cars.add(new Car());
+                city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+            }
+            numberOfCars++;
+        } else {
+            for (index = 1; index <= numberOfCars; index++) {
+                cars.add(new Car());
+                city.getStreetByIndex(cars.get(index).getCurrentPosition()).addCar(cars.get(index), cars.get(index).getDirection());
+            }
+            numberOfCars++;
         }
-        numberOfCars++;
     }
 
     public String getFrequency() {
