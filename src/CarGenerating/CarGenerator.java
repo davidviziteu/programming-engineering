@@ -61,13 +61,11 @@ public class CarGenerator {
         int index = 1;
 
         if (UIController.specialTestCase == 1) {
-            numberOfCars = 5;
+            numberOfCars = 15;
             Car.LastID = 2;
 
-            File file = new File("inputMasiniLow.txt");
-
             try {
-                BufferedReader reader = new BufferedReader(new FileReader("src/CityGenerating/inputMasiniLow.txt"));
+                BufferedReader reader = new BufferedReader(new FileReader("src/CityGenerating/inputMasiniHigh.txt"));
                 String line;
                 while((line = reader.readLine()) != null) {
 
