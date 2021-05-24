@@ -147,39 +147,42 @@ public class UIController implements Initializable {
 
     public void updateDataForTestCase(){
         System.out.println("value " + testCaseChoiceBox.getValue());
-        if(testCaseChoiceBox.getValue().equals(test1)){
-            System.out.println("if test1");
-            specialTestCase = 1;
-            choiceBoxSpeed.getValueFactory().setValue(2);
-            initialPositionChoiceBox.getSelectionModel().select("Strada4");
-            finalPositionChoiceBox.getSelectionModel().select(4);
-        } else if(testCaseChoiceBox.getValue().equals(test2)){
-            System.out.println("if test2");
-            specialTestCase = 2;
-            choiceBoxSpeed.getValueFactory().setValue(2);
-            initialPositionChoiceBox.getSelectionModel().select("Strada4");
-            finalPositionChoiceBox.getSelectionModel().select(4);
-        }
-        else if(testCaseChoiceBox.getValue().equals(test3)){
-            System.out.println("if test3");
-            specialTestCase = 3;
-            choiceBoxSpeed.getValueFactory().setValue(2);
-            initialPositionChoiceBox.getSelectionModel().select("Strada4");
-            finalPositionChoiceBox.getSelectionModel().select(4);
-        }
-        else if(testCaseChoiceBox.getValue().equals(test4)){
-            System.out.println("if test4");
-            specialTestCase = 4;
-            choiceBoxSpeed.getValueFactory().setValue(2);
-            initialPositionChoiceBox.getSelectionModel().select("Strada4");
-            finalPositionChoiceBox.getSelectionModel().select(4);
-        }
-        else{
-            System.out.println("if niciunul");
-            specialTestCase = 0;
-            choiceBoxSpeed.getValueFactory().setValue(1);
-            initialPositionChoiceBox.getSelectionModel().select("Strada1");
-            finalPositionChoiceBox.getSelectionModel().select(5);
+        switch (testCaseChoiceBox.getValue()) {
+            case test1:
+                System.out.println("if test1");
+                specialTestCase = 1;
+                choiceBoxSpeed.getValueFactory().setValue(2);
+                initialPositionChoiceBox.getSelectionModel().select("Strada4");
+                finalPositionChoiceBox.getSelectionModel().select(4);
+                break;
+            case test2:
+                System.out.println("if test2");
+                specialTestCase = 2;
+                choiceBoxSpeed.getValueFactory().setValue(2);
+                initialPositionChoiceBox.getSelectionModel().select("Strada4");
+                finalPositionChoiceBox.getSelectionModel().select(4);
+                break;
+            case test3:
+                System.out.println("if test3");
+                specialTestCase = 3;
+                choiceBoxSpeed.getValueFactory().setValue(2);
+                initialPositionChoiceBox.getSelectionModel().select("Strada4");
+                finalPositionChoiceBox.getSelectionModel().select(4);
+                break;
+            case test4:
+                System.out.println("if test4");
+                specialTestCase = 4;
+                choiceBoxSpeed.getValueFactory().setValue(2);
+                initialPositionChoiceBox.getSelectionModel().select("Strada4");
+                finalPositionChoiceBox.getSelectionModel().select(4);
+                break;
+            default:
+                System.out.println("if niciunul");
+                specialTestCase = 0;
+                choiceBoxSpeed.getValueFactory().setValue(1);
+                initialPositionChoiceBox.getSelectionModel().select("Strada1");
+                finalPositionChoiceBox.getSelectionModel().select(5);
+                break;
         }
     }
 
