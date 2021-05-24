@@ -1,23 +1,18 @@
 package UI;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import CarGenerating.Car;
-import CityGenerating.City;
 import CityGenerating.CityGenerator;
 import CityGenerating.Street;
-import TestGrafica.MainAndreeaCi;
 import TestGrafica.United;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;

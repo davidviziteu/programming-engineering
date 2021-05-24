@@ -31,7 +31,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainAndreeaCi extends Application {
+public class MainGraphics extends Application {
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";

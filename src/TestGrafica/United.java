@@ -1,18 +1,11 @@
 package TestGrafica;
 
 import Alg2.Alg2;
-import AnimationLogic.CarAnimator;
-import AnimationLogic.CarController;
-import AnimationLogic.MasterThread;
-import AnimationLogic.Miscellaneous.Utilities;
-import AnimationLogic.SemaphoreController;
 import CityGenerating.CityGenerator;
 import CityGenerating.Street;
-import UI.UIController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 
 public class United {
 
@@ -38,11 +31,11 @@ public class United {
 
         try {
             if (args.length > 0 && args[0].equals("full app")) {
-                var secondWindow = new MainAndreeaCi();
+                var secondWindow = new MainGraphics();
                 secondWindow.showWindow();
             }
             else
-                MainAndreeaCi.incepe();
+                MainGraphics.incepe();
             // NU DA JOIN LA THREADS, SE BLOCHEAZA cand vreau sa fac a2a fereastra
             // LASA GARBAGE COLLECTOR UL SA SE OCUPE DE ELE
         } catch (Exception e) {
