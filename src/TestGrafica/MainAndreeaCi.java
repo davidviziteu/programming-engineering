@@ -271,8 +271,8 @@ public class MainAndreeaCi extends Application {
         Utilities.computeShortestPathForAllCars();
 
         Utilities.setAllCarsSpeed(1);
-//        for (long i = 0; i < 1000000000L; ++i)
-//            ;
+        for (long i = 0; i < 1000000000L; ++i)
+            ;
 
         var carsControllerInstance = CarController.getInstance();
         var carsControllerThread = new Thread(carsControllerInstance);
