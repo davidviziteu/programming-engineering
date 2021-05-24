@@ -147,33 +147,40 @@ public class UIController implements Initializable {
         testCaseChoiceBox.getItems().add(test1);
         testCaseChoiceBox.getItems().add(test2);
         testCaseChoiceBox.getItems().add(test3);
+        testCaseChoiceBox.getItems().add(test4);
     }
 
     public void updateDataForTestCase(){
+        System.out.println("value " + testCaseChoiceBox.getValue());
         if(testCaseChoiceBox.getValue().equals(test1)){
+            System.out.println("if test1");
             specialTestCase = 1;
             choiceBoxSpeed.getValueFactory().setValue(2);
             initialPositionChoiceBox.getSelectionModel().select("Strada4");
             finalPositionChoiceBox.getSelectionModel().select(4);
         } else if(testCaseChoiceBox.getValue().equals(test2)){
+            System.out.println("if test2");
             specialTestCase = 2;
             choiceBoxSpeed.getValueFactory().setValue(2);
             initialPositionChoiceBox.getSelectionModel().select("Strada4");
             finalPositionChoiceBox.getSelectionModel().select(4);
         }
         else if(testCaseChoiceBox.getValue().equals(test3)){
+            System.out.println("if test3");
             specialTestCase = 3;
             choiceBoxSpeed.getValueFactory().setValue(2);
             initialPositionChoiceBox.getSelectionModel().select("Strada4");
             finalPositionChoiceBox.getSelectionModel().select(4);
         }
-        if(testCaseChoiceBox.getValue().equals(test4)){
+        else if(testCaseChoiceBox.getValue().equals(test4)){
+            System.out.println("if test4");
             specialTestCase = 4;
             choiceBoxSpeed.getValueFactory().setValue(2);
             initialPositionChoiceBox.getSelectionModel().select("Strada4");
             finalPositionChoiceBox.getSelectionModel().select(4);
         }
         else{
+            System.out.println("if niciunul");
             specialTestCase = 0;
             choiceBoxSpeed.getValueFactory().setValue(1);
             initialPositionChoiceBox.getSelectionModel().select("Strada1");
