@@ -47,6 +47,9 @@ public class CarController extends Thread {
         if (CarAnimator.isRunning()) {
             CarAnimator.rwLock.readLock().lock();
             try {
+                if(to.peek() != null)
+                    if(to.peek().getValue().getDistance() == to.size())
+                        return false;
                 if (car.getDistance() != 0 || car.hasReachedIntersection())
                     return false; //masina inca nu a ajuns la "capatul" strazii (poate de abia a intrat pe strada)
             } finally {
