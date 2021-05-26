@@ -8,13 +8,14 @@ Simulator de trafic.
 
 -utilizatorul poate alege densitatea traficului si viteza cu care merg masinile;
 
-# Ce facem noi(echipa de algoritmica):
+# Ce facem noi(echipa de algoritmica1):
 - miscam masinile pe harta, la fiecare moment, stiindu-se pozitia fiecare masini pe strada; 
 - calculam drumul cel mai scurt pt fiecare masina si estimam cat va dura ca o masina
     sa ajunga la destinatie;
 - functionarea semafoarelor (logica);
 - teste pentru codul nostru;
 - integrare;
+- tot modulul de grafica (stim, suna ironic)
 
 
 # Ce folosim din laboratoare:
