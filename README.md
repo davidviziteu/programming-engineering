@@ -15,7 +15,7 @@ Simulator de trafic.
 - functionarea semafoarelor (logica);
 - teste pentru codul nostru;
 - integrare;
-- tot modulul de grafica (stim, suna ironic)
+- modulul de grafica (stim, suna ironic)
 
 
 # Ce folosim din laboratoare:
