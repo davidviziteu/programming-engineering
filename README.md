@@ -8,7 +8,7 @@ Simulator de trafic.
 
 -utilizatorul poate alege densitatea traficului si viteza cu care merg masinile;
 
-# Ce facem noi(echipa de algoritmica1):
+# Ce am facut noi (echipa de algoritmica1 - David Viziteu + Andreea Ciocan):
 - miscam masinile pe harta, la fiecare moment, stiindu-se pozitia fiecare masini pe strada; 
 - calculam drumul cel mai scurt pt fiecare masina si estimam cat va dura ca o masina
     sa ajunga la destinatie;
