@@ -18,7 +18,9 @@ import javafx.scene.layout.HBox;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * genereaza harta (strazile si iarba din jurul lor)
+ */
 public class Graphics2 {
 
     public BorderPane window = new BorderPane();
@@ -76,134 +78,6 @@ public class Graphics2 {
 
     public void addUserPane() {
         drawMap();
-//        user = new HBox();
-//        submit = new Button("Submit");
-//        trafficLabel = new Label("Select Traffic:");
-//        trafficTypes = FXCollections.observableArrayList("Low", "Medium", "High");
-//        SpinnerValueFactory<String> values = new SpinnerValueFactory.ListSpinnerValueFactory<>(trafficTypes);
-//        trafficSpinner.setValueFactory(values);
-//        user.getChildren().addAll(trafficLabel, trafficSpinner, submit);
-//        user.setAlignment(Pos.CENTER);
         window.setCenter(gridpane);
-        //   window.setTop(user);
-    }
-
-    public void drawTrafficLights() {
-//        Intersection intersection;
-//        for (int i = 0; i < CityGenerator.city.getNrOfIntersections(); i++) {
-//            intersection = CityGenerator.city.getIntersectionByIndex(i);
-//            Integer x = intersection.getPosX();
-//            Integer y = intersection.getPosY();
-//            Image semafor = new Image("file:src/GraphicsModule/resources/TrafficLightWithTimer.gif");
-//            ImageView semaforView = new ImageView(semafor);
-//            if (map[y][x] == 5) {
-//                gridpane.add(semaforView, y, x);
-//                System.out.println("coordonate intersectii: xy" + x + " " + y);
-//            }
-//        }
-//        return;
-    }
-
-    public String getTrafficFrequency() {
-
-        submit.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                trafficFrequencyInput = trafficSpinner.getValue();
-            }
-        });
-        return trafficFrequencyInput;
-    }
-
-    public static String getTrafficFrequencyInput() {
-
-        return trafficFrequencyInput;
-    }//am facut un getter
-
-    public List<ImageView> drawCars() throws InterruptedException {
-        //TODO: ruleaza functia asta intr-un thread javafx
-
-        //TODO: luati in considerare car.getDistance cand o puneti pe strada
-
-        //dam remove ca sa fie actualizata pozitia de fiecare data
-        System.out.println("ajung aici");
-        System.out.println(carsToDraw);
-        System.out.println("aici au fost masinile de desenat");
-
-        for (Car car : CityGenerator.city.getCars()) {
-            System.out.println("grafica" + car.getShortestPath());
-//            if(car.getDistance() == -1)
-//                continue; //probabil tre sa faci si asta
-            //daca strada e orizontala
-            // System.out.println("si aici");
-            //System.out.println(CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX());
-            //System.out.println(CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY());
-
-            if (CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getDirection() == 1)
-                //daca sensul e normal (de la stanga la dreapta)
-                if (car.getDirection() == 1) {
-                    System.out.println("si aici2");
-                    Image newCar = new Image("file:src/GraphicsModule/resources/carGoingRight.png");
-                    ImageView carToRight = new ImageView(newCar);
-                    int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
-                    int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY() + car.getDistance();
-                    System.out.println(X);
-                    System.out.println(Y);
-                    carsToDraw.add(carToRight);
-                    firstCoord.add(Y);
-                    secondCoord.add(X);
-
-                } else { //daca sensul e invers (de la dreapta la stanga)
-                    System.out.println("si aici3");
-
-                    Image newCar = new Image("file:src/GraphicsModule/resources/carGoingLeft.png");
-                    ImageView carToLeft = new ImageView(newCar);
-                    int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX();
-                    int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY() + car.getDistance();
-                    carsToDraw.add(carToLeft);
-                    firstCoord.add(Y);
-                    secondCoord.add(X);
-                    System.out.println(X);
-                    System.out.println(Y);
-                    System.out.println("am iesit");
-                }
-                //daca strada e verticala
-            else if (car.getDirection() == 1) {
-                System.out.println("si aici4");
-
-                //daca masina merge normal (in sus)
-                Image newCar = new Image("file:src/GraphicsModule/resources/carGoingUp.png");
-                ImageView carToUp = new ImageView(newCar);
-                int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX() + CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getLength() - car.getDistance();
-                int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
-                carsToDraw.add(carToUp);
-                firstCoord.add(Y);
-                System.out.println(X);
-                System.out.println(Y);
-                secondCoord.add(X);
-            } else { //daca masina merge in sens invers (in jos)
-                System.out.println("si aici5");
-
-                Image newCar = new Image("file:src/GraphicsModule/resources/carGoingDown.png");
-                ImageView carToDown = new ImageView(newCar);
-                int X = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosX() - CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getLength() + car.getDistance();
-                int Y = CityGenerator.city.getStreetByIndex(car.getCurrentPosition()).getPosY();
-                carsToDraw.add(carToDown);
-                firstCoord.add(Y);
-                System.out.println(X);
-                System.out.println(Y);
-                secondCoord.add(X);
-            }
-        }
-
-        return carsToDraw;
-    }
-
-    public List<Integer> getFirstCoord() {
-        return firstCoord;
-    }
-
-    public List<Integer> getSecondCoord() {
-        return secondCoord;
     }
 }

@@ -1,5 +1,8 @@
 package AnimationLogic.Miscellaneous;
 
+/**
+ * e doar pentru a putea colora textul in terminal
+ */
 public class ConsoleColors {
     /**
      * usage:

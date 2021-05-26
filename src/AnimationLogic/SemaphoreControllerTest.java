@@ -6,6 +6,10 @@ import CityGenerating.TrafficLights;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
+/**
+ * clasa de test pt semaphore controller
+ */
 class SemaphoreControllerTest {
     @org.junit.jupiter.api.Test
     void changeTest(){

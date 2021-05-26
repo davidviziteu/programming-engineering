@@ -17,6 +17,10 @@ import javafx.scene.control.Button;
 import javafx.scene.image.*;
 import javafx.scene.paint.Color;
 
+/**
+ * controller ul pt ui.fxml, care lanseaza modulul de grafica cu masini
+ * aici user ul isi configureaza datele pt masina speciala (intensitatea traficului, viteza masinilor, pct de start , pct de finish)
+ */
 public class UIController implements Initializable {
 
 

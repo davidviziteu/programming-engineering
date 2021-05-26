@@ -13,6 +13,15 @@ import static AnimationLogic.Miscellaneous.Utilities.*;
 public class MasterThread {
     public static ArrayList<Thread> followCarThreadPool = new ArrayList<>();
 
+    /**
+     * urm 3 functii sunt pentru a putea face debug in consola.
+     * se bazeaza pe src/AnimationLogic/Miscellaneous/CarFollower.java
+     */
+
+
+    /**
+     * lanseaza un pool de thread (1 pt fiecare masina)
+     */
     public static void followAllCars() {
         ArrayList<Car> cars = CityGenerator.city.getCars();
         for (int i = 0; i < cars.size(); i++) {
@@ -24,6 +33,9 @@ public class MasterThread {
         }
     }
 
+    /**
+     * lanseaza 1 thread pt o masina
+     */
     public static void followCar(int carIdxToFollow, String consoleColor) {
         var carFollower = new CarFollower(carIdxToFollow, Integer.toString(carIdxToFollow), consoleColor);
         var th = new Thread(carFollower);
@@ -31,11 +43,19 @@ public class MasterThread {
         th.start();
     }
 
+
+    /**
+     * face join in cazul in care una din cele 2 metode de mai sus a fost apealata
+     */
     public static void joinFollowCarThreads() throws InterruptedException {
         for (var th : followCarThreadPool)
             th.join();
     }
 
+    /**
+     * main ul este pt teste
+     * @param args -
+     */
     public static void main(String[] args) {
         CityGenerator.generateCity();
         computeShortestPathForAllCars();

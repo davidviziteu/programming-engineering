@@ -32,6 +32,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * toata logica animatiilor
+ * toate variabilele au nume sugestiv
+ */
 public class MainGraphics extends Application {
 
     public static final String ANSI_RESET = "\u001B[0m";
@@ -60,13 +64,17 @@ public class MainGraphics extends Application {
     static Integer verticalSemaphoreIntersection11Id = CityGenerator.city.getStreetByIndex(6).getTrafficLights();
     public static City city;
 
+
+    /**
+     * aici am folosit un Timeline pentru a putea misca masinile pe harta si pt a putea anima semafoarele. daca refresh time ul este mai mic de atat, are lag.
+     * daca refresh time ul este mai mare, nu se actualizeaza in timp real masinile
+     * @param stage
+     */
     @Override
     public void start(Stage stage) {
 
         Graphics2 ourCity = new Graphics2();
         ourCity.addUserPane();
-        // ourCity.addUserPane();
-        ourCity.drawTrafficLights();
         Scene scene = new Scene(ourCity.window, 1000, 1000);
 
         // Pane canvas = new Pane();

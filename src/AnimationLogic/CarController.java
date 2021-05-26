@@ -11,6 +11,13 @@ import java.util.Queue;
 import static AnimationLogic.Miscellaneous.Utilities.existsACarOnStreets;
 import static CityGenerating.CityGenerator.city;
 
+/**
+ * singleton, 1 thread
+ * muta masinile de pe o strada pe alta (merge doar daca este pornit si thread ul CarAnimator
+ *
+ * initial a fost gandit sa mearga singur, dar ulterior din cauza complexitatii proiectului, acest thread depinde de thread ul CarAnimator
+ *
+ */
 public class CarController extends Thread {
 
     static private boolean running = false;
@@ -64,7 +71,6 @@ public class CarController extends Thread {
                 semaphoreId = currentStreet.getTrafficLights();
             else
                 semaphoreId = currentStreet.getTrafficLightsReversed();
-//            if (city.getTLightsById(semaphoreId - 1).getStare() == TrafficLights.StareSemafor.Red)
                 if (city.getTLightsById(semaphoreId).getStare() == TrafficLights.StareSemafor.Red)
                 return false;
         }

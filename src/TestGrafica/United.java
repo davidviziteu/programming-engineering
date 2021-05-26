@@ -7,6 +7,9 @@ import CityGenerating.Street;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * se genereaza orasul (avand configuratiile date de user) si se porneste window ul in care apar masinile animate
+ */
 public class United {
 
 

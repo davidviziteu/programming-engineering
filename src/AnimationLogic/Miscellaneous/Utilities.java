@@ -10,7 +10,13 @@ import java.util.Queue;
 
 import static CityGenerating.CityGenerator.city;
 
+/**
+ * diverse functii
+ */
 public class Utilities {
+    /**
+     * pune in fiecare instanta a masinii din City rezulatul algoritmului shortest path
+     */
     public static void computeShortestPathForAllCars() {
         for (var st : city.getStreets()) {
             for (var qElement : st.getCars()) {
@@ -58,6 +64,7 @@ public class Utilities {
      * noi avem pt fiecare sens un Queue<Pair<Integer, Car>>
      * car.distance va fi offset ul fata de indexul 0 al cozii din care face parte
      * tre executat doar la inceput
+     *
      */
     public static void correctDistanceOfAllCars() {
         for (var st : city.getStreets()) {
@@ -76,26 +83,29 @@ public class Utilities {
         }
     }
 
-    public static void correctCurrentPositionOfAllCars() {
-        ArrayList<Street> streets = city.getStreets();
-        for (int stIndex = 0, streetsSize = streets.size(); stIndex < streetsSize; stIndex++) {
-            Street st = streets.get(stIndex);
-
-            for (Pair<Integer, Car> integerCarPair : st.getCars()) {
-                var offset = getIndexOfCarInQueue(st.getCars(), integerCarPair.getValue());
-                if (offset == -1) {
-                }
-                else integerCarPair.getValue().setCurrentPosition(stIndex);
-            }
-
-            for (Pair<Integer, Car> pair : st.getCarsReversed()) {
-                var offset = getIndexOfCarInQueue(st.getCarsReversed(), pair.getValue());
-                if (offset == -1) {
-                }
-                else pair.getValue().setCurrentPosition(stIndex);
-            }
-        }
-    }
+    /**
+     * nu mai este folosit
+     */
+//    public static void correctCurrentPositionOfAllCars() {
+//        ArrayList<Street> streets = city.getStreets();
+//        for (int stIndex = 0, streetsSize = streets.size(); stIndex < streetsSize; stIndex++) {
+//            Street st = streets.get(stIndex);
+//
+//            for (Pair<Integer, Car> integerCarPair : st.getCars()) {
+//                var offset = getIndexOfCarInQueue(st.getCars(), integerCarPair.getValue());
+//                if (offset == -1) {
+//                }
+//                else integerCarPair.getValue().setCurrentPosition(stIndex);
+//            }
+//
+//            for (Pair<Integer, Car> pair : st.getCarsReversed()) {
+//                var offset = getIndexOfCarInQueue(st.getCarsReversed(), pair.getValue());
+//                if (offset == -1) {
+//                }
+//                else pair.getValue().setCurrentPosition(stIndex);
+//            }
+//        }
+//    }
 
     /**
      * @return true daca mai exista macar o masina pe harta, false altfel

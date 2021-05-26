@@ -17,6 +17,10 @@ import java.io.IOException;
 --add-modules
 javafx.controls,javafx.fxml
  */
+
+/**
+ * lanseaza panoul de configurare pt user (UIController.java)
+ */
 public class MainClassUI extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{

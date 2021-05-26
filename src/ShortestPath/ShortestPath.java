@@ -7,6 +7,9 @@ import CityGenerating.Street;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * nu este foloist. a fost prima versiune a alg nostru
+ */
 public class ShortestPath {
     //    public static void main(String[] args) {
 //

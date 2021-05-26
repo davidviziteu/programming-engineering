@@ -9,6 +9,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * unit testing pt alg lui dijkstra
+ */
 class ShortestPath2Test {
 
     @org.junit.jupiter.api.Test

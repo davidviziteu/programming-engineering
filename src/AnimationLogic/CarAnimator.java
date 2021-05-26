@@ -17,6 +17,9 @@ import static CityGenerating.CityGenerator.city;
 
 /**
  * face masinile sa mearga patratel cu patratel pe harta in functie de viteza
+ * singleton, 1 thread
+ *
+ * face notify pentru pool ul de instante a clasei/thread urilor CarFollower
  */
 public class CarAnimator extends Thread {
     public static boolean isRunning() {
@@ -29,8 +32,9 @@ public class CarAnimator extends Thread {
     static private int carSpeed;
     static private CarAnimator instance = null;
     /**
-     * e 3:10 AM, nu mi vin cuvinte ca sa descriu ce face functia asta da stiu ca trebuie si ca merge bine
-     * poate fi pusa pe mai multe thread uri tho
+     * actualizeaza pozitia masinilor dintr o coada de pe o strada.
+     *
+     * daca pozitia din instanta unei masini == 0, seteaza flag ul ReachedIntersection din instanta unei Masini pe true
      *
      * @param q
      */
@@ -64,10 +68,12 @@ public class CarAnimator extends Thread {
             System.out.println(ConsoleColors.RED_BOLD + "Car speed set to 0 => they are moving as fast as possible" + ConsoleColors.RESET);
     }
 
+    /**
+     * itereaza prin strazi si apelaza (in functie de viteza masinilor) updateStreetQueue() pentru fiecare queue din strada
+     */
     @Override
     public void run() {
         synchronized (this) {
-            //sper ca merge codul asta
             if (running) {
                 System.err.println("deja ai pornit un thread care animeaza masinile pe harta, nu mai poti porni inca unul");
                 return;

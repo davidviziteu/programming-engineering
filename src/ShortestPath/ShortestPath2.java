@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * calculeaza shortest path pt o masina
+ */
 public class ShortestPath2 {
     private static final int INT_MAX = 100000;
 
@@ -32,6 +35,9 @@ public class ShortestPath2 {
 //
 //    }
 
+    /**
+     * utilitar pt alg lui dijkstra
+     */
     static int minimumDistance(int[] distance, boolean[] included) {
         int min = INT_MAX, index = 0;
         for (int i = 0; i < distance.length; i++) {
@@ -43,8 +49,9 @@ public class ShortestPath2 {
         return index;
     }
 
-
-    //dijkstra
+    /**
+     * dijkstra
+     */
     static public Tuple<Integer, List<Integer>> compute(List<Street> streets, int startPoint, int finishPoint, int numberofIntersections) {
 
         int[] distance = new int[numberofIntersections];
@@ -86,7 +93,9 @@ public class ShortestPath2 {
         return (length * speed / 60);
     }
 
-
+    /**
+     * utilitar pt alg lui dijkstra
+     */
     static boolean adjacent(int x, int y, List<Street> streets) {
 
         for (Street street : streets) {
@@ -98,6 +107,9 @@ public class ShortestPath2 {
         return false;
     }
 
+    /**
+     * utilitar pt alg lui dijkstra
+     */
     static int getStreetLength(int x, int y, List<Street> streets) {
         if (adjacent(x, y, streets)) {
             for (Street street : streets) {
@@ -110,6 +122,9 @@ public class ShortestPath2 {
         return INT_MAX;
     }
 
+    /**
+     * utilitar pt alg lui dijkstra
+     */
     static boolean areStreetsConnected(Street st1, Street st2) {
         return st1.getIntersectionDestination() == st2.getIntersectionDestination()
                 || st1.getIntersectionSource() == st2.getIntersectionSource()
@@ -117,6 +132,9 @@ public class ShortestPath2 {
                 || st1.getIntersectionSource() == st2.getIntersectionDestination();
     }
 
+    /**
+     * utilitar pt alg lui dijkstra
+     */
     static boolean areIntersectionsConnected(Intersection i1, Intersection i2) {
         var set1 = new HashSet<Integer>(i1.getStreets());
         var set2 = new HashSet<Integer>(i2.getStreets());

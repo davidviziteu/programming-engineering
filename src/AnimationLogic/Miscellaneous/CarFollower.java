@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import static CityGenerating.CityGenerator.city;
 
 /**
- * for debugging on terminal
+ * pentru debugging pe terminal.
+ *
+ * asteapta un notify de la car controller / animator pentru a afisa in terminal datele unei masini
  */
 
 public class CarFollower extends Thread {

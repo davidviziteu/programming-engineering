@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 import static CityGenerating.CityGenerator.city;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * test pt clasa utilities
+ */
 class UtilitiesTest {
 
 //    @Test
