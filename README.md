@@ -13,7 +13,7 @@ Simulator de trafic.
 # Pt PA:
 ## Ce am facut noi (echipa de algoritmica1 - David Viziteu + Andreea Ciocan):
 - miscam masinile pe harta, la fiecare moment, stiindu-se pozitia fiecare masini pe strada; 
-- calculam drumul cel mai scurt pt fiecare masina si estimam cat va dura ca o masina
+- calculam drumul cel mai scurt pt fiecare masina generata aleator (mașinile albastre) si estimam cat va dura ca o masina
     sa ajunga la destinatie;
 - functionarea semafoarelor (logica);
 - teste pentru codul nostru;
