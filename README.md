@@ -17,6 +17,13 @@ Simulator de trafic.
 - integrare;
 - modulul de grafica (stim, suna ironic)
 
+# toate fisierele din urmatoarele package uri au fost scrise de mine si Andreea Ciocan:
+- AnimationLogic
+- ShortestPath
+- Ui
+- TestGrafica (care este modulul de grafica, javafx)
+
+
 
 # Ce folosim din laboratoare:
 - Objects and Classes 
