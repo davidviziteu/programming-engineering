@@ -8,6 +8,9 @@ Simulator de trafic.
 
 -utilizatorul poate alege densitatea traficului si viteza cu care merg masinile;
 
+
+
+## Pt PA:
 # Ce am facut noi (echipa de algoritmica1 - David Viziteu + Andreea Ciocan):
 - miscam masinile pe harta, la fiecare moment, stiindu-se pozitia fiecare masini pe strada; 
 - calculam drumul cel mai scurt pt fiecare masina si estimam cat va dura ca o masina
@@ -17,7 +20,7 @@ Simulator de trafic.
 - integrare;
 - modulul de grafica (stim, suna ironic)
 
-# toate fisierele din urmatoarele package uri au fost scrise de mine si Andreea Ciocan:
+# toate fisierele din urmatoarele package uri au fost scrise de Viziteu David si Andreea Ciocan:
 - AnimationLogic
 - ShortestPath
 - Ui
