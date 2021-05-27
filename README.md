@@ -18,8 +18,8 @@ Simulator de trafic.
 - functionarea semafoarelor (logica);
 - teste pentru codul nostru;
 - integrare;
-- modulul de grafica (stim, suna ironic)
-
+- modulul de grafica, mai putin fundalul(harta)
+ 
 ## toate fisierele din urmatoarele package uri au fost scrise de Viziteu David si Andreea Ciocan:
 - AnimationLogic
 - ShortestPath
