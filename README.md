@@ -10,8 +10,8 @@ Simulator de trafic.
 
 
 
-## Pt PA:
-# Ce am facut noi (echipa de algoritmica1 - David Viziteu + Andreea Ciocan):
+# Pt PA:
+## Ce am facut noi (echipa de algoritmica1 - David Viziteu + Andreea Ciocan):
 - miscam masinile pe harta, la fiecare moment, stiindu-se pozitia fiecare masini pe strada; 
 - calculam drumul cel mai scurt pt fiecare masina si estimam cat va dura ca o masina
     sa ajunga la destinatie;
@@ -20,7 +20,7 @@ Simulator de trafic.
 - integrare;
 - modulul de grafica (stim, suna ironic)
 
-# toate fisierele din urmatoarele package uri au fost scrise de Viziteu David si Andreea Ciocan:
+## toate fisierele din urmatoarele package uri au fost scrise de Viziteu David si Andreea Ciocan:
 - AnimationLogic
 - ShortestPath
 - Ui
@@ -28,7 +28,7 @@ Simulator de trafic.
 
 
 
-# Ce folosim din laboratoare:
+## Ce folosim din laboratoare:
 - Objects and Classes 
 - Interfaces. Generics. Collections 
 - Concurrency: Threads and Locks (syncronised(), wait-notify, readWrite locks)
